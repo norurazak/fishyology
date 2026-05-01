@@ -4,17 +4,29 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Post } from '@/lib/mdx'; 
 import { motion, AnimatePresence } from 'framer-motion';
+// 1. Added the Search icon from lucide-react
+import { Search } from 'lucide-react';
 
 export default function FilteredArchive({ posts }: { posts: Post[] }) {
   const [activeCategory, setActiveCategory] = useState("All");
+  // 2. Added state to track what the user is typing
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Dynamically extract all unique categories from your MDX files
   const categories = ["All", ...Array.from(new Set(posts.map(p => p.frontmatter.category).filter(Boolean)))];
 
-  // Filter posts based on the clicked category tab
-  const filteredPosts = activeCategory === "All"
-    ? posts
-    : posts.filter(p => p.frontmatter.category === activeCategory);
+  // 3. Upgraded filtering logic: Filter by category FIRST, then by search query
+  const filteredPosts = posts.filter(post => {
+    // Check category match
+    const matchesCategory = activeCategory === "All" || post.frontmatter.category === activeCategory;
+    
+    // Check search match (looks at both Title and Summary)
+    const query = searchQuery.toLowerCase();
+    const title = (post.frontmatter.title || "").toLowerCase();
+    const summary = (post.frontmatter.summary || "").toLowerCase();
+    const matchesSearch = title.includes(query) || summary.includes(query);
+
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section className="max-w-[1600px] mx-auto px-6 md:px-12 py-24 border-t border-[#1D242B]/10 mt-12">
@@ -26,39 +38,50 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
           <p className="text-[#1D242B]/60 font-medium text-lg">Explore our entire history of expeditions and guides.</p>
         </div>
         
-        {/* Dynamic Category Pills */}
-        <div className="flex flex-wrap gap-2">
-          {categories.map(cat => (
-            <button
-              key={cat as string}
-              onClick={() => setActiveCategory(cat as string)}
-              className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
-                activeCategory === cat
-                  ? "bg-[#1D242B] text-white shadow-md"
-                  : "bg-white border border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#1D242B]/30 hover:text-[#1D242B]"
-              }`}
-            >
-              {cat as string}
-            </button>
-          ))}
+        <div className="flex flex-col items-start md:items-end gap-6">
+          {/* 4. The New Search Bar */}
+          <div className="relative w-full md:w-80">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1D242B]/40" />
+            <input
+              type="text"
+              placeholder="Search dispatches..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white border border-[#1D242B]/10 rounded-full pl-11 pr-4 py-3 text-sm text-[#1D242B] focus:outline-none focus:border-[#0077C0] focus:ring-1 focus:ring-[#0077C0] transition-all shadow-sm"
+            />
+          </div>
+
+          {/* Dynamic Category Pills */}
+          <div className="flex flex-wrap gap-2">
+            {categories.map(cat => (
+              <button
+                key={cat as string}
+                onClick={() => setActiveCategory(cat as string)}
+                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
+                  activeCategory === cat
+                    ? "bg-[#1D242B] text-white shadow-md"
+                    : "bg-white border border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#1D242B]/30 hover:text-[#1D242B]"
+                }`}
+              >
+                {cat as string}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* THE GRID */}
-      {/* motion.div wrapper allows the layout to smoothly shift */}
       <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
-        
-        {/* AnimatePresence handles elements that are being removed from the DOM */}
         <AnimatePresence mode="popLayout">
           {filteredPosts.map((post) => (
             
             <motion.div
-              layout // This tells Framer Motion to animate the position changes
+              layout 
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }} // A very smooth, cinematic easing curve
-              key={post.slug} // CRITICAL: Uses slug instead of index so React tracks the exact post moving
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }} 
+              key={post.slug} 
               className="h-full"
             >
               <Link href={`/blog/${post.slug}`} className="group flex flex-col h-full">
@@ -119,7 +142,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
             exit={{ opacity: 0 }}
             className="text-center py-20 bg-white rounded-[2rem] border border-[#1D242B]/10 mt-8"
           >
-            <p className="text-[#1D242B]/50 font-serif italic text-xl">No dispatches found for this category yet.</p>
+            <p className="text-[#1D242B]/50 font-serif italic text-xl">No dispatches match your search.</p>
           </motion.div>
         )}
       </AnimatePresence>

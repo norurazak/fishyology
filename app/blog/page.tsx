@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { getAllPosts } from '@/lib/mdx';
 import BlogHeroSlider from '@/components/BlogHeroSlider';
 import FilteredArchive from '@/components/FilteredArchive';
