@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   
   // Dynamic Title Templating
   title: {
-    default: 'Fishyology | Specialized Game Fishing',
+    default: 'Fishyology | Malaysia Fishing Journal and Expedition Platform',
     template: '%s | Fishyology', 
   },
   
   // Search Engine Description
-  description: 'Fishyology is driven by a passion for exploring Malaysia diverse fishing waters, from saltwater coasts to freshwater depths. Through every trip and catch, we document authentic angling experiences and share them with the world.',
+  description: 'Fishyology documents Malaysia fishing waters through real expeditions, field journals, and guided fishing experiences. From saltwater game fishing to freshwater exploration, we tell the stories behind every cast.',
   
   // Social Media Sharing Cards (OpenGraph)
   openGraph: {

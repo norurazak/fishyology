@@ -2,14 +2,13 @@ import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Replace this with your Cloudflare staging URL for now, 
-  // and update it to "https://fishyology.com" when you buy your domain!
-  const baseUrl = 'https://your-temporary-url.pages.dev';
+  // 1. Updated to your official Vercel production domain
+  const baseUrl = 'https://fishyology.org';
 
-  // 1. Fetch all your dynamic MDX journal entries
+  // 2. Fetch all your dynamic MDX journal entries
   const posts = getAllPosts();
   
-  // 2. Map those posts into the format Google expects
+  // 3. Map those posts into the format Google expects
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.frontmatter.date), // Uses the exact date from your MDX!
@@ -17,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // 3. Define your core static routes
+  // 4. Define your core static routes
   const staticRoutes = [
     {
       url: baseUrl,
@@ -45,6 +44,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 4. Combine them all together and return
+  // 5. Combine them all together and return
   return [...staticRoutes, ...postUrls];
 }
