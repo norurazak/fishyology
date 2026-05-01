@@ -8,6 +8,21 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxComponents } from '@/components/MDXComponents';
 import { authorsData } from "@/lib/authors"; 
 
+// --- CLOUDFLARE FIX: FORCE STATIC GENERATION ---
+// 1. Tell Cloudflare to build this as static HTML
+export const dynamic = "force-static";
+
+// 2. Hand Cloudflare the "guest list" of all URLs it needs to build
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  
+  // This creates an array of objects like: [{ slug: "post-1" }, { slug: "post-2" }]
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+// -----------------------------------------------
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   
   const resolvedParams = await params;
@@ -36,7 +51,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   // If index is less than the end of the array, there is a newer post ahead of it.
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-
 
   // EXTRACT FRONTMATTER
   const { title, date, category, subcategory, layout, author, authorEmail, image } = post.frontmatter;
