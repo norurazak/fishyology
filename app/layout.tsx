@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -5,9 +6,36 @@ import Footer from "@/components/Footer";
 // 1. IMPORT THE GOOGLE ANALYTICS COMPONENT
 import { GoogleAnalytics } from '@next/third-parties/google';
 
-export const metadata = {
-  title: "Fishyology | Relive Our Journey",
-  description: "Professionally guided expeditions across Malaysia's top fishing destinations.",
+// 2. UPGRADED SEO & METADATA CONFIGURATION
+export const metadata: Metadata = {
+  // The Official Domain Base
+  metadataBase: new URL('https://fishyology.org'),
+  
+  // Dynamic Title Templating
+  title: {
+    default: 'Fishyology | Specialized Game Fishing',
+    template: '%s | Fishyology', 
+  },
+  
+  // Search Engine Description
+  description: 'Fishyology is driven by a passion for exploring Malaysia diverse fishing waters, from saltwater coasts to freshwater depths. Through every trip and catch, we document authentic angling experiences and share them with the world.',
+  
+  // Social Media Sharing Cards (OpenGraph)
+  openGraph: {
+    title: 'Fishyology',
+    description: 'Expert guides, field reports, and specialized game fishing expeditions.',
+    url: 'https://fishyology.org',
+    siteName: 'Fishyology',
+    locale: 'en_US',
+    type: 'website',
+  },
+  
+  // X/Twitter Specific Cards
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fishyology',
+    description: 'Specialized Game Fishing Journal',
+  },
 };
 
 export default function RootLayout({
@@ -33,7 +61,7 @@ export default function RootLayout({
         {/* The Massive Editorial Footer */}
         <Footer />
 
-        {/* 2. INJECT THE TRACKER AT THE BOTTOM OF THE BODY */}
+        {/* 3. INJECT THE TRACKER AT THE BOTTOM OF THE BODY */}
         {/* We use 'as string' to assure TypeScript that this secure variable exists */}
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
       </body>
