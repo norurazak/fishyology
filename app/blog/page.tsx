@@ -4,9 +4,6 @@ import { getAllPosts } from '@/lib/mdx';
 import BlogHeroSlider from '@/components/BlogHeroSlider';
 import FilteredArchive from '@/components/FilteredArchive';
 
-// ADDED: This forces Cloudflare to build the page as static HTML to prevent 500 errors
-export const dynamic = "force-static";
-
 export default function BlogIndex() {
   // Fetch all your markdown files AND sort them by date (Newest to Oldest)
   const realPosts = getAllPosts().sort((a, b) => {
@@ -155,8 +152,10 @@ export default function BlogIndex() {
         </div>
       </div>
 
-      {/* 3. THE DYNAMIC ARCHIVE FILTER SECTION */}
-      <FilteredArchive posts={realPosts} />
+      {/* 3. THE DYNAMIC ARCHIVE FILTER SECTION (RESTORED SUSPENSE) */}
+      <Suspense fallback={<div className="text-center p-20 font-bold text-[#1D242B]/50 animate-pulse">Loading archive...</div>}>
+        <FilteredArchive posts={realPosts} />
+      </Suspense>
 
     </div>
   );
