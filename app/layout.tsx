@@ -45,6 +45,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      
+      {/* 3. GOOGLE SEARCH CONSOLE VERIFICATION */}
+      <head>
+        <meta name="google-site-verification" content="wmmhvg3uGZGh__3Qcwn8Nfch7HwUsvM1BxEVdWKw0Fo" />
+      </head>
+
       <body 
         className="bg-[#FAFAFA] text-[#1D242B] antialiased flex flex-col min-h-[100dvh]"
         suppressHydrationWarning
@@ -61,8 +67,7 @@ export default function RootLayout({
         {/* The Massive Editorial Footer */}
         <Footer />
 
-        {/* 3. INJECT THE TRACKER AT THE BOTTOM OF THE BODY */}
-        {/* We use 'as string' to assure TypeScript that this secure variable exists */}
+        {/* 4. INJECT THE TRACKER AT THE BOTTOM OF THE BODY */}
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
       </body>
     </html>
