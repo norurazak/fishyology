@@ -11,7 +11,7 @@ import { authorsData } from "@/lib/authors";
 // --- 1. IMPORT METADATA ---
 import { Metadata } from 'next';
 
-// --- 2. THE DYNAMIC METADATA GENERATOR ---
+// --- 2. THE DYNAMIC METADATA GENERATOR (FIXED) ---
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   // Await the params exactly like you do in your main component
   const resolvedParams = await params;
@@ -21,13 +21,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: 'Post Not Found | Fishyology' };
   }
 
+  // Define our SEO description: Use the MDX 'summary', or a default fallback if missing
+  const seoDescription = post.frontmatter.summary || "Read the latest expedition journal from Fishyology.";
+
   // Map the specific MDX frontmatter to Google and Social tags
   return {
     title: post.frontmatter.title,
-    description: post.frontmatter.description,
+    description: seoDescription,
     openGraph: {
       title: post.frontmatter.title,
-      description: post.frontmatter.description,
+      description: seoDescription,
       type: 'article',
       publishedTime: post.frontmatter.date,
       url: `https://fishyology.org/blog/${resolvedParams.slug}`,
@@ -43,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     twitter: {
       card: 'summary_large_image',
       title: post.frontmatter.title,
-      description: post.frontmatter.description,
+      description: seoDescription,
       images: post.frontmatter.image ? [post.frontmatter.image] : [],
     },
   };
