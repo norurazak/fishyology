@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/SiteFooter";
 
 // 1. IMPORT THE GOOGLE ANALYTICS COMPONENT
 import { GoogleAnalytics } from '@next/third-parties/google';

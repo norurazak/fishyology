@@ -8,6 +8,48 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxComponents } from '@/components/MDXComponents';
 import { authorsData } from "@/lib/authors"; 
 
+// --- 1. IMPORT METADATA ---
+import { Metadata } from 'next';
+
+// --- 2. THE DYNAMIC METADATA GENERATOR ---
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  // Await the params exactly like you do in your main component
+  const resolvedParams = await params;
+  const post = getPostBySlug(resolvedParams.slug);
+
+  if (!post) {
+    return { title: 'Post Not Found | Fishyology' };
+  }
+
+  // Map the specific MDX frontmatter to Google and Social tags
+  return {
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    openGraph: {
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      type: 'article',
+      publishedTime: post.frontmatter.date,
+      url: `https://fishyology.org/blog/${resolvedParams.slug}`,
+      images: post.frontmatter.image ? [
+        {
+          url: post.frontmatter.image, 
+          width: 1200,
+          height: 630,
+          alt: post.frontmatter.title,
+        },
+      ] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      images: post.frontmatter.image ? [post.frontmatter.image] : [],
+    },
+  };
+}
+
+// --- 3. YOUR EXISTING PAGE COMPONENT ---
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   
   const resolvedParams = await params;
