@@ -8,8 +8,8 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 
 // 2. UPGRADED SEO & METADATA CONFIGURATION
 export const metadata: Metadata = {
-  // The Official Domain Base
-  metadataBase: new URL('https://fishyology.org'),
+  // The Official Domain Base (Updated to www)
+  metadataBase: new URL('https://www.fishyology.org'),
   
   // Dynamic Title Templating
   title: {
@@ -20,11 +20,16 @@ export const metadata: Metadata = {
   // Search Engine Description
   description: 'Fishyology documents Malaysia fishing waters through real expeditions, field journals, and guided fishing experiences. From saltwater game fishing to freshwater exploration, we tell the stories behind every cast.',
   
+  // --- THE CANONICAL FIX ---
+  alternates: {
+    canonical: '/', 
+  },
+
   // Social Media Sharing Cards (OpenGraph)
   openGraph: {
     title: 'Fishyology',
     description: 'Expert guides, field reports, and specialized game fishing expeditions.',
-    url: 'https://fishyology.org',
+    url: 'https://www.fishyology.org', // Updated to www
     siteName: 'Fishyology',
     locale: 'en_US',
     type: 'website',
