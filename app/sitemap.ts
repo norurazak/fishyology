@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 1. Updated to your official Vercel production domain
-  const baseUrl = 'https://fishyology.org';
+  // 1. Updated to your official master domain (added www.)
+  const baseUrl = 'https://www.fishyology.org';
 
   // 2. Fetch all your dynamic MDX journal entries
   const posts = getAllPosts();
