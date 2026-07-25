@@ -349,7 +349,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest }: {
   const pointerX = useRef(BASE_WIDTH / 2);
   const pointerHeld = useRef(false);
   const dims = useRef({ w: BASE_WIDTH, h: BASE_HEIGHT });
-  const animationFrameId = useRef<number>();
+  const animationFrameId = useRef<number | undefined>(undefined);
   const coverSeen = useRef(false);
 
   const gameStateRef = useRef<GameState>(gameState);
