@@ -50,12 +50,12 @@ export default function Navbar() {
           <Link href="/trips" className="px-4 py-2 rounded-lg hover:bg-[#408A71]/20 transition-colors">Trips</Link>
           <Link href="/blog" className="px-4 py-2 rounded-lg hover:bg-[#C7EEFF] transition-colors">Journal</Link>
           <Link href="/about" className="px-4 py-2 rounded-lg hover:bg-[#1D242B]/5 transition-colors">About</Link>
+          {/* NEW: Desktop Game Link */}
+          <Link href="/game" className="px-4 py-2 rounded-lg hover:bg-[#4DD0E1]/20 transition-colors">Game</Link>
         </div>
 
         {/* Right: Actions & Mobile Toggle */}
         <div className="flex items-center gap-4">
-          {/* Custom Packages link removed from here */}
-          
           <Link href="/trips" className="hidden sm:block bg-transparent border border-[#1D242B]/20 hover:border-[#1D242B] hover:bg-[#1D242B] hover:text-[#FAFAFA] px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300">
             Book Now
           </Link>
@@ -79,6 +79,8 @@ export default function Navbar() {
           <Link href="/trips" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#408A71]/10 font-medium transition-colors">Trips</Link>
           <Link href="/blog" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#C7EEFF] font-medium transition-colors">Journal</Link>
           <Link href="/about" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#1D242B]/5 font-medium transition-colors">About</Link>
+          {/* NEW: Mobile Game Link */}
+          <Link href="/game" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#4DD0E1]/20 font-medium transition-colors">Game</Link>
           <hr className="border-[#1D242B]/10 my-2" />
           <Link href="/trips" onClick={closeMenu} className="bg-[#1D242B] text-[#FAFAFA] text-center py-3 rounded-xl font-bold transition-all">
             Book Now
