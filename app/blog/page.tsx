@@ -1,8 +1,17 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { Metadata } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 import BlogHeroSlider from '@/components/BlogHeroSlider';
 import FilteredArchive from '@/components/FilteredArchive';
+
+export const metadata: Metadata = {
+  title: 'The Journal',
+  description: 'Field journals, expedition dispatches, and species guides from Fishyology — real fishing stories from across Malaysia and beyond.',
+  alternates: {
+    canonical: '/blog',
+  },
+};
 
 export default function BlogIndex() {
   // Fetch all your markdown files AND sort them by date (Newest to Oldest)

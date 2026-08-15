@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "About Our Journey",
   // Next.js combines this with your root layout to output: "About Our Journey | Fishyology"
   description: "Discover the 10-year history of Fishyology, from local blogs to premier Malaysian game-fish guiding.",
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 // 3. Create the invisible wrapper component

@@ -20,25 +20,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     {
       url: baseUrl,
-      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 1.0, // Home page gets the highest priority
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/trips`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date(),
       changeFrequency: 'daily' as const, // Daily because you might add new posts frequently
       priority: 0.9,
     },

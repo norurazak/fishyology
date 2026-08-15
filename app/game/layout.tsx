@@ -6,10 +6,13 @@ import React from 'react';
 export const metadata: Metadata = {
   title: 'Jigging Master | The Fishyology Creative Studio',
   description: 'Master the water. Conquer the fight. Play Jigging Master and face more than 20 legendary saltwater species in this interactive fishing simulator.',
+  alternates: {
+    canonical: '/game',
+  },
   openGraph: {
     title: 'Jigging Master | The Fishyology Creative Studio',
     description: 'Master the water. Conquer the fight. Play Jigging Master and face more than 20 legendary saltwater species in this interactive fishing simulator.',
-    url: 'https://www.yourwebsite.com/game', // Replace with your actual URL
+    url: 'https://www.fishyology.org/game',
     siteName: 'Fishyology',
     images: [
       {

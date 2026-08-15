@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
     },
     // This points the bots directly to the sitemap we updated earlier!
-    sitemap: 'https://fishyology.org/sitemap.xml',
+    sitemap: 'https://www.fishyology.org/sitemap.xml',
   };
 }

@@ -28,12 +28,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.frontmatter.title,
     description: seoDescription,
+    alternates: {
+      canonical: `/blog/${resolvedParams.slug}`,
+    },
     openGraph: {
       title: post.frontmatter.title,
       description: seoDescription,
       type: 'article',
       publishedTime: post.frontmatter.date,
-      url: `https://fishyology.org/blog/${resolvedParams.slug}`,
+      url: `https://www.fishyology.org/blog/${resolvedParams.slug}`,
       images: post.frontmatter.image ? [
         {
           url: post.frontmatter.image, 
@@ -93,6 +96,33 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     image: "/logo.svg"
   };
 
+  // STRUCTURED DATA (Article JSON-LD)
+  const articleUrl = `https://www.fishyology.org/blog/${resolvedParams.slug}`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: post.frontmatter.summary || "Read the latest expedition journal from Fishyology.",
+    image: image ? [image] : undefined,
+    datePublished: new Date(date).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: matchedAuthor.name,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Fishyology',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.fishyology.org/logo.svg',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': articleUrl,
+    },
+  };
+
   // DETERMINE LAYOUT CLASSES
   let contentClasses = "";
 
@@ -126,7 +156,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] pb-32 selection:bg-[#0077C0] selection:text-white">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* 1. STANDARDIZED HERO SECTION */}
       <section className="relative h-[70vh] min-h-[600px] w-full flex items-end justify-center pb-20 px-6 overflow-hidden bg-[#1D242B]">
         <img 
