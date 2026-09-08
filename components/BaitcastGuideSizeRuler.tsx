@@ -1,0 +1,107 @@
+import { RULER_COLS, RULER_ROWS, TIER_ROWS } from "@/lib/baitcastGuideData";
+
+export default function BaitcastGuideSizeRuler() {
+  return (
+    <section className="py-16 md:py-24 px-6 md:px-16 max-w-7xl mx-auto border-b border-[#1D242B]/10">
+      <div className="flex items-baseline gap-3 mb-2">
+        <span className="font-mono text-[#0077C0] text-sm font-bold">01</span>
+        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#1D242B]">
+          Cross-brand size ruler
+        </h2>
+      </div>
+      <p className="text-[#1D242B]/60 text-base md:text-lg font-medium max-w-2xl mb-10">
+        The single biggest source of confusion buying across brands: nobody&apos;s &quot;150&quot; is the same reel.
+        Read down a column to see what actually sits in the same footprint.
+      </p>
+
+      <div className="bg-white rounded-[1.5rem] border border-[#1D242B]/10 shadow-sm overflow-hidden mb-4">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse min-w-[820px]">
+            <thead>
+              <tr>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest bg-[#1D242B] text-white whitespace-nowrap">
+                  Brand
+                </th>
+                {RULER_COLS.map((c) => (
+                  <th
+                    key={c}
+                    className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest bg-[#1D242B] text-white whitespace-nowrap"
+                  >
+                    {c}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {RULER_ROWS.map((row, idx) => (
+                <tr key={row.b} className={idx % 2 === 1 ? "bg-[#1D242B]/[0.02]" : ""}>
+                  <th className="text-left px-4 py-3 font-serif font-bold text-[#0077C0] whitespace-nowrap border-t border-[#1D242B]/5">
+                    {row.b}
+                  </th>
+                  {row.vals.map((v, i) => (
+                    <td
+                      key={i}
+                      className="px-4 py-3 font-mono text-sm text-[#1D242B]/70 whitespace-nowrap border-t border-[#1D242B]/5"
+                    >
+                      {v}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-[#1D242B]/50 px-4 py-3 leading-relaxed border-t border-[#1D242B]/5">
+          Rough footprint equivalence only – always cross-check exact spool capacity in each brand&apos;s tab below before buying.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-[1.5rem] border border-[#1D242B]/10 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse min-w-[980px]">
+            <thead>
+              <tr>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Role
+                </th>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Shimano
+                </th>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Daiwa
+                </th>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Abu Garcia
+                </th>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Okuma
+                </th>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Quantum
+                </th>
+                <th className="text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50 border-b border-[#1D242B]/10 whitespace-nowrap">
+                  Pflueger
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {TIER_ROWS.map((row) => (
+                <tr key={row.tier}>
+                  <th className="text-left px-4 py-3 font-serif font-bold text-[#1D242B] whitespace-nowrap border-t border-[#1D242B]/5">
+                    {row.tier}
+                  </th>
+                  <td className="px-4 py-3 text-sm text-[#1D242B]/70 border-t border-[#1D242B]/5">{row.shi}</td>
+                  <td className="px-4 py-3 text-sm text-[#1D242B]/70 border-t border-[#1D242B]/5">{row.dai}</td>
+                  <td className="px-4 py-3 text-sm text-[#1D242B]/70 border-t border-[#1D242B]/5">{row.abu}</td>
+                  <td className="px-4 py-3 text-sm text-[#1D242B]/70 border-t border-[#1D242B]/5">{row.oku}</td>
+                  <td className="px-4 py-3 text-sm text-[#1D242B]/70 border-t border-[#1D242B]/5">{row.qtm}</td>
+                  <td className="px-4 py-3 text-sm text-[#1D242B]/70 border-t border-[#1D242B]/5">{row.pfl}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}

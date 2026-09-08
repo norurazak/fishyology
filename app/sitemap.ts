@@ -38,6 +38,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily' as const, // Daily because you might add new posts frequently
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/resources`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/resources/spinning-reel-guide`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/resources/baitcasting-reel-guide`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/resources/overhead-reel-guide`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/resources/electric-reel-guide`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
   ];
 
   // 5. Combine them all together and return

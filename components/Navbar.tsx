@@ -49,6 +49,7 @@ export default function Navbar() {
           <Link href="/" className="px-4 py-2 rounded-lg hover:bg-[#1D242B]/5 transition-colors">Home</Link>
           <Link href="/trips" className="px-4 py-2 rounded-lg hover:bg-[#408A71]/20 transition-colors">Trips</Link>
           <Link href="/blog" className="px-4 py-2 rounded-lg hover:bg-[#C7EEFF] transition-colors">Journal</Link>
+          <Link href="/resources" className="px-4 py-2 rounded-lg hover:bg-[#0077C0]/10 transition-colors">Resources</Link>
           <Link href="/about" className="px-4 py-2 rounded-lg hover:bg-[#1D242B]/5 transition-colors">About</Link>
           {/* NEW: Desktop Game Link */}
           <Link href="/game" className="px-4 py-2 rounded-lg hover:bg-[#4DD0E1]/20 transition-colors">Game</Link>
@@ -78,6 +79,7 @@ export default function Navbar() {
           <Link href="/" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#1D242B]/5 font-medium transition-colors">Home</Link>
           <Link href="/trips" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#408A71]/10 font-medium transition-colors">Trips</Link>
           <Link href="/blog" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#C7EEFF] font-medium transition-colors">Journal</Link>
+          <Link href="/resources" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#0077C0]/10 font-medium transition-colors">Resources</Link>
           <Link href="/about" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#1D242B]/5 font-medium transition-colors">About</Link>
           {/* NEW: Mobile Game Link */}
           <Link href="/game" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#4DD0E1]/20 font-medium transition-colors">Game</Link>
