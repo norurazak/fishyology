@@ -32,8 +32,8 @@ export default function BlogIndex() {
   const slideOne = {
     title: "Our Story",
     category: "The Fishyology Origins",
-    image: "https://images.unsplash.com/photo-1534062635905-24c6e931e5f0?auto=format&fit=crop&q=80&w=2000",
-    link: "/about", 
+    image: "https://res.cloudinary.com/dub3h3elq/image/upload/v1776446191/20171202_171640_mfkygm.jpg",
+    link: "/about",
   };
 
   // 2. Randomly shuffle the real posts and grab exactly 3

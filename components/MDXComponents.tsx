@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import TripBanner from './TripBanner';
 
 export const mdxComponents = {
   // 1. Upgrade standard markdown images to optimized Next.js Images
@@ -126,56 +127,11 @@ export const mdxComponents = {
     </div>
   ),
 
-  // 11. Call to Action / Booking CTA
-  TripCTA: ({ title, link }: { title: string, link: string }) => (
-    <div className="my-16 bg-[#FAFAFA] border-2 border-[#1D242B] rounded-[2rem] p-8 md:p-12 text-center shadow-2xl not-prose relative overflow-hidden group">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#0077C0]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none transition-all duration-700 group-hover:bg-[#0077C0]/20 group-hover:scale-110"></div>
-      
-      <div className="relative z-10">
-        <span className="text-[#0077C0] font-black uppercase tracking-widest text-xs mb-4 block">Experience It Yourself</span>
-        <h3 className="text-3xl md:text-4xl font-serif text-[#1D242B] mb-6">Want to fish {title}?</h3>
-        <p className="text-[#1D242B]/70 font-medium max-w-lg mx-auto mb-8">We offer professionally guided expeditions to this exact location. Dates are limited.</p>
-        <a href={link} className="inline-flex items-center gap-2 bg-[#1D242B] text-white px-8 py-4 rounded-full font-bold hover:bg-[#0077C0] transition-colors shadow-lg">
-          View Expedition Packages
-        </a>
-      </div>
-    </div>
-  ),
-
-  // 12. NEW: Horizontal Image Banner with CTA
-  BannerCTA: ({ title, subtitle, ctaText, link, imageUrl }: { title: string, subtitle?: string, ctaText: string, link: string, imageUrl: string }) => (
-    <div className="relative w-full h-[200px] my-12 rounded-[2rem] overflow-hidden shadow-2xl flex items-center px-6 md:px-10 not-prose group">
-      {/* Background Image */}
-      <Image 
-        src={imageUrl} 
-        alt={title} 
-        fill 
-        className="object-cover transition-transform duration-1000 group-hover:scale-105" 
-      />
-      
-      {/* Cinematic Gradient Overlay (Darkens the left side for text readability) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1D242B]/90 via-[#1D242B]/50 to-transparent"></div>
-
-      {/* Content Container */}
-      <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4">
-        <div className="max-w-md">
-          <h3 className="text-2xl md:text-3xl font-black text-[#FAFAFA] tracking-tighter uppercase mb-1">
-            {title}
-          </h3>
-          {subtitle && (
-            <p className="text-[#FAFAFA]/80 font-medium text-sm md:text-base line-clamp-2">
-              {subtitle}
-            </p>
-          )}
-        </div>
-
-        <a 
-          href={link} 
-          className="shrink-0 bg-[#0077C0] text-white px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-[#FAFAFA] hover:text-[#1D242B] transition-colors duration-300 shadow-xl"
-        >
-          {ctaText}
-        </a>
-      </div>
-    </div>
-  )
+  // 11. Trip CTA Banner — <TripBanner slug="kuala-rompin-pahang-full-day-charter" /> for a
+  //     specific trip (pulls its live name/cover photo/price straight from trips.mdx, so it
+  //     can't drift out of sync), or <TripBanner /> with no slug for a generic "browse all
+  //     trips" banner. An unrecognized slug also falls back to the generic banner. Add
+  //     image="..." to show a different photo than the trip's own cover for this one
+  //     placement — the name and price still stay live either way.
+  TripBanner,
 };

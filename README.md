@@ -20,6 +20,36 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment variables
+
+All are optional — the site builds and runs without them.
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics measurement ID. |
+| `WORLDTIDES_API_KEY` | Upgrades the tide panel on `/trips` from a free model estimate to official station predictions. |
+
+### Tide data
+
+The conditions panel on each saltwater trip shows tide state, timing and curve.
+It picks a provider at request time:
+
+- **Without `WORLDTIDES_API_KEY`** it uses Open-Meteo's MeteoFrance SMOC model.
+  Free and key-less, but referenced to **mean sea level** rather than Chart
+  Datum, so heights will not match printed Malaysian tide tables. The panel says
+  so on screen.
+- **With `WORLDTIDES_API_KEY`** it uses [WorldTides](https://www.worldtides.info)
+  station-based harmonic predictions requested in Chart Datum, and names the
+  tide gauge when one backs the prediction.
+
+WorldTides bills 1 credit per 7 days of data per endpoint. Because predictions
+are astronomical and don't change, responses are cached for 6 days — roughly
+4 credits per week for the two saltwater trips. New accounts start with 100
+free credits.
+
+If a WorldTides request fails the panel falls back to the free source rather
+than disappearing.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

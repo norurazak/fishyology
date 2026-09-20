@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import { ArrowRight, Wrench } from "lucide-react";
+import { ArrowRight, Wrench, Spline, Ruler, Hand, Fish, IdCard, Heart, type LucideIcon } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -25,7 +25,7 @@ const resources: ResourceEntry[] = [
   {
     slug: "spinning-reel-guide",
     title: "Spinning Reel Master Guide",
-    category: "Gear & Tackle",
+    category: "Rod & Reel Sizing",
     summary:
       "70+ series compared across Shimano, Daiwa, Abu Garcia and Penn — an interactive spec sheet with line capacity, Malaysia-specific maintenance costs, and buying logic.",
     tag: "Interactive Guide",
@@ -35,7 +35,7 @@ const resources: ResourceEntry[] = [
   {
     slug: "baitcasting-reel-guide",
     title: "Baitcasting Reel Master Guide",
-    category: "Gear & Tackle",
+    category: "Rod & Reel Sizing",
     summary:
       "55 series compared across Shimano, Daiwa, Abu Garcia, Okuma, Quantum and Pflueger — braking systems, frame materials, drag, and Malaysia-specific maintenance costs for jungle rivers, lily pads and brackish estuaries.",
     tag: "Interactive Guide",
@@ -45,7 +45,7 @@ const resources: ResourceEntry[] = [
   {
     slug: "overhead-reel-guide",
     title: "Overhead Reel Master Guide",
-    category: "Gear & Tackle",
+    category: "Rod & Reel Sizing",
     summary:
       "53 series compared across Shimano, Daiwa, Abu Garcia, Penn, Okuma, Accurate and Studio Ocean Mark — drag systems, PE capacity, and buying logic for slow pitch jigging, bottom dropping and big game.",
     tag: "Interactive Guide",
@@ -55,7 +55,7 @@ const resources: ResourceEntry[] = [
   {
     slug: "electric-reel-guide",
     title: "Electric Reel Master Guide",
-    category: "Gear & Tackle",
+    category: "Rod & Reel Sizing",
     summary:
       "19 series compared across Shimano, Daiwa, Banax, Miya Epoch and Penn electric reels — motors, power architecture, drag and line capacity, from palmable jigging setups to industrial 24V deck winches.",
     tag: "Interactive Guide",
@@ -65,6 +65,76 @@ const resources: ResourceEntry[] = [
 ];
 
 const categories = Array.from(new Set(resources.map((r) => r.category)));
+
+interface GettingStartedEntry {
+  slug: string;
+  title: string;
+  summary: string;
+  meta: string;
+  icon: LucideIcon;
+  iconBg: string;
+  iconColor: string;
+  href?: string;
+}
+
+const gettingStarted: GettingStartedEntry[] = [
+  {
+    slug: "knot-tying-101",
+    title: "Knot Tying 101",
+    summary: "Palomar, improved clinch, and braid-to-leader knots you'll actually tie on the water.",
+    meta: "Coming Soon",
+    icon: Spline,
+    iconBg: "#1D242B0D",
+    iconColor: "#1D242B59",
+  },
+  {
+    slug: "rod-and-reel-sizing",
+    title: "Rod & Reel Sizing",
+    summary: "Spinning, baitcasting, overhead, and electric — sizing your first setup starts below.",
+    meta: "Scroll to Guides",
+    icon: Ruler,
+    iconBg: "#0077C0",
+    iconColor: "#FFFFFF",
+    href: "#rod-reel-sizing",
+  },
+  {
+    slug: "casting-fundamentals",
+    title: "Casting Fundamentals",
+    summary: "Overhead casting, roll casts, and distance control mechanics.",
+    meta: "Coming Soon",
+    icon: Hand,
+    iconBg: "#1D242B0D",
+    iconColor: "#1D242B59",
+  },
+  {
+    slug: "live-bait-rigging",
+    title: "Live Bait Rigging",
+    summary: "Drop-shot, Carolina rig, slip bobber, and bottom rig setups.",
+    meta: "Coming Soon",
+    icon: Fish,
+    iconBg: "#1D242B0D",
+    iconColor: "#1D242B59",
+  },
+  {
+    slug: "malaysia-fishing-licenses",
+    title: "Fishing Licenses in Malaysia",
+    summary: "No license, no bag limit, no closed season — the regulatory landscape as it stands.",
+    meta: "Field Report",
+    icon: IdCard,
+    iconBg: "#408A71",
+    iconColor: "#FFFFFF",
+    href: "/blog/malaysia-recreational-fishing-license-gap",
+  },
+  {
+    slug: "catch-and-release-protocol",
+    title: "Catch & Release Protocol",
+    summary: "Proper fish handling, revival techniques, and de-hooking ethics.",
+    meta: "Coming Soon",
+    icon: Heart,
+    iconBg: "#1D242B0D",
+    iconColor: "#1D242B59",
+  },
+];
 
 const HERO_IMAGE =
   "https://res.cloudinary.com/dub3h3elq/image/upload/v1788590836/Fishyology_Master_Resources_Cover_02_xb3gum.jpg";
@@ -100,7 +170,7 @@ export default function ResourcesPage() {
             with more angles on the way.
           </p>
           <Link
-            href="#gear-tackle"
+            href="#rod-reel-sizing"
             className="group relative inline-flex items-center gap-3 bg-[#FAFAFA] text-[#1D242B] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl"
           >
             <span className="relative z-10">Explore the Guides</span>
@@ -110,21 +180,89 @@ export default function ResourcesPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-6 md:px-16 pt-20 md:pt-28 pb-32">
+
+        {/* GETTING STARTED — beginner icon/box grid */}
+        <div className="mb-20 scroll-mt-32" id="getting-started">
+          <div className="mb-10 md:mb-14">
+            <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+              Getting Started
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-4">
+              New to Angling? Start Here.
+            </h2>
+            <p className="text-[#1D242B]/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
+              Field-tested fundamentals before you hit the water — zero fluff, just the basics.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {gettingStarted.map((item) => {
+              const cardClassName = `group bg-white border border-[#1D242B]/10 rounded-xl shadow-sm p-6 flex items-start gap-4 transition-all duration-300 ${
+                item.href ? "hover:shadow-md" : "opacity-70"
+              }`;
+
+              const cardInner = (
+                <>
+                  <div
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: item.iconBg }}
+                  >
+                    <item.icon className="w-6 h-6" style={{ color: item.iconColor }} />
+                  </div>
+                  <div>
+                    <h3
+                      className={`font-serif italic text-lg text-[#1D242B] font-bold ${
+                        item.href ? "group-hover:text-[#0077C0] transition-colors" : ""
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-[#1D242B]/60 mt-1 leading-relaxed">{item.summary}</p>
+                    {item.href ? (
+                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#0077C0] mt-2 inline-block">
+                        {item.meta}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#1D242B]/40 mt-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#1D242B]/40 animate-pulse"></span>
+                        {item.meta}
+                      </span>
+                    )}
+                  </div>
+                </>
+              );
+
+              if (!item.href) {
+                return (
+                  <div key={item.slug} className={cardClassName}>
+                    {cardInner}
+                  </div>
+                );
+              }
+
+              return (
+                <Link key={item.slug} href={item.href} className={cardClassName}>
+                  {cardInner}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
         {categories.map((category) => (
           <div
             key={category}
             id={category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
             className="mb-16 scroll-mt-32"
           >
-            <h2 className="text-xs font-black uppercase tracking-widest text-[#1D242B]/40 mb-6">{category}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#1D242B] mb-6">{category}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {resources
                 .filter((r) => r.category === category)
                 .map((r) => (
                   <Link
                     key={r.slug}
                     href={r.href}
-                    className="group flex flex-col bg-white border border-[#1D242B]/10 rounded-[1.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                    className="group flex flex-col bg-white border border-[#1D242B]/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
                   >
                     <div className="relative aspect-[4/3] bg-[#1D242B] flex items-center justify-center overflow-hidden">
                       {r.image ? (

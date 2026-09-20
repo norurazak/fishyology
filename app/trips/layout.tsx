@@ -1,14 +1,10 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Guided Expeditions",
-  description: "Guided fishing charters in Malaysia are coming soon from Fishyology. Join the list to be first to know when booking opens.",
+  title: "Fishing Trips & Guided Charters",
+  description: "Guided fishing charters across Malaysia from Fishyology — saltwater trips out of Kuala Rompin and Tioman, freshwater expeditions in Royal Belum, and beginner-friendly pond sessions.",
   alternates: {
     canonical: '/trips',
-  },
-  robots: {
-    index: false,
-    follow: true,
   },
 };
 

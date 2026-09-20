@@ -5,6 +5,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
+import SocialChannels from "@/components/SocialChannels";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -39,8 +40,8 @@ const heroSlides = [
   }
 ];
 
-// --- DATA: CINEMATIC DISCOVERY TABS ---
-const discoveryTabs = [
+// --- DATA: THE FISHYOLOGY STANDARD (Founder / Vision / Global Outreach) ---
+const standardPillars = [
   {
     id: "founder",
     label: "The Founder",
@@ -71,11 +72,7 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [introVideo, setIntroVideo] = useState("");
   const [introFinished, setIntroFinished] = useState(false);
-  
-  // State for the Cinematic Discovery Section
-  const [activeTab, setActiveTab] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-  
+
   const mainRef = useRef<HTMLDivElement>(null);
   const discoveryRef = useRef<HTMLDivElement>(null);
 
@@ -148,16 +145,6 @@ export default function Home() {
 
     return () => ctx.revert();
   }, [introFinished]);
-
-  // Handle Cinematic Fade Transition
-  const handleTabChange = (index: number) => {
-    if (index === activeTab) return;
-    setIsFading(true);
-    setTimeout(() => {
-      setActiveTab(index);
-      setIsFading(false);
-    }, 400); 
-  };
 
   return (
     <div ref={mainRef} className="relative bg-[#FAFAFA] text-[#1D242B] overflow-hidden selection:bg-[#0077C0] selection:text-white">
@@ -246,95 +233,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* B. CINEMATIC DISCOVERY SECTION */}
-      <section ref={discoveryRef} className="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
-        
-        <div className="mb-10">
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B]">
+      {/* B. THE FISHYOLOGY STANDARD — MANIFESTO + THREE PROOFS */}
+      <section ref={discoveryRef} className="pt-[76px] pb-0 md:pt-[108px] px-6 md:px-12 max-w-[1600px] mx-auto relative">
+
+        {/* The statement */}
+        <div className="discovery-container max-w-5xl mb-16 md:mb-24">
+          <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+            What We Stand For
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-8">
             The Fishyology Standard
           </h2>
-        </div>
-
-        {/* The Massive Cinematic Viewport */}
-        <div className="discovery-container relative w-full h-[700px] md:h-[800px] rounded-[2rem] overflow-hidden shadow-2xl bg-[#11151A] group">
-          
-          {/* Background Images Crossfade */}
-          {discoveryTabs.map((tab, index) => (
-            <div
-              key={tab.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${activeTab === index ? 'opacity-100 z-0' : 'opacity-0 z-0 pointer-events-none'}`}
-            >
-              <img 
-                src={tab.image} 
-                className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[15s]" 
-                alt={tab.title} 
-              />
-              {/* New vignette gradient to protect the text on the right side */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#11151A] via-[#11151A]/10 to-[#11151A]/60"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#11151A]/70 to-transparent md:hidden"></div>
-            </div>
-          ))}
-
-          {/* Overlay Content */}
-          <div className="absolute inset-0 z-10 p-8 md:p-16 flex flex-col md:flex-row gap-12 md:gap-16">
-            
-            {/* Left Column: Minimalist Navigation */}
-            <div className="flex flex-row md:flex-col gap-6 md:gap-10 md:w-1/3 justify-start md:justify-center border-b md:border-b-0 md:border-l border-white/10 pb-6 md:pb-0 md:pl-10 h-auto md:h-full overflow-x-auto no-scrollbar">
-              {discoveryTabs.map((tab, index) => {
-                const isActive = activeTab === index;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => handleTabChange(index)}
-                    className="group relative text-left transition-all duration-500 shrink-0"
-                  >
-                    {/* The Active Line Indicator */}
-                    <div className={`absolute -bottom-6 md:-left-10 md:bottom-auto md:top-0 h-[2px] w-full md:w-[2px] md:h-full transition-all duration-500 ${isActive ? 'bg-[#C7EEFF]' : 'bg-transparent'}`}></div>
-                    
-                    <span className={`block text-[10px] font-black uppercase tracking-widest mb-1 transition-colors ${isActive ? 'text-[#C7EEFF]' : 'text-white/40 group-hover:text-white/70'}`}>
-                      0{index + 1}
-                    </span>
-                    <span className={`block text-xl md:text-3xl font-serif italic transition-colors ${isActive ? 'text-white' : 'text-white/40 group-hover:text-white/70'}`}>
-                      {tab.label}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Right Column: Dynamic Editorial Content */}
-            <div className="md:w-2/3 flex items-center justify-end h-full mt-auto md:mt-0">
-               <div className={`max-w-xl transition-all duration-700 transform ${isFading ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
-                  
-                  {/* Frosted glass text container */}
-                  <div className="bg-[#11151A]/20 backdrop-blur-[2px] p-6 md:p-8 rounded-2xl border border-white/5">
-                    
-                    {/* Subtitle is now safely inside the frosted glass! */}
-                    <span className="text-[#C7EEFF] font-black tracking-widest uppercase text-xs md:text-sm mb-3 block drop-shadow-xl">
-                      {discoveryTabs[activeTab].subtitle}
-                    </span>
-                    
-                    <h3 className="text-4xl md:text-6xl font-serif text-white leading-tight mb-6 drop-shadow-2xl">
-                      {discoveryTabs[activeTab].title}
-                    </h3>
-                    <p className="text-white/90 font-medium leading-relaxed text-base md:text-lg drop-shadow-lg">
-                      {discoveryTabs[activeTab].text}
-                    </p>
-
-                    {/* Signature only shows on Founder tab */}
-                    {activeTab === 0 && (
-                       <div className="mt-8 flex items-center gap-4">
-                         <div className="w-12 h-[2px] bg-[#C7EEFF]/70"></div>
-                         <span className="text-white font-serif italic text-2xl pr-4 drop-shadow-xl">Noru Razak</span>
-                       </div>
-                    )}
-                  </div>
-               </div>
-            </div>
-
+          <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-[#1D242B] leading-[1.2] mb-10">
+            We document angling as an experience, not an outcome — every cast, every
+            challenge, and every story that connects anglers across waters and generations.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="w-12 h-[2px] bg-[#0077C0]"></div>
+            <span className="font-serif italic text-xl md:text-2xl text-[#1D242B]">
+              Noru Razak
+            </span>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/40">
+              Founder, Est. 2013
+            </span>
           </div>
         </div>
+
+        {/* The three proofs */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {standardPillars.map((pillar) => (
+            <article
+              key={pillar.id}
+              className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-[#1D242B]/8 shadow-sm hover:shadow-xl transition-all duration-500"
+            >
+              <div className="h-56 md:h-64 overflow-hidden">
+                <img
+                  src={pillar.image}
+                  alt={pillar.title}
+                  className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[8s]"
+                />
+              </div>
+
+              <div className="flex flex-col flex-1 p-6 md:p-8">
+                <span className="text-[#0077C0] font-black tracking-widest uppercase text-[10px] md:text-xs mb-3">
+                  {pillar.label}
+                </span>
+                <h3 className="font-serif italic text-2xl md:text-3xl text-[#1D242B] leading-tight mb-1">
+                  {pillar.title}
+                </h3>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/40 mb-4">
+                  {pillar.subtitle}
+                </span>
+                <p className="text-[#1D242B]/70 text-sm md:text-base leading-relaxed">
+                  {pillar.text}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-10 md:mt-12 flex justify-end">
+          <Link
+            href="/about"
+            className="group relative inline-flex items-center gap-3 bg-[#1D242B] text-[#FAFAFA] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-xl hover:shadow-2xl"
+          >
+            <span className="relative z-10">Read Our Full Story</span>
+            <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </section>
+
+      {/* C. FOLLOW THE JOURNEY — SOCIAL CHANNELS */}
+      <SocialChannels />
 
     </div>
   );

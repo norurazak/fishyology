@@ -31,6 +31,10 @@ export type Post = {
 // ---------------------------------------------------------
 // NEW: RECURSIVE FOLDER SEARCHER
 // ---------------------------------------------------------
+// Data files that live in /content but aren't blog posts — they have their own
+// frontmatter shape (see lib/trips.ts) and must not be parsed as posts.
+const NON_POST_FILES = new Set(['trips.mdx', 'gallery.mdx']);
+
 // This function dives into folders and subfolders to find every .mdx file
 export function getAllMdxFiles(dirPath: string, arrayOfFiles: string[] = []) {
   const files = fs.readdirSync(dirPath);
@@ -43,7 +47,7 @@ export function getAllMdxFiles(dirPath: string, arrayOfFiles: string[] = []) {
       arrayOfFiles = getAllMdxFiles(fullPath, arrayOfFiles);
     } else {
       // If it's a file and ends with .mdx, add its exact path to our list
-      if (file.endsWith('.mdx')) {
+      if (file.endsWith('.mdx') && !NON_POST_FILES.has(file)) {
         arrayOfFiles.push(fullPath);
       }
     }

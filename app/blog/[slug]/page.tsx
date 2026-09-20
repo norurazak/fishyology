@@ -128,7 +128,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   if (layout === "editorial") {
     contentClasses = `
-      max-w-4xl mx-auto prose prose-xl md:prose-2xl text-[#1D242B] 
+      max-w-5xl mx-auto prose prose-xl md:prose-2xl text-[#1D242B]
       prose-p:font-serif prose-p:leading-relaxed 
       prose-headings:font-sans prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter 
       prose-a:text-[#408A71] prose-a:underline-offset-4
@@ -138,7 +138,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   } 
   else if (layout === "dispatch") {
     contentClasses = `
-      max-w-3xl mx-auto prose prose-lg text-[#1D242B] 
+      max-w-7xl mx-auto prose prose-lg text-[#1D242B]
       bg-white p-8 md:p-16 rounded-[2rem] shadow-xl border border-[#1D242B]/5
       prose-headings:font-black prose-headings:text-[#408A71] prose-headings:tracking-tight
       prose-a:text-[#0077C0] prose-a:font-bold
@@ -147,7 +147,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
   else {
     contentClasses = `
-      max-w-3xl mx-auto prose prose-lg md:prose-xl text-[#1D242B] 
+      max-w-7xl mx-auto prose prose-lg md:prose-xl text-[#1D242B]
       prose-p:leading-relaxed 
       prose-headings:font-black prose-headings:tracking-tight 
       prose-a:text-[#0077C0] prose-a:underline-offset-4 
@@ -170,7 +170,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/20 to-transparent"></div>
         
-        <div className="relative z-10 w-full max-w-5xl mx-auto text-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto text-center">
           <Link href="/blog" className="inline-flex items-center gap-2 text-[#FAFAFA]/100 hover:text-white text-sm font-bold uppercase tracking-widest mb-10 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Journal
           </Link>
@@ -216,7 +216,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 3. UPGRADED AUTHOR & SHARE BLOCK */}
-      <section className="max-w-4xl mx-auto px-6">
+      <section className="max-w-7xl mx-auto px-6">
         <div className="border-t-2 border-[#1D242B]/10 pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-10 bg-white p-8 rounded-[2rem] shadow-sm border border-[#1D242B]/5">
           
           <div className="flex items-center gap-5 max-w-lg">
@@ -256,7 +256,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 4. CHRONOLOGICAL PREVIOUS & NEXT POST NAVIGATION */}
-      <section className="max-w-4xl mx-auto px-6 mt-12">
+      <section className="max-w-7xl mx-auto px-6 mt-12">
         <div className="flex flex-col md:flex-row gap-6 justify-between">
           
           {/* Previous Post Card (Published Before) */}

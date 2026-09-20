@@ -41,6 +41,12 @@ export const metadata: Metadata = {
     title: 'Fishyology',
     description: 'Specialized Game Fishing Journal',
   },
+
+  // Google Search Console ownership verification — the documented Metadata
+  // API field for this, rather than a hand-written <head> tag.
+  verification: {
+    google: 'wmmhvg3uGZGh__3Qcwn8Nfch7HwUsvM1BxEVdWKw0Fo',
+  },
 };
 
 export default function RootLayout({
@@ -50,13 +56,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      
-      {/* 3. GOOGLE SEARCH CONSOLE VERIFICATION */}
-      <head>
-        <meta name="google-site-verification" content="wmmhvg3uGZGh__3Qcwn8Nfch7HwUsvM1BxEVdWKw0Fo" />
-      </head>
-
-      <body 
+      <body
         className="bg-[#FAFAFA] text-[#1D242B] antialiased flex flex-col min-h-[100dvh]"
         suppressHydrationWarning
       >
