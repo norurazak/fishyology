@@ -1,0 +1,14 @@
+{
+  "name": "fishyology-reporting",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "auth": "node auth.js",
+    "gsc": "node gsc-report.js",
+    "ga4": "node ga4-report.js"
+  },
+  "dependencies": {
+    "google-auth-library": "^9.15.0",
+    "googleapis": "^144.0.0"
+  }
+}
