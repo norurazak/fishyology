@@ -7,7 +7,7 @@ import OverheadGuideQuadrantPlot from "@/components/OverheadGuideQuadrantPlot";
 import OverheadGuideBrandExplorer from "@/components/OverheadGuideBrandExplorer";
 
 const description =
-  "A side-by-side spec sheet for Shimano, Daiwa, Abu Garcia, Penn, Okuma, Accurate and Studio Ocean Mark — lineups, drag systems, PE capacity, tropical maintenance costs, and buying logic for slow pitch jigging, bottom dropping and big game out of the South China Sea.";
+  "Compare drag power, PE capacity, and price across Shimano, Daiwa, Penn and more — an overhead reel buyer's guide for jigging and big game in Malaysian waters.";
 
 const HERO_IMAGE =
   "https://res.cloudinary.com/dub3h3elq/image/upload/v1788742059/Fishyology_Overhead_Reel_Master_Resources_xebjoc.jpg";
