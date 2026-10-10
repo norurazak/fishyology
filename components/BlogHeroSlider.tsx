@@ -12,19 +12,23 @@ type Slide = {
 };
 
 export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
+  // Index 0 is the permanent brand slide ("Our Story"), so the deck always opens on it
+  // and always cycles back round to it.
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-play logic: changes slide every 5000ms (5 seconds)
+  // Per-slide dwell rather than a fixed interval: the brand slide holds longer so it
+  // actually registers before the deck moves on.
   useEffect(() => {
-    const timer = setInterval(() => {
+    const dwell = currentSlide === 0 ? 7500 : 5000;
+    const timer = setTimeout(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    }, dwell);
+    return () => clearTimeout(timer);
+  }, [currentSlide, slides.length]);
 
   return (
     <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 mb-20 group">
-      <div className="relative h-[60vh] md:h-[70vh] rounded-[2rem] overflow-hidden shadow-2xl bg-[#1D242B]">
+      <div className="relative h-[68vh] md:h-[78vh] rounded-[1.25rem] overflow-hidden shadow-2xl bg-[#1D242B]">
         
         {slides.map((slide, index) => (
           <div 
@@ -50,7 +54,7 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
               <span className="inline-block bg-[#FAFAFA] text-[#1D242B] text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg">
                 {slide.category}
               </span>
-              <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-[#FAFAFA] leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-[#FAFAFA] leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
                 {slide.title}
               </h2>
               

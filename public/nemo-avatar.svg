@@ -1,0 +1,114 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nemo, Fishyology's research persona, rendered as a rotating holographic wireframe globe">
+  <defs>
+    <radialGradient id="space" cx="50%" cy="42%" r="80%">
+      <stop offset="0%" stop-color="#1B212A"/>
+      <stop offset="100%" stop-color="#07090C"/>
+    </radialGradient>
+
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="45%" stop-color="#F2631A" stop-opacity=".26"/>
+      <stop offset="100%" stop-color="#F2631A" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF3E4"/>
+      <stop offset="35%" stop-color="#FFB36B" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#F2631A" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- holographic bloom: the wireframe is drawn once and the filter supplies the glow -->
+    <filter id="bloom" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .hud   { transform-box: fill-box; transform-origin: center; animation: spin 24s linear infinite; }
+    .hud-r { transform-box: fill-box; transform-origin: center; animation: spin 34s linear infinite reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Each meridian is a full-height ellipse whose horizontal radius tracks cos(angle):
+       widest when facing us, a flat vertical line when edge-on, then widening again on
+       the far side. Staggered negative delays spread them evenly around the sphere, so
+       the globe reads as rotating rather than merely spinning in the picture plane. */
+    .mer { transform-box: fill-box; transform-origin: center; animation: meridian 18s linear infinite; }
+    @keyframes meridian {
+      0%   { transform: scaleX(1); }
+      25%  { transform: scaleX(0.02); }
+      50%  { transform: scaleX(-1); }
+      75%  { transform: scaleX(0.02); }
+      100% { transform: scaleX(1); }
+    }
+
+    .core { transform-box: fill-box; transform-origin: center; animation: pulse 4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:.75; transform:scale(.94); } 50% { opacity:1; transform:scale(1.06); } }
+
+    .halo { transform-box: fill-box; transform-origin: center; animation: breathe 6s ease-in-out infinite; }
+    @keyframes breathe { 0%,100% { opacity:.6; transform:scale(1); } 50% { opacity:1; transform:scale(1.05); } }
+
+    .node, .star { animation: twinkle 3.4s ease-in-out infinite; }
+    @keyframes twinkle { 0%,100% { opacity:.3; } 50% { opacity:1; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hud, .hud-r, .mer, .core, .halo, .node, .star { animation: none; }
+    }
+  </style>
+
+  <rect width="200" height="200" fill="url(#space)"/>
+
+  <g fill="#FFD9A8">
+    <circle class="star" cx="22" cy="34" r="1.1"/>
+    <circle class="star" cx="176" cy="44" r="1.2" style="animation-delay:1.3s"/>
+    <circle class="star" cx="34" cy="170" r="1" style="animation-delay:2.1s"/>
+    <circle class="star" cx="168" cy="164" r="1.1" style="animation-delay:.7s"/>
+  </g>
+
+  <circle class="halo" cx="100" cy="100" r="78" fill="url(#halo)"/>
+
+  <!-- HUD rings: ticked outer ring and a bracket arc, counter-rotating -->
+  <g class="hud">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#FFC184" stroke-opacity=".32"
+            stroke-width="2" stroke-dasharray="1.5 7" stroke-linecap="round"/>
+    <circle class="node" cx="100" cy="20" r="2.6" fill="#FFD9A8"/>
+  </g>
+  <g class="hud-r">
+    <circle cx="100" cy="100" r="71" fill="none" stroke="#F2631A" stroke-opacity=".45"
+            stroke-width="1.6" stroke-dasharray="34 128" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="71" fill="none" stroke="#F2631A" stroke-opacity=".45"
+            stroke-width="1.6" stroke-dasharray="34 128" stroke-dashoffset="-81" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wireframe globe -->
+  <g filter="url(#bloom)" fill="none" stroke="#FF8A33" stroke-width="1">
+    <!-- limb -->
+    <circle cx="100" cy="100" r="58" stroke="#FFC184" stroke-opacity=".75" stroke-width="1.3"/>
+
+    <!-- parallels: fixed rings of latitude, narrowing toward the poles -->
+    <g stroke-opacity=".42">
+      <ellipse cx="100" cy="100" rx="58" ry="19.8" stroke-opacity=".6"/>
+      <ellipse cx="100" cy="72.7" rx="50.2" ry="17.2"/>
+      <ellipse cx="100" cy="127.3" rx="50.2" ry="17.2"/>
+      <ellipse cx="100" cy="52.8" rx="29" ry="9.9"/>
+      <ellipse cx="100" cy="147.2" rx="29" ry="9.9"/>
+    </g>
+
+    <!-- meridians sweeping round the axis -->
+    <g stroke-opacity=".38">
+      <ellipse class="mer" cx="100" cy="100" rx="58" ry="58"/>
+      <ellipse class="mer" cx="100" cy="100" rx="58" ry="58" style="animation-delay:-2.25s"/>
+      <ellipse class="mer" cx="100" cy="100" rx="58" ry="58" style="animation-delay:-4.5s"/>
+      <ellipse class="mer" cx="100" cy="100" rx="58" ry="58" style="animation-delay:-6.75s"/>
+    </g>
+  </g>
+
+  <!-- intelligence core -->
+  <g class="core">
+    <circle cx="100" cy="100" r="26" fill="url(#core)"/>
+    <circle cx="100" cy="100" r="3.6" fill="#FFF3E4"/>
+  </g>
+</svg>

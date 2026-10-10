@@ -44,6 +44,16 @@ const authorsData: Author[] = [
     specialties: ["Social Documentarist", "Mag Write", "SportFishing"],
   },
   {
+    id: "nemo",
+    name: "Nemo",
+    role: "Fishyology Insight",
+    shortBio: "Hunts down the fisheries research, interrogates it, and reports back what actually holds up for anglers.",
+    fullBio:
+      "Nemo is Fishyology's research agent, a byline rather than a person. Handed a question, it sweeps the peer-reviewed fisheries literature through Scopus AI, pulls the studies that genuinely bear on it, and tests every figure against the source paper before letting that figure into a piece. It makes the calls as it goes: what matters to someone standing on the bank, what is academic noise, where the evidence is thinner than the abstract implies, and which gaps the research simply has not closed yet. It pushes back on its own sources, flags the numbers nobody has measured recently, and says so plainly rather than papering over them. The standard it holds itself to is simple. Every number it files traces back to a citation you can open and check yourself.",
+    image: "/nemo-avatar.svg",
+    specialties: ["Research Synthesis", "Conservation Science", "Scopus AI"],
+  },
+  {
     id: "join-the-team",
     name: "You?",
     role: "Future Contributor",
@@ -186,7 +196,7 @@ export default function AuthorRoster() {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
         {authorsData.map((author) => (
           <button
             key={author.id}
@@ -197,28 +207,30 @@ export default function AuthorRoster() {
                 ? "Pitch a story to Fishyology"
                 : `Read ${author.name}'s full profile`
             }
-            className="group text-left cursor-pointer bg-white border border-[#1D242B]/10 rounded-lg p-5 shadow-sm hover:shadow-xl hover:border-[#1D242B]/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2"
+            className="group flex h-full flex-col text-left cursor-pointer bg-white border border-[#1D242B]/10 rounded-lg p-5 shadow-sm hover:shadow-xl hover:border-[#1D242B]/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2"
           >
             <div className="relative aspect-square rounded-lg overflow-hidden mb-5 bg-black/5">
               <Image
                 src={author.image}
                 alt={author.name}
                 fill
-                sizes="(max-width: 768px) 88vw, (max-width: 1024px) 44vw, 30vw"
+                sizes="(max-width: 768px) 88vw, (max-width: 1024px) 44vw, 23vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
+            {/* Role and name reserve two lines each. Without this a longer role or a name
+                that wraps pushes that card's bio out of step with the rest of the row. */}
             <span
-              className={`text-[10px] font-black uppercase tracking-widest block mb-2 ${
+              className={`text-[10px] font-black uppercase tracking-widest leading-[1.4] block mb-2 min-h-[1.75rem] ${
                 author.isActionCard ? "text-[#408A71]" : "text-[#0077C0]"
               }`}
             >
               {author.role}
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[#1D242B] mb-2 group-hover:text-[#408A71] transition-colors">
+            <h3 className="text-2xl font-serif font-bold leading-tight text-[#1D242B] mb-3 min-h-[3.75rem] group-hover:text-[#408A71] transition-colors">
               {author.name}
             </h3>
-            <p className="text-[#1D242B]/70 text-sm font-medium line-clamp-2">{author.shortBio}</p>
+            <p className="text-[#1D242B]/70 text-sm font-medium leading-relaxed line-clamp-2">{author.shortBio}</p>
           </button>
         ))}
       </div>

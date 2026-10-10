@@ -17,6 +17,8 @@ const FrontmatterSchema = z.object({
   author: z.string().optional(),
   authorEmail: z.string().optional(),
   image: z.string().optional(),
+  // Headline figure for research digests; Insight cards lead with this instead of a photo.
+  stat: z.string().optional(),
 });
 
 // Export a TypeScript type based on our schema

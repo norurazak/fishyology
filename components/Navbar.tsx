@@ -57,7 +57,7 @@ export default function Navbar() {
 
         {/* Right: Actions & Mobile Toggle */}
         <div className="flex items-center gap-4">
-          <Link href="/trips" className="book-now-glow hidden sm:block bg-[#121212] text-[#E5E5E5] border border-transparent hover:bg-white hover:text-[#1D242B] px-5 py-2 rounded-lg text-sm font-bold transition-colors duration-300">
+          <Link href="/trips" className="book-now-aurora hidden sm:block px-5 py-2 rounded-lg text-sm font-bold">
             Book Now
           </Link>
 
@@ -84,7 +84,7 @@ export default function Navbar() {
           {/* NEW: Mobile Game Link */}
           <Link href="/game" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#4DD0E1]/20 font-medium transition-colors">Game</Link>
           <hr className="border-[#1D242B]/10 my-2" />
-          <Link href="/trips" onClick={closeMenu} className="book-now-glow bg-[#121212] text-[#E5E5E5] text-center py-3 rounded-xl font-bold transition-colors hover:bg-white hover:text-[#1D242B]">
+          <Link href="/trips" onClick={closeMenu} className="book-now-aurora text-center py-3 rounded-xl font-bold">
             Book Now
           </Link>
         </div>

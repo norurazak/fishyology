@@ -5,8 +5,9 @@ import { getPostBySlug, getAllPosts } from "@/lib/mdx";
 import ShareButtons from "@/components/ShareButtons";
 
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { mdxComponents } from '@/components/MDXComponents';
-import { authorsData } from "@/lib/authors"; 
+import { authorsData, isAgentAuthor } from "@/lib/authors";
 
 // --- 1. IMPORT METADATA ---
 import { Metadata } from 'next';
@@ -76,14 +77,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     return timeA - timeB; 
   });
 
-  // 2. Find where the current post sits in this chronological timeline
-  const currentIndex = allPosts.findIndex((p) => p.slug === resolvedParams.slug);
+  // 2. Navigation stays inside one stream: a research digest leads only to other
+  //    digests, and field reporting only to other field reporting, so the footer never
+  //    walks a reader from Nemo's work into a human trip log or back.
+  const isDigest = isAgentAuthor(post.frontmatter.author);
+  const stream = allPosts.filter((p) => isAgentAuthor(p.frontmatter.author) === isDigest);
 
-  // 3. Determine Previous (Published BEFORE) and Next (Published AFTER)
-  // If index is greater than 0, there is an older post behind it.
-  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-  // If index is less than the end of the array, there is a newer post ahead of it.
-  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  // 3. Find where the current post sits within its own stream
+  const currentIndex = stream.findIndex((p) => p.slug === resolvedParams.slug);
+
+  // 4. Determine Previous (Published BEFORE) and Next (Published AFTER)
+  const prevPost = currentIndex > 0 ? stream[currentIndex - 1] : null;
+  const nextPost = currentIndex >= 0 && currentIndex < stream.length - 1 ? stream[currentIndex + 1] : null;
 
   // EXTRACT FRONTMATTER
   const { title, date, category, subcategory, layout, author, authorEmail, image } = post.frontmatter;
@@ -208,9 +213,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       {/* 2. DYNAMIC STORY CONTENT */}
       <section className={`px-6 pb-20 ${layout === 'dispatch' ? '-mt-16 relative z-20' : 'pt-24'}`}>
         <article className={contentClasses}>
-          <MDXRemote 
-            source={post.content} 
-            components={mdxComponents} 
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
       </section>
@@ -255,10 +261,25 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* 4. CHRONOLOGICAL PREVIOUS & NEXT POST NAVIGATION */}
+      {/* 4. PREVIOUS & NEXT NAVIGATION — within this post's own stream */}
       <section className="max-w-7xl mx-auto px-6 mt-12">
+        {!prevPost && !nextPost ? (
+          /* Nothing else in this stream yet, so offer the index rather than a blank band */
+          <Link
+            href={isDigest ? "/blog?category=Research%20Insight#archive" : "/blog"}
+            className="group flex flex-col items-center justify-center p-10 text-center bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
+          >
+            <span className="text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">
+              {isDigest ? "First digest in the series" : "End of the line"}
+            </span>
+            <h4 className="font-serif text-xl md:text-2xl font-bold text-[#1D242B] leading-snug flex items-center gap-3">
+              {isDigest ? "Browse all research digests" : "Back to the Journal"}
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </h4>
+          </Link>
+        ) : (
         <div className="flex flex-col md:flex-row gap-6 justify-between">
-          
+
           {/* Previous Post Card (Published Before) */}
           {prevPost ? (
             <Link 
@@ -266,7 +287,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               className="group flex-1 flex flex-col justify-center p-8 bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
             >
               <span className="flex items-center gap-2 text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Previous Chapter
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {isDigest ? "Previous Digest" : "Previous Chapter"}
               </span>
               <h4 className="font-serif text-xl md:text-2xl font-bold text-[#1D242B] leading-snug line-clamp-2">
                 {prevPost.frontmatter.title}
@@ -283,7 +304,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               className="group flex-1 flex flex-col justify-center items-end text-right p-8 bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#0077C0]/50 hover:shadow-xl transition-all duration-300"
             >
               <span className="flex items-center gap-2 text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">
-                Next Chapter <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                {isDigest ? "Next Digest" : "Next Chapter"} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
               <h4 className="font-serif text-xl md:text-2xl font-bold text-[#1D242B] leading-snug line-clamp-2">
                 {nextPost.frontmatter.title}
@@ -294,6 +315,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           )}
 
         </div>
+        )}
       </section>
 
     </div>

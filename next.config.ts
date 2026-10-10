@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'inline',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 

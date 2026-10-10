@@ -1,16 +1,28 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Post } from '@/lib/mdx'; 
+import { useSearchParams } from 'next/navigation';
+import { Post } from '@/lib/mdx';
+import { isAgentAuthor } from '@/lib/authors';
 import { motion, AnimatePresence } from 'framer-motion';
 // 1. Added the Search icon from lucide-react
 import { Search } from 'lucide-react';
 
 export default function FilteredArchive({ posts }: { posts: Post[] }) {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+
+  const [activeCategory, setActiveCategory] = useState(categoryParam || "All");
   // 2. Added state to track what the user is typing
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Links into the archive (e.g. "all digests" from the Insight band) arrive as a
+  // client-side navigation, so this component never remounts. Sync off the param
+  // rather than relying on the initial state, or the filter would be ignored.
+  useEffect(() => {
+    if (categoryParam) setActiveCategory(categoryParam);
+  }, [categoryParam]);
 
   const categories = ["All", ...Array.from(new Set(posts.map(p => p.frontmatter.category).filter(Boolean)))];
 
@@ -29,7 +41,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
   });
 
   return (
-    <section className="max-w-[1600px] mx-auto px-6 md:px-12 py-24 border-t border-[#1D242B]/10 mt-12">
+    <section id="archive" className="max-w-[1600px] mx-auto px-6 md:px-12 py-24 border-t border-[#1D242B]/10 mt-12 scroll-mt-24">
       
       {/* HEADER & FILTERS */}
       <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -88,11 +100,19 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                 
                 {/* THE IMAGE BLOCK */}
                 <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-[#1D242B]/5 border border-[#1D242B]/5 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1">
-                  <img 
-                    src={post.frontmatter.image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800"} 
+                  <img
+                    src={post.frontmatter.image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800"}
                     alt={post.frontmatter.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  {/* The archive is the one place agent and human pieces sit side by side,
+                      so the byline type has to be readable without opening the post. */}
+                  {isAgentAuthor(post.frontmatter.author) && (
+                    <span className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-[#12161A]/90 backdrop-blur-sm px-3 py-1.5 text-[9px] font-black uppercase tracking-widest text-[#FF9A42] border border-[#FF9A42]/30">
+                      <img src="/nemo-avatar.svg" alt="" aria-hidden="true" className="w-3.5 h-3.5 rounded-full" />
+                      Research Digest
+                    </span>
+                  )}
                 </div>
                 
                 {/* THE TEXT BLOCK */}
