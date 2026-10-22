@@ -62,8 +62,8 @@ const channels = [
   },
   {
     name: "YouTube",
-    handle: "Launching Soon",
-    url: null,
+    handle: "@FishyologyTV",
+    url: "https://www.youtube.com/@FishyologyTV",
     description: "Full-length expedition films and in-depth technique breakdowns.",
     background: "#FF0000",
     iconColor: "#FFFFFF",
