@@ -16,7 +16,7 @@ const FrontmatterSchema = z.object({
   layout: z.string().optional(),
   author: z.string().optional(),
   authorEmail: z.string().optional(),
-  image: z.string().optional(),
+  image: z.string().trim().optional(),
   // Headline figure for research digests; Insight cards lead with this instead of a photo.
   stat: z.string().optional(),
 });

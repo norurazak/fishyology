@@ -35,6 +35,13 @@ export const metadata: Metadata = {
     type: 'website',
   },
   
+  // Allow Google to show large image previews (search thumbnails, Discover)
+  robots: {
+    googleBot: {
+      'max-image-preview': 'large',
+    },
+  },
+
   // X/Twitter Specific Cards
   twitter: {
     card: 'summary_large_image',
