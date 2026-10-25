@@ -56,5 +56,5 @@ export function isAgentAuthor(author?: string): boolean {
 export function resolveAuthor(author?: string): { name: string; image: string; role?: string } {
   const match = authorsData.find((a) => a.name === author);
   if (match) return { name: match.name, image: match.image, role: match.role };
-  return { name: author || 'Fishyology Team', image: '/logo.svg', role: 'Guest Writer' };
+  return { name: author || 'Fishyology Team', image: '/logo.png', role: 'Guest Writer' };
 }

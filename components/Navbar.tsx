@@ -37,7 +37,7 @@ export default function Navbar() {
         {/* Left: Logo & Brand */}
         <Link href="/" className="font-bold text-xl tracking-tight flex items-center gap-3">
           <img 
-            src="/logo.svg" 
+            src="/logo.png" 
             alt="Fishyology" 
             className="w-7 h-7 object-contain" 
           />

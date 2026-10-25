@@ -98,7 +98,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     name: author || "Fishyology Contributor",
     role: "Guest Writer",
     shortBio: "A valued contributor to the Fishyology Journal.",
-    image: "/logo.svg"
+    image: "/logo.png"
   };
 
   // STRUCTURED DATA (Article JSON-LD)
@@ -119,7 +119,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       name: 'Fishyology',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.fishyology.org/logo.svg',
+        url: 'https://www.fishyology.org/logo.png',
       },
     },
     mainEntityOfPage: {
