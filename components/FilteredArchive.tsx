@@ -9,13 +9,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 // 1. Added the Search icon from lucide-react
 import { Search } from 'lucide-react';
 
+const postYear = (post: Post) => new Date(post.frontmatter.date).getFullYear();
+
 export default function FilteredArchive({ posts }: { posts: Post[] }) {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
+  const yearParam = searchParams.get("year");
 
   const [activeCategory, setActiveCategory] = useState(categoryParam || "All");
   // 2. Added state to track what the user is typing
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeYear, setActiveYear] = useState(yearParam || "All");
 
   // Links into the archive (e.g. "all digests" from the Insight band) arrive as a
   // client-side navigation, so this component never remounts. Sync off the param
@@ -24,7 +28,14 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
     if (categoryParam) setActiveCategory(categoryParam);
   }, [categoryParam]);
 
+  useEffect(() => {
+    if (yearParam) setActiveYear(yearParam);
+  }, [yearParam]);
+
   const categories = ["All", ...Array.from(new Set(posts.map(p => p.frontmatter.category).filter(Boolean)))];
+
+  // Newest year first; posts with an unparseable date are left out of the pills.
+  const years = Array.from(new Set(posts.map(postYear).filter((y) => !Number.isNaN(y)))).sort((a, b) => b - a);
 
   // 3. Upgraded filtering logic: Filter by category FIRST, then by search query
   const filteredPosts = posts.filter(post => {
@@ -37,7 +48,9 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
     const summary = (post.frontmatter.summary || "").toLowerCase();
     const matchesSearch = title.includes(query) || summary.includes(query);
 
-    return matchesCategory && matchesSearch;
+    const matchesYear = activeYear === "All" || String(postYear(post)) === activeYear;
+
+    return matchesCategory && matchesYear && matchesSearch;
   });
 
   return (
@@ -47,7 +60,13 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
       <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div>
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-[#1D242B] mb-2">The Archive</h2>
-          <p className="text-[#1D242B]/60 font-medium text-lg">Explore our entire history of expeditions and guides.</p>
+          <p className="text-[#1D242B]/60 font-medium text-lg">
+            Explore our entire history of expeditions and guides
+            {years.length > 1 ? `, ${years[years.length - 1]}–${years[0]}` : ""}.
+          </p>
+          <p className="text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mt-3">
+            {filteredPosts.length} {filteredPosts.length === 1 ? "entry" : "entries"}
+          </p>
         </div>
         
         <div className="flex flex-col items-start md:items-end gap-6">
@@ -61,6 +80,27 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white border border-[#1D242B]/10 rounded-full pl-11 pr-4 py-3 text-sm text-[#1D242B] focus:outline-none focus:border-[#0077C0] focus:ring-1 focus:ring-[#0077C0] transition-all shadow-sm"
             />
+          </div>
+
+          {/* Year Pills */}
+          <div className="flex flex-wrap gap-2 md:justify-end" role="group" aria-label="Filter by year">
+            {["All", ...years.map(String)].map(year => (
+              <button
+                key={year}
+                onClick={() => setActiveYear(year)}
+                aria-pressed={activeYear === year}
+                className={`px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-colors duration-300 ${
+                  activeYear === year
+                    ? "bg-[#0077C0] text-white shadow-md"
+                    : "bg-white border border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#0077C0]/40 hover:text-[#0077C0]"
+                }`}
+              >
+                {year === "All" ? "ALL YEARS" : year}
+                {year !== "All" && (
+                  <span className="ml-1.5 opacity-60">{posts.filter(p => String(postYear(p)) === year).length}</span>
+                )}
+              </button>
+            ))}
           </div>
 
           {/* Dynamic Category Pills */}
