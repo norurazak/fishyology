@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import type { TripPackage } from "@/lib/trips";
+import { tripImageAlt } from "@/lib/seo";
 import type { TripConditions } from "@/lib/conditions";
 import TripDetailPanel from "@/components/trips/TripDetailPanel";
 import {
@@ -58,7 +59,7 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
         {trip.photos.length > 0 ? (
           <Image
             src={trip.photos[0]}
-            alt=""
+            alt={tripImageAlt(trip)}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className={`object-cover transition-transform duration-700 ${

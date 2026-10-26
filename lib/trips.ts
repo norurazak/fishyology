@@ -199,6 +199,12 @@ export function getTripPackages(): TripPackage[] {
   return splitEntryBlocks(content, "## Trips").map(parseTripBlock);
 }
 
+/** The `updated` date from trips.mdx frontmatter, for sitemap freshness. */
+export function getTripsUpdated(): Date {
+  const { data } = matter(fs.readFileSync(tripsFilePath, "utf8"));
+  return new Date(FrontmatterSchema.parse(data).updated);
+}
+
 export function getTripBySlug(slug: string): TripPackage | undefined {
   return getTripPackages().find((trip) => trip.slug === slug);
 }

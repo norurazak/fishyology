@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/SiteFooter";
+import { jsonLdString, organizationJsonLd } from "@/lib/seo";
 
 // 1. IMPORT THE GOOGLE ANALYTICS COMPONENT
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -68,6 +69,11 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdString(organizationJsonLd) }}
+        />
+
         {/* The Floating Navigation Bar */}
         <Navbar />
 

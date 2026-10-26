@@ -16,6 +16,7 @@ import {
   Camera,
 } from "lucide-react";
 import { getTripBySlug, getTripPackages } from "@/lib/trips";
+import { breadcrumbJsonLd, jsonLdString, tripImageAlt, tripJsonLd, tripTitle } from "@/lib/seo";
 import { getTripConditions } from "@/lib/conditions";
 import TripConditionsPanel from "@/components/trips/TripConditions";
 import TripGallery from "@/components/trips/TripGallery";
@@ -45,20 +46,29 @@ export async function generateMetadata({
   }
 
   return {
-    title: trip.name,
+    title: tripTitle(trip),
     description: trip.summary,
     alternates: {
       canonical: `/trips/${trip.slug}`,
     },
+    // Coming-soon pages are placeholders with no offer to show; keep them out of the index.
+    robots: trip.comingSoon ? { index: false, follow: true } : undefined,
     openGraph: {
-      title: trip.name,
+      title: tripTitle(trip),
       description: trip.summary,
       type: "website",
+      siteName: "Fishyology",
       url: `https://www.fishyology.org/trips/${trip.slug}`,
       images:
         trip.photos.length > 0
-          ? [{ url: trip.photos[0], width: 1200, height: 900, alt: trip.name }]
+          ? [{ url: trip.photos[0], width: 1200, height: 900, alt: tripImageAlt(trip) }]
           : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: tripTitle(trip),
+      description: trip.summary,
+      images: trip.photos.length > 0 ? [trip.photos[0]] : undefined,
     },
   };
 }
@@ -79,11 +89,21 @@ export default async function TripPage({
       })
     : null;
 
+  const structuredData = [
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Trips", path: "/trips" },
+      { name: trip.name, path: `/trips/${trip.slug}` },
+    ]),
+    ...(trip.comingSoon ? [] : [tripJsonLd(trip)]),
+  ];
+
   const paragraphs = trip.description ? trip.description.split("\n\n").filter(Boolean) : [];
 
   if (trip.comingSoon) {
     return (
       <div className="min-h-screen bg-[#FAFAFA] flex flex-col">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }} />
         <section className="relative flex-1 flex items-center justify-center min-h-[70vh] w-full bg-[#1D242B] overflow-hidden">
           {trip.photos.length > 0 && (
             <Image
@@ -133,12 +153,13 @@ export default async function TripPage({
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }} />
       {/* HERO */}
       <section className="relative h-[60vh] md:h-[70vh] min-h-[420px] w-full bg-[#1D242B] overflow-hidden">
         {trip.photos.length > 0 ? (
           <Image
             src={trip.photos[0]}
-            alt=""
+            alt={tripImageAlt(trip)}
             fill
             priority
             sizes="100vw"

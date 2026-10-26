@@ -12,6 +12,7 @@ import {
   BadgeCheck,
 } from "lucide-react";
 import { getTripPackages } from "@/lib/trips";
+import { breadcrumbJsonLd, jsonLdString, tripsListJsonLd } from "@/lib/seo";
 import { getTripConditions, type TripConditions } from "@/lib/conditions";
 import TripsGrid, { type TripSection } from "@/components/trips/TripsGrid";
 
@@ -90,11 +91,23 @@ export default async function TripsPage() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdString([
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Trips", path: "/trips" },
+            ]),
+            tripsListJsonLd(trips.filter((trip) => !trip.comingSoon)),
+          ]),
+        }}
+      />
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[600px] w-full bg-[#1D242B] overflow-hidden">
         <Image
           src={HERO_IMAGE}
-          alt="Fishyology guided fishing charter"
+          alt="Fishyology guided fishing charter heading out from Kuala Rompin, Malaysia"
           fill
           priority
           sizes="100vw"

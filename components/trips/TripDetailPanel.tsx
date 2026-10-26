@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import type { TripPackage } from "@/lib/trips";
 import type { TripConditions } from "@/lib/conditions";
+import { tripImageAlt } from "@/lib/seo";
 import TripConditionsPanel from "@/components/trips/TripConditions";
 import Fact from "@/components/trips/Fact";
 import {
@@ -121,7 +122,7 @@ export default function TripDetailPanel({
           {trip.photos.length > 0 && (
             <Image
               src={trip.photos[0]}
-              alt=""
+              alt={tripImageAlt(trip)}
               fill
               sizes="(max-width: 640px) 100vw, 576px"
               className="object-cover"

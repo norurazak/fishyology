@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
+import { getTripPackages, getTripsUpdated } from '@/lib/trips';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // 1. Updated to your official master domain (added www.)
@@ -16,6 +17,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // Trip pages that aren't live yet are noindexed, so they stay out of the sitemap too.
+  const tripsUpdated = getTripsUpdated();
+  const tripUrls = getTripPackages()
+    .filter((trip) => !trip.comingSoon)
+    .map((trip) => ({
+      url: `${baseUrl}/trips/${trip.slug}`,
+      lastModified: tripsUpdated,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }));
+
   // 4. Define your core static routes
   const staticRoutes = [
     {
@@ -30,6 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/trips`,
+      lastModified: tripsUpdated,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
     },
@@ -66,5 +79,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 5. Combine them all together and return
-  return [...staticRoutes, ...postUrls];
+  return [...staticRoutes, ...tripUrls, ...postUrls];
 }
