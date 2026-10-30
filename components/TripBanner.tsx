@@ -19,7 +19,7 @@ const GENERIC_BANNER_IMAGE =
  * roster cards) — a slow, always-on Ken Burns would suit a standalone hero
  * slide, but this is a click target sitting inside scrolling article text,
  * so it responds to interaction instead. */
-function BannerShell({
+export function BannerShell({
   image,
   eyebrow,
   title,

@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, ChevronDown, Library } from 'lucide-react';
 import TripBanner from './TripBanner';
+import PostBanner from './PostBanner';
+import MapEmbed from './MapEmbed';
 import StressorMap, { Stressor } from './StressorMap';
 
 // Edge shadows that appear only when a wide table actually overflows, and only on the
@@ -342,4 +344,13 @@ export const mdxComponents = {
   //     image="..." to show a different photo than the trip's own cover for this one
   //     placement — the name and price still stay live either way.
   TripBanner,
+
+  // 16. Post Link Banner — <PostBanner slug="tioman-island-sailfish-expedition-part-1" /> links
+  //     to another post in the TripBanner style, with its title and cover pulled live. Add
+  //     image="..." to override the photo or eyebrow="..." to change the label.
+  PostBanner,
+
+  // 17. Wide Google Map — <MapEmbed lat="2.8182" lng="104.1596" title="Kampung Tekek" />, pinned
+  //     to the coordinates. Optional: zoom, satellite, caption, href (see components/MapEmbed.tsx).
+  MapEmbed,
 };
