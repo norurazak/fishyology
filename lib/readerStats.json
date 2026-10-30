@@ -1,0 +1,14 @@
+{
+  "updated": "2026-10-31",
+  "periodDays": null,
+  "countries": [
+    { "name": "Malaysia", "code": "my" },
+    { "name": "United States", "code": "us" },
+    { "name": "China", "code": "cn" },
+    { "name": "Singapore", "code": "sg" },
+    { "name": "Germany", "code": "de" },
+    { "name": "France", "code": "fr" },
+    { "name": "Japan", "code": "jp" }
+  ],
+  "averageSessionSeconds": 93
+}

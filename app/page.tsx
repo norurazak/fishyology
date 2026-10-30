@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import SocialChannels from "@/components/SocialChannels";
+import ReaderAnalytics from "@/components/ReaderAnalytics";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -305,6 +306,9 @@ export default function Home() {
 
       {/* C. FOLLOW THE JOURNEY — SOCIAL CHANNELS */}
       <SocialChannels />
+
+      {/* D. ANALYTICS — TOP READER COUNTRIES AND TIME ON SITE */}
+      <ReaderAnalytics />
 
     </div>
   );
