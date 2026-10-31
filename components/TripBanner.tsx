@@ -107,7 +107,7 @@ function TripSpecificBanner({ trip, image }: { trip: TripPackage; image?: string
           {trip.priceUnit && <span className="text-white/50 font-medium"> {trip.priceUnit}</span>}
         </span>
       }
-      ctaText="Book This Trip"
+      ctaText={trip.comingSoon ? "View This Trip" : "Book This Trip"}
       href={`/trips/${trip.slug}`}
     />
   );
