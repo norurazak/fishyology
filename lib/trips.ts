@@ -42,6 +42,8 @@ export interface TripPackage {
   category: string;
   group: TripGroup;
   summary: string;
+  /** Search results only, about 155 characters; the page keeps the full summary. */
+  seoDescription: string;
   description: string;
   tripType: string;
   duration: string;
@@ -172,6 +174,7 @@ function parseTripBlock(block: string): TripPackage {
     category,
     group: parseGroup(extractField(body, "Group"), category),
     summary: fieldAsParagraphs(extractField(body, "Summary")),
+    seoDescription: fieldAsSingleLine(extractField(body, "SEO Description")),
     description: fieldAsParagraphs(extractField(body, "Description")),
     tripType: fieldAsSingleLine(extractField(body, "Trip Type")),
     duration: fieldAsSingleLine(extractField(body, "Duration")),

@@ -1,6 +1,6 @@
 ---
 name: nemo-research-digest
-description: Write a Fishyology "Nemo" research digest — a ~2000-word MDX post that turns peer-reviewed fisheries and marine-science literature (usually a Scopus AI export) into reporting for Malaysian anglers. Use this whenever the user shares a Scopus AI report, a research PDF, a literature review, or a pile of studies and wants it turned into a Fishyology article, an "Insight" piece, or a science write-up for the site; whenever they mention Nemo, Fishyology Insight, a research digest, or the Research Insight category; and whenever a post needs the KeyFinding, Sources, StatGrid or Figure MDX components or an author byline of "Nemo". Covers the persona and voice, required frontmatter, the component API and its hard constraints, citation handling, and the pre-publish checks.
+description: Write a Fishyology "Nemo" research digest — a ~2000-word MDX post that turns peer-reviewed fisheries and marine-science literature (usually a Scopus AI export) into reporting for Malaysian anglers. Use this whenever the user shares a Scopus AI report, a research PDF, a literature review, or a pile of studies and wants it turned into a Fishyology article, an "Insight" piece, or a science write-up for the site; whenever they mention Nemo, Fishyology Insight, a research digest, or the Research category; and whenever a post needs the KeyFinding, Sources, StatGrid or Figure MDX components or an author byline of "Nemo". Covers the persona and voice, required frontmatter, the component API and its hard constraints, citation handling, and the pre-publish checks.
 ---
 
 # Nemo Research Digests
@@ -59,7 +59,6 @@ frontmatter (see below)
 ---
 
 ## Fishyology Insight
-#### <Title, ending with a period>.
 
 Opening: the headline figures stated plainly, no throat-clearing.
 
@@ -91,7 +90,7 @@ Close on an earned implication, never a recap and never "In conclusion".
 title: "87% of Malaysia's Freshwater Fish Are at Risk"
 date: October 08, 2026
 summary: "One or two sentences; used by link previews, cards and the archive."
-category: "Research Insight"
+category: "Research"
 subcategory: "Conservation"
 layout: "editorial"
 author: "Nemo"
@@ -101,7 +100,7 @@ stat: "87%"
 ```
 
 - `title` stays short and carries the figure. No dashes.
-- `category` must be exactly `Research Insight` — it drives the archive filter and the
+- `category` must be exactly `Research` — it drives the archive filter and the
   "all digests" link from the Insight band.
 - `author` must be exactly `Nemo` — this is what routes the post into the Insight stream.
 - `stat` is the headline figure the Insight card displays over its image. Without it the

@@ -1,5 +1,6 @@
 "use client";
 
+import { cloudinaryImage } from "@/lib/cloudinary";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -141,7 +142,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                 {/* THE IMAGE BLOCK */}
                 <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-[#1D242B]/5 border border-[#1D242B]/5 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1">
                   <img
-                    src={post.frontmatter.image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800"}
+                    {...cloudinaryImage(post.frontmatter.image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800", { sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" })}
                     alt={post.frontmatter.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

@@ -12,10 +12,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 3. Map those posts into the format Google expects
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.frontmatter.date), // Uses the exact date from your MDX!
+    lastModified: new Date(post.frontmatter.updated || post.frontmatter.date), // Uses the exact date from your MDX!
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
+
+  // The homepage and the journal list change whenever a post is published.
+  const latestPost = postUrls.reduce<Date | undefined>(
+    (latest, post) => (!latest || post.lastModified > latest ? post.lastModified : latest),
+    undefined,
+  );
 
   // Trip pages that aren't live yet are noindexed, so they stay out of the sitemap too.
   const tripsUpdated = getTripsUpdated();
@@ -32,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     {
       url: baseUrl,
+      lastModified: latestPost,
       changeFrequency: 'weekly' as const,
       priority: 1.0, // Home page gets the highest priority
     },
@@ -48,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/blog`,
+      lastModified: latestPost,
       changeFrequency: 'daily' as const, // Daily because you might add new posts frequently
       priority: 0.9,
     },

@@ -1,7 +1,58 @@
+import type { Metadata } from "next";
 import type { TripPackage } from "@/lib/trips";
+import type { Post } from "@/lib/mdx";
+import { isAgentAuthor, resolveAuthor } from "@/lib/authors";
+import { cloudinaryShareImage } from "@/lib/cloudinary";
 import { fromPrice, shortLocation, stripParentheticals } from "@/components/trips/format";
 
 export const SITE_URL = "https://www.fishyology.org";
+
+/** Link preview for any page without its own photo: a live sailfish off Tioman. */
+const DEFAULT_SHARE_IMAGE =
+  "https://res.cloudinary.com/dub3h3elq/image/upload/v1792204134/Tioman_Island_Fishing_Expedition_07_xclawu.jpg";
+const DEFAULT_SHARE_ALT = "A Pacific sailfish alongside the boat off Tioman Island";
+
+interface SocialPage {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  alt?: string;
+}
+
+/**
+ * Link-preview tags for one page. Next.js replaces a parent's openGraph and
+ * twitter objects whole, so a page without these would show the homepage's
+ * URL and title when shared.
+ */
+export function socialMetadata({
+  title,
+  description,
+  path,
+  image = DEFAULT_SHARE_IMAGE,
+  alt = image === DEFAULT_SHARE_IMAGE ? DEFAULT_SHARE_ALT : title,
+}: SocialPage) {
+  const url = cloudinaryShareImage(image);
+
+  return {
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}${path}`,
+      siteName: "Fishyology",
+      locale: "en_US",
+      type: "website",
+      // Images hosted outside Cloudinary keep their own size, so don't declare one.
+      images: [url === image ? { url, alt } : { url, width: 1200, height: 630, alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [url],
+    },
+  } satisfies Pick<Metadata, "openGraph" | "twitter">;
+}
 
 /** Profile URLs mirror components/SocialChannels.tsx. */
 const SAME_AS = [
@@ -33,6 +84,43 @@ export function breadcrumbJsonLd(crumbs: { name: string; path: string }[]) {
       name: crumb.name,
       item: `${SITE_URL}${crumb.path}`,
     })),
+  };
+}
+
+/** The description a post shows in search results and link previews. */
+export function postDescription(post: Post): string {
+  const { seoDescription, summary } = post.frontmatter;
+  return seoDescription || summary || "Read the latest expedition journal from Fishyology.";
+}
+
+/** A frontmatter date such as "May 10, 2026" in the ISO format search engines expect. */
+export function isoDate(date: string): string {
+  return new Date(date).toISOString();
+}
+
+export function articleJsonLd(post: Post) {
+  const { title, date, updated, image, author } = post.frontmatter;
+  const url = `${SITE_URL}/blog/${post.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: postDescription(post),
+    image: image ? [image] : undefined,
+    datePublished: isoDate(date),
+    dateModified: isoDate(updated || date),
+    // Nemo is an agent, so research digests are credited to Fishyology rather than a person.
+    author: isAgentAuthor(author)
+      ? { "@type": "Organization", "@id": ORGANIZATION_ID, name: "Fishyology", url: SITE_URL }
+      : { "@type": "Person", name: resolveAuthor(author).name },
+    publisher: {
+      "@type": "Organization",
+      "@id": ORGANIZATION_ID,
+      name: "Fishyology",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
 }
 

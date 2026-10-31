@@ -2,17 +2,21 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 import { isAgentAuthor } from '@/lib/authors';
+import { socialMetadata } from '@/lib/seo';
 import BlogHeroSlider from '@/components/BlogHeroSlider';
 import DispatchGrid from '@/components/DispatchGrid';
 import InsightBand from '@/components/InsightBand';
 import FilteredArchive from '@/components/FilteredArchive';
 
+const description = 'Field journals, expedition dispatches, and species guides from Fishyology — real fishing stories from across Malaysia and beyond.';
+
 export const metadata: Metadata = {
   title: 'The Journal',
-  description: 'Field journals, expedition dispatches, and species guides from Fishyology — real fishing stories from across Malaysia and beyond.',
+  description,
   alternates: {
     canonical: '/blog',
   },
+  ...socialMetadata({ title: 'The Journal', description, path: '/blog' }),
 };
 
 export default function BlogIndex() {
@@ -54,7 +58,9 @@ export default function BlogIndex() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#1D242B] pb-32 pt-32">
-      
+      {/* The slider's headings rotate, so the page's own heading sits outside it. */}
+      <h1 className="sr-only">The Fishyology Journal</h1>
+
       {/* 1. AUTO-PLAYING HERO SLIDER */}
       <BlogHeroSlider slides={sliderData} />
 

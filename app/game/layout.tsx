@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import React from 'react';
+import { cloudinaryShareImage } from '@/lib/cloudinary';
 
 // --- SEO METADATA ---
 // This object tells search engines and social media platforms what your page is about.
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'Fishyology',
     images: [
       {
-        url: 'https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg', // Your hero image
+        url: cloudinaryShareImage('https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg'), // Your hero image
         width: 1200,
         height: 630,
         alt: 'Jigging Master Game Hero Image',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jigging Master | The Fishyology Creative Studio',
     description: 'Master the water. Conquer the fight. Play Jigging Master today!',
-    images: ['https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg'],
+    images: [cloudinaryShareImage('https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg')],
   },
 };
 

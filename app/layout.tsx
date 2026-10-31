@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/SiteFooter";
-import { jsonLdString, organizationJsonLd } from "@/lib/seo";
+import { jsonLdString, organizationJsonLd, socialMetadata } from "@/lib/seo";
 
 // 1. IMPORT THE GOOGLE ANALYTICS COMPONENT
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -26,28 +26,18 @@ export const metadata: Metadata = {
     canonical: '/', 
   },
 
-  // Social Media Sharing Cards (OpenGraph)
-  openGraph: {
+  // Social Media Sharing Cards, with the default image for pages without their own
+  ...socialMetadata({
     title: 'Fishyology',
     description: 'Expert guides, field reports, and specialized game fishing expeditions.',
-    url: 'https://www.fishyology.org', // Updated to www
-    siteName: 'Fishyology',
-    locale: 'en_US',
-    type: 'website',
-  },
-  
+    path: '',
+  }),
+
   // Allow Google to show large image previews (search thumbnails, Discover)
   robots: {
     googleBot: {
       'max-image-preview': 'large',
     },
-  },
-
-  // X/Twitter Specific Cards
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Fishyology',
-    description: 'Specialized Game Fishing Journal',
   },
 
   // Google Search Console ownership verification — the documented Metadata

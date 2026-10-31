@@ -16,7 +16,7 @@ import {
   Camera,
 } from "lucide-react";
 import { getTripBySlug, getTripPackages } from "@/lib/trips";
-import { breadcrumbJsonLd, jsonLdString, tripImageAlt, tripJsonLd, tripTitle } from "@/lib/seo";
+import { breadcrumbJsonLd, jsonLdString, socialMetadata, tripImageAlt, tripJsonLd, tripTitle } from "@/lib/seo";
 import { getTripConditions } from "@/lib/conditions";
 import TripConditionsPanel from "@/components/trips/TripConditions";
 import TripGallery from "@/components/trips/TripGallery";
@@ -45,31 +45,23 @@ export async function generateMetadata({
     return { title: "Trip Not Found | Fishyology" };
   }
 
+  const description = trip.seoDescription || trip.summary;
+
   return {
     title: tripTitle(trip),
-    description: trip.summary,
+    description,
     alternates: {
       canonical: `/trips/${trip.slug}`,
     },
     // Coming-soon pages are placeholders with no offer to show; keep them out of the index.
     robots: trip.comingSoon ? { index: false, follow: true } : undefined,
-    openGraph: {
+    ...socialMetadata({
       title: tripTitle(trip),
-      description: trip.summary,
-      type: "website",
-      siteName: "Fishyology",
-      url: `https://www.fishyology.org/trips/${trip.slug}`,
-      images:
-        trip.photos.length > 0
-          ? [{ url: trip.photos[0], width: 1200, height: 900, alt: tripImageAlt(trip) }]
-          : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: tripTitle(trip),
-      description: trip.summary,
-      images: trip.photos.length > 0 ? [trip.photos[0]] : undefined,
-    },
+      description,
+      path: `/trips/${trip.slug}`,
+      image: trip.photos[0],
+      alt: trip.photos.length > 0 ? tripImageAlt(trip) : undefined,
+    }),
   };
 }
 

@@ -90,13 +90,13 @@ export default function SiteFooter() {
 
       {/* 2. Massive Brand Tagline */}
       <div className="w-full text-center px-4 z-0 mt-20">
-        <h1 className="text-[clamp(2.7rem,10.8vw,12.6rem)] leading-[0.8] font-black text-[#1A1A1A] tracking-tighter">
+        <p className="text-[clamp(2.7rem,10.8vw,12.6rem)] leading-[0.8] font-black text-[#1A1A1A] tracking-tighter">
           RELIVE OUR
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#262626] via-[#404040] to-[#262626]">
             JOURNEY
           </span>
-        </h1>
+        </p>
       </div>
 
       {/* 3. Copyright Bar */}

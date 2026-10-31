@@ -52,14 +52,14 @@ interface ForecastResponse {
   current?: {
     time?: string;
     temperature_2m?: number | null;
-    surface_pressure?: number | null;
+    pressure_msl?: number | null;
     wind_speed_10m?: number | null;
     wind_direction_10m?: number | null;
     wind_gusts_10m?: number | null;
   };
   hourly?: {
     time?: string[];
-    surface_pressure?: (number | null)[];
+    pressure_msl?: (number | null)[];
   };
 }
 
@@ -88,9 +88,9 @@ async function fetchJson<T>(url: string): Promise<T | null> {
 function derivePressureTrend(
   forecast: ForecastResponse
 ): { trend: PressureTrend | null; change: number | null } {
-  const current = forecast.current?.surface_pressure;
+  const current = forecast.current?.pressure_msl;
   const times = forecast.hourly?.time;
-  const series = forecast.hourly?.surface_pressure;
+  const series = forecast.hourly?.pressure_msl;
 
   if (current == null || !times || !series || times.length === 0) {
     return { trend: null, change: null };
@@ -167,8 +167,8 @@ async function fetchWeather(coordinates: Coordinates): Promise<WeatherReading | 
 
   const forecastUrl =
     `https://api.open-meteo.com/v1/forecast?${common}` +
-    "&current=temperature_2m,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m" +
-    "&hourly=surface_pressure&forecast_days=1&past_hours=6&wind_speed_unit=kn";
+    "&current=temperature_2m,pressure_msl,wind_speed_10m,wind_direction_10m,wind_gusts_10m" +
+    "&hourly=pressure_msl&forecast_days=1&past_hours=6&wind_speed_unit=kn";
 
   const marineUrl =
     `https://marine-api.open-meteo.com/v1/marine?${common}` +
@@ -186,7 +186,8 @@ async function fetchWeather(coordinates: Coordinates): Promise<WeatherReading | 
   return {
     observedAt: forecast.current.time ?? "",
     airTempC: forecast.current.temperature_2m ?? null,
-    pressureHpa: forecast.current.surface_pressure ?? null,
+    // Sea-level pressure: a grid point on Tioman's peaks reads ~80 hPa low at altitude.
+    pressureHpa: forecast.current.pressure_msl ?? null,
     pressureTrend: trend,
     pressureChangeHpa: change,
     windKnots: forecast.current.wind_speed_10m ?? null,

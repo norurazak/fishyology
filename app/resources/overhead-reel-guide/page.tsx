@@ -1,5 +1,7 @@
+import { cloudinaryImage, HERO_WIDTHS } from "@/lib/cloudinary";
 import Link from "next/link";
 import { Metadata } from "next";
+import { socialMetadata } from "@/lib/seo";
 import { ArrowLeft } from "lucide-react";
 import OverheadGuideIntro from "@/components/OverheadGuideIntro";
 import OverheadGuideSizeRuler from "@/components/OverheadGuideSizeRuler";
@@ -18,17 +20,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/resources/overhead-reel-guide",
   },
-  openGraph: {
-    title: "Overhead Reel Master Guide | Fishyology",
-    description,
-    type: "article",
-    url: "https://www.fishyology.org/resources/overhead-reel-guide",
-  },
-  twitter: {
-    card: "summary_large_image",
+  ...socialMetadata({
     title: "Overhead Reel Master Guide",
     description,
-  },
+    path: "/resources/overhead-reel-guide",
+    image: HERO_IMAGE,
+  }),
 };
 
 export default function OverheadReelGuidePage() {
@@ -37,7 +34,7 @@ export default function OverheadReelGuidePage() {
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[640px] w-full bg-[#1D242B] overflow-hidden">
         <img
-          src={HERO_IMAGE}
+          {...cloudinaryImage(HERO_IMAGE, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })}
           alt="Overhead Reel Master Guide"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />

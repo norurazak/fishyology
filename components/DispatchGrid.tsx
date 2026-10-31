@@ -1,3 +1,4 @@
+import { cloudinaryImage } from "@/lib/cloudinary";
 import Link from 'next/link';
 import { Post } from '@/lib/mdx';
 import { resolveAuthor } from '@/lib/authors';
@@ -25,7 +26,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
       >
         <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[440px] overflow-hidden">
           <img
-            src={feature.frontmatter.image || 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&q=80&w=1200'}
+            {...cloudinaryImage(feature.frontmatter.image || 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&q=80&w=1200', { sizes: "(max-width: 1024px) 100vw, 55vw" })}
             alt={feature.frontmatter.title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
@@ -57,7 +58,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
 
           <div className="flex items-center gap-3">
             <img
-              src={featureAuthor.image}
+              {...cloudinaryImage(featureAuthor.image, { sizes: "48px", widths: [96] })}
               alt=""
               aria-hidden="true"
               className="w-12 h-12 rounded-full object-cover border-2 border-white/20 bg-[#1D242B] shrink-0"
@@ -78,7 +79,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
             <Link href={`/blog/${post.slug}`} key={post.slug} className="group flex flex-col h-full">
               <div className="relative aspect-[4/3] rounded-[0.875rem] overflow-hidden mb-5 bg-[#1D242B]/5 border border-[#1D242B]/5 group-hover:shadow-lg transition-all duration-500 group-hover:-translate-y-1">
                 <img
-                  src={post.frontmatter.image || 'https://images.unsplash.com/photo-1501785888041-af3ef285b4b0?auto=format&fit=crop&q=80&w=800'}
+                  {...cloudinaryImage(post.frontmatter.image || 'https://images.unsplash.com/photo-1501785888041-af3ef285b4b0?auto=format&fit=crop&q=80&w=800', { sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" })}
                   alt={post.frontmatter.title}
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -109,7 +110,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
 
                 <div className="flex items-center gap-2.5 mt-auto pt-4">
                   <img
-                    src={author.image}
+                    {...cloudinaryImage(author.image, { sizes: "32px", widths: [64] })}
                     alt=""
                     aria-hidden="true"
                     loading="lazy"

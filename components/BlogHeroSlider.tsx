@@ -1,5 +1,6 @@
 "use client";
 
+import { cloudinaryImage, HERO_WIDTHS } from "@/lib/cloudinary";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -39,7 +40,7 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
           >
             {/* Background Image with slight slow zoom effect */}
             <img 
-              src={slide.image} 
+              {...cloudinaryImage(slide.image, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })} 
               alt={slide.title}
               className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-linear ${
                 index === currentSlide ? "scale-110" : "scale-100"

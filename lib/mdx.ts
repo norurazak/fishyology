@@ -6,12 +6,21 @@ import { z } from 'zod';
 // 1. Tell our app exactly where the content folder is
 const contentDirectory = path.join(process.cwd(), 'content');
 
+// The archive builds a filter for every category it finds, so only these are
+// allowed: a typo in a post fails the build instead of adding a stray filter.
+const POST_CATEGORIES = ['Reports', 'Species', 'Research', 'Industry', 'Diary'] as const;
+
 // 2. Define the Zod schema for our frontmatter
 const FrontmatterSchema = z.object({
   title: z.string(),
   date: z.string(),
+  // Quote this in the post, e.g. updated: "2026-11-02". Shown to search engines only.
+  updated: z.string().optional(),
   summary: z.string().optional(), 
-  category: z.string().optional(),
+  // Search results only; the page itself keeps title and summary.
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
+  category: z.enum(POST_CATEGORIES).optional(),
   subcategory: z.string().optional(), 
   layout: z.string().optional(),
   author: z.string().optional(),
@@ -79,7 +88,7 @@ function parsePost(filePath: string): Post {
   } catch (error) {
     console.error(`\n🚨 FRONTMATTER ERROR IN FILE: [${slug}.mdx]`);
     console.error(`File Location: ${filePath}`);
-    console.error("Please check that file to ensure 'title' and 'date' exist and are spelled correctly.\n");
+    console.error(`Please check that 'title' and 'date' exist and 'category' is one of: ${POST_CATEGORIES.join(', ')}.\n`);
     throw error;
   }
 }

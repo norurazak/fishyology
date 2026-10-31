@@ -1,3 +1,4 @@
+import { cloudinaryImage, HERO_WIDTHS } from "@/lib/cloudinary";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Calendar, Mail } from "lucide-react";
@@ -8,6 +9,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import { mdxComponents } from '@/components/MDXComponents';
 import { authorsData, isAgentAuthor } from "@/lib/authors";
+import { articleJsonLd, breadcrumbJsonLd, isoDate, jsonLdString, postDescription, socialMetadata } from "@/lib/seo";
 
 // --- 1. IMPORT METADATA ---
 import { Metadata } from 'next';
@@ -22,37 +24,31 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: 'Post Not Found | Fishyology' };
   }
 
-  // Define our SEO description: Use the MDX 'summary', or a default fallback if missing
-  const seoDescription = post.frontmatter.summary || "Read the latest expedition journal from Fishyology.";
+  const { title, seoTitle, date, updated, image } = post.frontmatter;
+  const metaTitle = seoTitle || title;
+  const description = postDescription(post);
+  const social = socialMetadata({
+    title: metaTitle,
+    description,
+    path: `/blog/${resolvedParams.slug}`,
+    image,
+    alt: image ? title : undefined,
+  });
 
   // Map the specific MDX frontmatter to Google and Social tags
   return {
-    title: post.frontmatter.title,
-    description: seoDescription,
+    title: metaTitle,
+    description,
     alternates: {
       canonical: `/blog/${resolvedParams.slug}`,
     },
     openGraph: {
-      title: post.frontmatter.title,
-      description: seoDescription,
+      ...social.openGraph,
       type: 'article',
-      publishedTime: post.frontmatter.date,
-      url: `https://www.fishyology.org/blog/${resolvedParams.slug}`,
-      images: post.frontmatter.image ? [
-        {
-          url: post.frontmatter.image, 
-          width: 1200,
-          height: 630,
-          alt: post.frontmatter.title,
-        },
-      ] : [],
+      publishedTime: isoDate(date),
+      modifiedTime: isoDate(updated || date),
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.frontmatter.title,
-      description: seoDescription,
-      images: post.frontmatter.image ? [post.frontmatter.image] : [],
-    },
+    twitter: social.twitter,
   };
 }
 
@@ -101,32 +97,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     image: "/logo.png"
   };
 
-  // STRUCTURED DATA (Article JSON-LD)
-  const articleUrl = `https://www.fishyology.org/blog/${resolvedParams.slug}`;
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: title,
-    description: post.frontmatter.summary || "Read the latest expedition journal from Fishyology.",
-    image: image ? [image] : undefined,
-    datePublished: new Date(date).toISOString(),
-    author: {
-      '@type': 'Person',
-      name: matchedAuthor.name,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Fishyology',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://www.fishyology.org/logo.png',
-      },
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': articleUrl,
-    },
-  };
+  // STRUCTURED DATA (Article and breadcrumb JSON-LD)
+  const structuredData = [
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "The Journal", path: "/blog" },
+      { name: title, path: `/blog/${resolvedParams.slug}` },
+    ]),
+    articleJsonLd(post),
+  ];
 
   // DETERMINE LAYOUT CLASSES
   let contentClasses = "";
@@ -163,13 +142,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <div className="min-h-screen bg-[#FAFAFA] pb-32 selection:bg-[#0077C0] selection:text-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }}
       />
 
       {/* 1. STANDARDIZED HERO SECTION */}
       <section className="relative h-[70vh] min-h-[600px] w-full flex items-end justify-center pb-20 px-6 overflow-hidden bg-[#1D242B]">
         <img 
-          src={image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=2000"} 
+          {...cloudinaryImage(image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=2000", { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })} 
           alt={title}
           className="absolute inset-0 w-full h-full object-cover opacity-90"
         />
@@ -198,14 +177,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {title}
           </h1>
 
-          <div className="flex items-center justify-center gap-4 md:gap-6 text-[#FAFAFA]/80 text-xs md:text-sm font-bold uppercase tracking-widest">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" /> {date}
-            </div>
-            <div className="w-1.5 h-1.5 rounded-full bg-white/30"></div>
-            <div className="flex items-center gap-2 text-[#408A71]">
-              {layout === "editorial" ? "Editorial Piece" : layout === "dispatch" ? "Field Dispatch" : "Standard Log"}
-            </div>
+          <div className="flex items-center justify-center gap-2 text-[#FAFAFA]/80 text-xs md:text-sm font-bold uppercase tracking-widest">
+            <Calendar className="w-4 h-4" /> {date}
           </div>
         </div>
       </section>
@@ -228,7 +201,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="flex items-center gap-5 max-w-lg">
             <div className="w-20 h-20 rounded-full overflow-hidden bg-white border border-[#1D242B]/10 shadow-md shrink-0">
               <img 
-                src={matchedAuthor.image} 
+                {...cloudinaryImage(matchedAuthor.image, { sizes: "96px", widths: [192] })} 
                 alt={matchedAuthor.name} 
                 className="w-full h-full object-cover" 
               />
@@ -266,7 +239,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {!prevPost && !nextPost ? (
           /* Nothing else in this stream yet, so offer the index rather than a blank band */
           <Link
-            href={isDigest ? "/blog?category=Research%20Insight#archive" : "/blog"}
+            href={isDigest ? "/blog?category=Research#archive" : "/blog"}
             className="group flex flex-col items-center justify-center p-10 text-center bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
           >
             <span className="text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">

@@ -1,5 +1,7 @@
+import { cloudinaryImage, HERO_WIDTHS } from "@/lib/cloudinary";
 import Link from "next/link";
 import { Metadata } from "next";
+import { socialMetadata } from "@/lib/seo";
 import { ArrowLeft } from "lucide-react";
 import BaitcastGuideIntro from "@/components/BaitcastGuideIntro";
 import BaitcastGuideSizeRuler from "@/components/BaitcastGuideSizeRuler";
@@ -18,17 +20,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/resources/baitcasting-reel-guide",
   },
-  openGraph: {
-    title: "Baitcasting Reel Master Guide | Fishyology",
-    description,
-    type: "article",
-    url: "https://www.fishyology.org/resources/baitcasting-reel-guide",
-  },
-  twitter: {
-    card: "summary_large_image",
+  ...socialMetadata({
     title: "Baitcasting Reel Master Guide",
     description,
-  },
+    path: "/resources/baitcasting-reel-guide",
+    image: HERO_IMAGE,
+  }),
 };
 
 export default function BaitcastingReelGuidePage() {
@@ -37,7 +34,7 @@ export default function BaitcastingReelGuidePage() {
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[640px] w-full bg-[#1D242B] overflow-hidden">
         <img
-          src={HERO_IMAGE}
+          {...cloudinaryImage(HERO_IMAGE, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })}
           alt="Baitcasting Reel Master Guide"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />

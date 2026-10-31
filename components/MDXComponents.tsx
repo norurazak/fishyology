@@ -1,3 +1,4 @@
+import { cloudinaryImage } from "@/lib/cloudinary";
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, ChevronDown, Library } from 'lucide-react';
@@ -63,6 +64,7 @@ export const mdxComponents = {
             src={src} 
             alt={alt} 
             fill 
+            sizes="(max-width: 1024px) 100vw, 1024px"
             className="object-cover hover:scale-105 transition-transform duration-700" 
           />
         </div>
@@ -157,7 +159,7 @@ export const mdxComponents = {
     <figure className="my-12 not-prose flex items-stretch gap-5 md:gap-8">
       {image && (
         <img
-          src={image}
+          {...cloudinaryImage(image, { sizes: "(max-width: 768px) 176px, 25vw" })}
           alt={imageAlt || ''}
           loading="lazy"
           decoding="async"

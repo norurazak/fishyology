@@ -1,14 +1,25 @@
+import { cloudinaryImage, HERO_WIDTHS } from "@/lib/cloudinary";
 import Link from "next/link";
 import { Metadata } from "next";
+import { socialMetadata } from "@/lib/seo";
 import { ArrowRight, Wrench, Spline, Ruler, Hand, Fish, IdCard, Heart, type LucideIcon } from "lucide-react";
+
+const description =
+  "Gear guides, field reference and tackle intel from Fishyology — practical resources for anglers fishing Malaysia's fresh and saltwater.";
 
 export const metadata: Metadata = {
   title: "Resources",
-  description:
-    "Gear guides, field reference and tackle intel from Fishyology — practical resources for anglers fishing Malaysia's fresh and saltwater.",
+  description,
   alternates: {
     canonical: "/resources",
   },
+  ...socialMetadata({
+    title: "Resources",
+    description,
+    path: "/resources",
+    image: "https://res.cloudinary.com/dub3h3elq/image/upload/v1788587308/Fishyology_Spinning_Reel_Master_Resources_yzsa2i.jpg",
+    alt: "Technical drawing of a spinning reel",
+  }),
 };
 
 interface ResourceEntry {
@@ -145,7 +156,7 @@ export default function ResourcesPage() {
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[600px] w-full bg-[#1D242B] overflow-hidden">
         <img
-          src={HERO_IMAGE}
+          {...cloudinaryImage(HERO_IMAGE, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })}
           alt="Fishyology Resources"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />
@@ -267,7 +278,7 @@ export default function ResourcesPage() {
                     <div className="relative aspect-[4/3] bg-[#1D242B] flex items-center justify-center overflow-hidden">
                       {r.image ? (
                         <img
-                          src={r.image}
+                          {...cloudinaryImage(r.image, { sizes: "(max-width: 768px) 100vw, 33vw", quality: "auto:best" })}
                           alt={r.title}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />

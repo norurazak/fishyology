@@ -1,3 +1,4 @@
+import { cloudinaryImage } from "@/lib/cloudinary";
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Post } from '@/lib/mdx';
@@ -19,7 +20,7 @@ function InsightCard({ post }: { post: Post }) {
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-[#1D242B]">
         <img
-          src={image || 'https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800'}
+          {...cloudinaryImage(image || 'https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800', { sizes: "380px" })}
           alt={title}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
@@ -94,7 +95,7 @@ export default function InsightBand({ posts }: { posts: Post[] }) {
           </div>
 
           <Link
-            href="/blog?category=Research%20Insight#archive"
+            href="/blog?category=Research#archive"
             className="group inline-flex items-center gap-2 shrink-0 text-[11px] font-black uppercase tracking-widest text-[#FF9A42] hover:text-[#FFC184] transition-colors"
           >
             All digests in the archive
