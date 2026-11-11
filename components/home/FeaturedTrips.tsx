@@ -42,16 +42,16 @@ function TripCard({ trip }: { trip: TripPackage }) {
         </span>
       </div>
 
-      <div className="relative z-10 -mt-10 mx-3 mb-3 flex flex-1 flex-col rounded-2xl bg-[#FAFAFA] p-5 md:p-6 shadow-xl">
+      <div className="relative z-10 -mt-10 mx-3 mb-3 flex flex-1 flex-col rounded-2xl bg-[#FAFAFA] p-4 md:p-5 shadow-xl">
         <h3 className="text-xl md:text-2xl font-serif font-bold text-abyss leading-tight text-balance line-clamp-2">
           {trip.name}
         </h3>
-        <p className="mt-2 mb-5 flex items-center gap-2 text-sm text-abyss/70">
+        <p className="mt-1.5 mb-4 flex items-center gap-2 text-sm text-abyss/70">
           <Clock aria-hidden="true" className="w-4 h-4 shrink-0" />
           {shortPhrase(trip.duration)}
         </p>
 
-        <div className="mt-auto flex items-center justify-between gap-4 border-t border-abyss/10 pt-4">
+        <div className="mt-auto flex items-center justify-between gap-4 border-t border-abyss/10 pt-3">
           <span className="text-lg font-black text-abyss tracking-tight">
             {price}
             {/* Some headlines already say "per day", so only add the unit when it's missing. */}
@@ -78,16 +78,16 @@ export default function FeaturedTrips({ trips }: { trips: TripPackage[] }) {
   if (trips.length === 0) return null;
 
   return (
-    <section aria-labelledby="fish-with-us-heading" className="bg-abyss py-16 md:py-24">
+    <section aria-labelledby="fish-with-us-heading" className="bg-abyss py-12 md:py-16">
       <div className="px-6 md:px-12 max-w-[1600px] mx-auto">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-6 md:mb-8">
           <div>
             <span className="text-[#FAFAFA]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
               Guided Expeditions
             </span>
             <h2
               id="fish-with-us-heading"
-              className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#FAFAFA] mb-4"
+              className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#FAFAFA] mb-3"
             >
               Fish With Us
             </h2>
@@ -107,7 +107,7 @@ export default function FeaturedTrips({ trips }: { trips: TripPackage[] }) {
           </Link>
         </div>
 
-        <ul className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <ul className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {trips.map((trip) => (
             <li key={trip.slug}>
               <TripCard trip={trip} />
