@@ -35,7 +35,7 @@ function TripCard({ trip }: { trip: TripPackage }) {
           {trip.name}
         </h3>
         <p className="flex items-center gap-2 text-sm text-[#1D242B]/70 mb-6">
-          <Clock className="w-4 h-4 text-[#0077C0] shrink-0" />
+          <Clock className="w-4 h-4 text-[#1D242B]/60 shrink-0" />
           {shortPhrase(trip.duration)}
         </p>
 
@@ -49,7 +49,7 @@ function TripCard({ trip }: { trip: TripPackage }) {
               </span>
             )}
           </span>
-          <span className="inline-flex items-center gap-1.5 text-sm font-bold text-[#0077C0] shrink-0">
+          <span className="inline-flex items-center gap-1.5 text-sm font-bold text-tuna-on-light shrink-0">
             View Trip
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </span>

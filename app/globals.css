@@ -44,12 +44,12 @@ html {
 
 /* Primary call to action. Solid Tuna with white text (4.96:1). Deliberately
    static: one accent, used sparingly, so it stands out without animation. The
-   hover darkens to the on-light variant. The focus ring is Abyss, which reads
-   on the light navbar; revisit it if this class is ever used on a dark surface. */
+   hover darkens to the on-light variant. The focus ring is two-tone (Abyss
+   inside, white outside) so it reads on both the light navbar and the dark hero. */
 .btn-primary {
   background-color: var(--color-tuna);
   color: #ffffff;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .btn-primary:hover {
@@ -57,8 +57,9 @@ html {
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid var(--color-abyss);
-  outline-offset: 3px;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-abyss);
 }
 
 /* Research stat meters (<StatGrid>/<StatMeter>). The bars sweep out from the

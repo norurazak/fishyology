@@ -64,7 +64,7 @@ export default function StandardSection() {
     <section ref={sectionRef} className="pt-[76px] pb-0 md:pt-[108px] px-6 md:px-12 max-w-[1600px] mx-auto relative">
       {/* The statement */}
       <div className="discovery-container max-w-5xl mb-16 md:mb-24">
-        <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+        <span className="text-[#1D242B]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
           What We Stand For
         </span>
         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-8">
@@ -75,7 +75,7 @@ export default function StandardSection() {
           challenge, and every story that connects anglers across waters and generations.
         </p>
         <div className="flex flex-wrap items-center gap-4">
-          <div className="w-12 h-[2px] bg-[#0077C0]"></div>
+          <div className="w-12 h-[2px] bg-[#1D242B]"></div>
           <span className="font-serif italic text-xl md:text-2xl text-[#1D242B]">Noru Razak</span>
           <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/40">
             Founder, Est. 2013
@@ -100,7 +100,7 @@ export default function StandardSection() {
             </div>
 
             <div className="flex flex-col flex-1 p-6 md:p-8">
-              <span className="text-[#0077C0] font-black tracking-widest uppercase text-[10px] md:text-xs mb-3">
+              <span className="text-[#1D242B]/70 font-black tracking-widest uppercase text-[10px] md:text-xs mb-3">
                 {pillar.label}
               </span>
               <h3 className="font-serif italic text-2xl md:text-3xl text-[#1D242B] leading-tight mb-1">

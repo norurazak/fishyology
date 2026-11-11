@@ -93,7 +93,7 @@ export default function SocialChannels() {
   return (
     <section className="pt-[10px] pb-24 md:pb-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
       <div className="mb-10 md:mb-14">
-        <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+        <span className="text-[#1D242B]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
           Stay Connected
         </span>
         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-4">

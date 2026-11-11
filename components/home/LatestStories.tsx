@@ -15,7 +15,7 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
     <section className="py-20 md:py-28 px-6 md:px-12 max-w-[1600px] mx-auto">
       <div className="flex flex-wrap items-end justify-between gap-4 mb-10 md:mb-14">
         <div>
-          <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+          <span className="text-[#1D242B]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
             From The Journal
           </span>
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B]">
@@ -24,7 +24,7 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
         </div>
         <Link
           href="/blog"
-          className="group inline-flex items-center gap-2 font-bold text-[#1D242B] hover:text-[#0077C0] transition-colors"
+          className="group inline-flex items-center gap-2 font-bold text-[#1D242B] hover:underline underline-offset-4 transition-colors"
         >
           All Stories
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -75,10 +75,10 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
                 />
               </div>
               <div className="min-w-0">
-                <span className="block text-[#0077C0] text-[10px] font-black uppercase tracking-widest mb-2">
+                <span className="block text-[#1D242B]/70 text-[10px] font-black uppercase tracking-widest mb-2">
                   {post.frontmatter.category}
                 </span>
-                <h3 className="text-lg md:text-xl font-serif text-[#1D242B] leading-snug group-hover:text-[#0077C0] transition-colors line-clamp-3">
+                <h3 className="text-lg md:text-xl font-serif text-[#1D242B] leading-snug group-hover:underline underline-offset-4 transition-colors line-clamp-3">
                   {post.frontmatter.title}
                 </h3>
                 <span className="block mt-2 text-xs font-medium text-[#1D242B]/50">
