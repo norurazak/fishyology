@@ -6,15 +6,97 @@ import { cloudinaryImage } from "@/lib/cloudinary";
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=1200";
 
-/* Shared keyboard focus ring for the card links. The ring sits outside the box
-   so the cards' overflow-hidden never clips it. */
+/* Shared keyboard focus ring for the tile links. The ring sits outside the box
+   so the tiles' overflow-hidden never clips it. */
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FAFAFA]";
 
-/** Newest post as a large feature, with the next few listed beside it. */
+const TILE = `group relative overflow-hidden rounded-3xl shadow-sm hover:shadow-xl motion-safe:transition-shadow motion-safe:duration-500 ${FOCUS_RING}`;
+
+const ZOOM =
+  "absolute inset-0 w-full h-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-105";
+
+/* Every tile's headline is the link's own text, so the photos are decorative:
+   an alt that repeated the title would be read out twice. */
+
+/** Photo tile with the text laid over a dark gradient. */
+function PhotoTile({ post, sizes, large = false, className = "" }: {
+  post: Post;
+  sizes: string;
+  large?: boolean;
+  className?: string;
+}) {
+  const { title, category, date, summary, image } = post.frontmatter;
+  return (
+    <Link href={`/blog/${post.slug}`} className={`${TILE} flex items-end bg-abyss ${className}`}>
+      <img {...cloudinaryImage(image || FALLBACK_IMAGE, { sizes })} alt="" loading="lazy" className={ZOOM} />
+      <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/40 to-transparent" />
+      {large && (
+        <span
+          aria-hidden="true"
+          className="absolute top-5 right-5 md:top-6 md:right-6 flex h-11 w-11 items-center justify-center rounded-full bg-[#FAFAFA] text-abyss shadow-lg motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-45"
+        >
+          <ArrowUpRight className="w-5 h-5" />
+        </span>
+      )}
+      <div className={`relative z-10 ${large ? "p-8 md:p-10" : "p-6"}`}>
+        <span className="block text-[#FAFAFA]/85 text-xs font-bold uppercase tracking-widest mb-3">
+          {category} · {date}
+        </span>
+        <h3
+          className={`font-serif text-[#FAFAFA] text-balance ${
+            large ? "text-3xl md:text-5xl leading-[1.1] mb-3" : "text-lg md:text-xl leading-snug line-clamp-3"
+          }`}
+        >
+          {title}
+        </h3>
+        {large && summary && (
+          <p className="text-[#FAFAFA]/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
+            {summary}
+          </p>
+        )}
+      </div>
+    </Link>
+  );
+}
+
+/** Wide tile split between photo and text, for variety beside the photo tiles. */
+function SplitTile({ post, className = "" }: { post: Post; className?: string }) {
+  const { title, category, date, summary, image } = post.frontmatter;
+  return (
+    <Link href={`/blog/${post.slug}`} className={`${TILE} grid grid-cols-2 bg-white ${className}`}>
+      <div className="relative order-2 overflow-hidden bg-abyss/5">
+        <img
+          {...cloudinaryImage(image || FALLBACK_IMAGE, { sizes: "(max-width: 1024px) 50vw, 25vw" })}
+          alt=""
+          loading="lazy"
+          className={ZOOM}
+        />
+      </div>
+      <div className="flex flex-col justify-between gap-4 p-6 md:p-7">
+        <span className="block text-abyss/70 text-xs font-bold uppercase tracking-widest">
+          {category} · {date}
+        </span>
+        <div>
+          <h3 className="text-xl md:text-2xl font-serif text-abyss leading-snug text-balance line-clamp-3 group-hover:underline underline-offset-4">
+            {title}
+          </h3>
+          {summary && (
+            <p className="hidden sm:block mt-2 text-sm text-abyss/70 leading-relaxed line-clamp-2">{summary}</p>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+/**
+ * Newest post as a 2×2 feature tile, the next as a wide split tile, and the
+ * rest as square photo tiles: 4 columns on desktop, 2 on tablet, 1 on phones.
+ */
 export default function LatestStories({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
-  const [feature, ...rest] = posts;
+  const [feature, second, ...rest] = posts;
 
   return (
     <section
@@ -45,74 +127,30 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 lg:gap-14">
-        <Link
-          href={`/blog/${feature.slug}`}
-          className={`group relative flex items-end min-h-[420px] lg:min-h-[560px] rounded-[1.75rem] overflow-hidden bg-abyss shadow-xl ${FOCUS_RING}`}
-        >
-          {/* The headline is the link's text, so the photo is decorative: an
-              alt that repeated it would be read out twice. */}
-          <img
-            {...cloudinaryImage(feature.frontmatter.image || FALLBACK_IMAGE, {
-              sizes: "(max-width: 1024px) 100vw, 60vw",
-            })}
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:auto-rows-[18rem] gap-4">
+        <li className="md:col-span-2 md:row-span-2">
+          <PhotoTile
+            post={feature}
+            large
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="h-full min-h-[26rem]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/40 to-transparent" />
-          <span
-            aria-hidden="true"
-            className="absolute top-5 right-5 md:top-6 md:right-6 flex h-11 w-11 items-center justify-center rounded-full bg-[#FAFAFA] text-abyss shadow-lg motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-45"
-          >
-            <ArrowUpRight className="w-5 h-5" />
-          </span>
-          <div className="relative z-10 p-8 md:p-10">
-            <span className="block text-[#FAFAFA]/85 text-xs font-bold uppercase tracking-widest mb-3">
-              {feature.frontmatter.category} · {feature.frontmatter.date}
-            </span>
-            <h3 className="text-3xl md:text-5xl font-serif text-[#FAFAFA] leading-[1.1] mb-3 text-balance">
-              {feature.frontmatter.title}
-            </h3>
-            {feature.frontmatter.summary && (
-              <p className="text-[#FAFAFA]/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
-                {feature.frontmatter.summary}
-              </p>
-            )}
-          </div>
-        </Link>
-
-        <ul className="flex flex-col border-t border-abyss/15 divide-y divide-abyss/15">
-          {rest.map((post) => (
-            <li key={post.slug} className="flex flex-1">
-              <Link
-                href={`/blog/${post.slug}`}
-                className={`group flex w-full items-center gap-5 py-6 rounded-lg ${FOCUS_RING}`}
-              >
-                <div className="relative w-28 h-28 sm:w-40 sm:h-32 shrink-0 rounded-[1rem] overflow-hidden bg-abyss/5">
-                  <img
-                    {...cloudinaryImage(post.frontmatter.image || FALLBACK_IMAGE, {
-                      sizes: "160px",
-                      widths: [320],
-                    })}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <span className="block text-abyss/70 text-xs font-bold uppercase tracking-widest mb-2">
-                    {post.frontmatter.category} · {post.frontmatter.date}
-                  </span>
-                  <h3 className="text-lg md:text-xl font-serif text-abyss leading-snug group-hover:underline underline-offset-4 line-clamp-3 text-balance">
-                    {post.frontmatter.title}
-                  </h3>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+        </li>
+        {second && (
+          <li className="md:col-span-2">
+            <SplitTile post={second} className="h-full min-h-[16rem]" />
+          </li>
+        )}
+        {rest.map((post) => (
+          <li key={post.slug}>
+            <PhotoTile
+              post={post}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="h-full min-h-[18rem]"
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
