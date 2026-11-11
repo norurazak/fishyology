@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react"; 
 
+// One Tuna hover for every nav link. The tint is 10% Tuna and the text the on-light
+// variant, 5.3:1 together. Keyboard focus gets the same tint plus a ring.
+const NAV_LINK_HOVER =
+  "hover:bg-tuna/10 hover:text-tuna-on-light focus-visible:bg-tuna/10 focus-visible:text-tuna-on-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tuna-on-light";
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // State to track mobile menu toggle
@@ -46,13 +51,13 @@ export default function Navbar() {
         
         {/* Center: Desktop Navigation Links (Hidden on Mobile) */}
         <div className="hidden md:flex items-center gap-4 font-medium text-sm">
-          <Link href="/" className="px-4 py-2 rounded-lg hover:bg-abyss/5 transition-colors">Home</Link>
-          <Link href="/trips" className="px-4 py-2 rounded-lg hover:bg-[#408A71]/20 transition-colors">Trips</Link>
-          <Link href="/blog" className="px-4 py-2 rounded-lg hover:bg-[#C7EEFF] transition-colors">Journal</Link>
-          <Link href="/resources" className="px-4 py-2 rounded-lg hover:bg-[#0077C0]/10 transition-colors">Resources</Link>
-          <Link href="/about" className="px-4 py-2 rounded-lg hover:bg-abyss/5 transition-colors">About</Link>
+          <Link href="/" className={`px-4 py-2 rounded-lg ${NAV_LINK_HOVER} transition-colors`}>Home</Link>
+          <Link href="/trips" className={`px-4 py-2 rounded-lg ${NAV_LINK_HOVER} transition-colors`}>Trips</Link>
+          <Link href="/blog" className={`px-4 py-2 rounded-lg ${NAV_LINK_HOVER} transition-colors`}>Journal</Link>
+          <Link href="/resources" className={`px-4 py-2 rounded-lg ${NAV_LINK_HOVER} transition-colors`}>Resources</Link>
+          <Link href="/about" className={`px-4 py-2 rounded-lg ${NAV_LINK_HOVER} transition-colors`}>About</Link>
           {/* NEW: Desktop Game Link */}
-          <Link href="/game" className="px-4 py-2 rounded-lg hover:bg-[#4DD0E1]/20 transition-colors">Game</Link>
+          <Link href="/game" className={`px-4 py-2 rounded-lg ${NAV_LINK_HOVER} transition-colors`}>Game</Link>
         </div>
 
         {/* Right: Actions & Mobile Toggle */}
@@ -76,13 +81,13 @@ export default function Navbar() {
             isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
           }`}
         >
-          <Link href="/" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-abyss/5 font-medium transition-colors">Home</Link>
-          <Link href="/trips" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#408A71]/10 font-medium transition-colors">Trips</Link>
-          <Link href="/blog" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#C7EEFF] font-medium transition-colors">Journal</Link>
-          <Link href="/resources" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#0077C0]/10 font-medium transition-colors">Resources</Link>
-          <Link href="/about" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-abyss/5 font-medium transition-colors">About</Link>
+          <Link href="/" onClick={closeMenu} className={`px-4 py-3 rounded-xl ${NAV_LINK_HOVER} font-medium transition-colors`}>Home</Link>
+          <Link href="/trips" onClick={closeMenu} className={`px-4 py-3 rounded-xl ${NAV_LINK_HOVER} font-medium transition-colors`}>Trips</Link>
+          <Link href="/blog" onClick={closeMenu} className={`px-4 py-3 rounded-xl ${NAV_LINK_HOVER} font-medium transition-colors`}>Journal</Link>
+          <Link href="/resources" onClick={closeMenu} className={`px-4 py-3 rounded-xl ${NAV_LINK_HOVER} font-medium transition-colors`}>Resources</Link>
+          <Link href="/about" onClick={closeMenu} className={`px-4 py-3 rounded-xl ${NAV_LINK_HOVER} font-medium transition-colors`}>About</Link>
           {/* NEW: Mobile Game Link */}
-          <Link href="/game" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#4DD0E1]/20 font-medium transition-colors">Game</Link>
+          <Link href="/game" onClick={closeMenu} className={`px-4 py-3 rounded-xl ${NAV_LINK_HOVER} font-medium transition-colors`}>Game</Link>
           <hr className="border-abyss/10 my-2" />
           <Link href="/trips" onClick={closeMenu} className="btn-primary text-center py-3 rounded-xl font-bold">
             Book Now
