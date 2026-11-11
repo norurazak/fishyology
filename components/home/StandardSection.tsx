@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,25 +63,37 @@ export default function StandardSection() {
 
   return (
     <section ref={sectionRef} className="pt-12 pb-0 md:pt-16 px-6 md:px-12 max-w-[1600px] mx-auto relative">
-      {/* The statement */}
-      <div className="discovery-container max-w-5xl mb-10 md:mb-14">
-        <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
-          What We Stand For
-        </span>
-        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-5">
-          The Fishyology Standard
-        </h2>
-        <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-abyss leading-[1.2] mb-6">
-          We document angling as an experience, not an outcome — every cast, every
-          challenge, and every story that connects anglers across waters and generations.
-        </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="w-12 h-[2px] bg-abyss"></div>
-          <span className="font-serif italic text-xl md:text-2xl text-abyss">Noru Razak</span>
-          <span className="text-xs font-bold uppercase tracking-widest text-abyss/40">
-            Founder, Est. 2013
+      {/* The statement, with the Fishyology seal in the space beside it on wide
+          screens. Both sit inside .discovery-container so they fade in together. */}
+      <div className="discovery-container mb-10 md:mb-14 flex items-center justify-between gap-12">
+        <div className="max-w-5xl">
+          <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
+            What We Stand For
           </span>
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-5">
+            The Fishyology Standard
+          </h2>
+          <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-abyss leading-[1.2] mb-6">
+            We document angling as an experience, not an outcome — every cast, every
+            challenge, and every story that connects anglers across waters and generations.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="w-12 h-[2px] bg-abyss"></div>
+            <span className="font-serif italic text-xl md:text-2xl text-abyss">Noru Razak</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-abyss/40">
+              Founder, Est. 2013
+            </span>
+          </div>
         </div>
+        {/* Decorative: the brand is already named in the heading and the nav. */}
+        <Image
+          src="/logo.png"
+          alt=""
+          width={1024}
+          height={1024}
+          sizes="288px"
+          className="hidden lg:block shrink-0 w-56 xl:w-72 h-auto"
+        />
       </div>
 
       {/* The three proofs */}
