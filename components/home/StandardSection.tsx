@@ -61,16 +61,16 @@ export default function StandardSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-[76px] pb-0 md:pt-[108px] px-6 md:px-12 max-w-[1600px] mx-auto relative">
+    <section ref={sectionRef} className="pt-12 pb-0 md:pt-16 px-6 md:px-12 max-w-[1600px] mx-auto relative">
       {/* The statement */}
-      <div className="discovery-container max-w-5xl mb-16 md:mb-24">
+      <div className="discovery-container max-w-5xl mb-10 md:mb-14">
         <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
           What We Stand For
         </span>
-        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-8">
+        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-5">
           The Fishyology Standard
         </h2>
-        <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-abyss leading-[1.2] mb-10">
+        <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-abyss leading-[1.2] mb-6">
           We document angling as an experience, not an outcome — every cast, every
           challenge, and every story that connects anglers across waters and generations.
         </p>
@@ -84,7 +84,7 @@ export default function StandardSection() {
       </div>
 
       {/* The three proofs */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {standardPillars.map((pillar) => (
           <article
             key={pillar.id}
@@ -99,7 +99,7 @@ export default function StandardSection() {
               />
             </div>
 
-            <div className="flex flex-col flex-1 p-6 md:p-8">
+            <div className="flex flex-col flex-1 p-6 md:p-7">
               <span className="text-abyss/70 font-black tracking-widest uppercase text-[10px] md:text-xs mb-3">
                 {pillar.label}
               </span>
@@ -115,7 +115,7 @@ export default function StandardSection() {
         ))}
       </div>
 
-      <div className="mt-10 md:mt-12 flex justify-end">
+      <div className="mt-6 md:mt-8 flex justify-end">
         <Link
           href="/about"
           className="btn-primary group relative inline-flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-xl hover:shadow-2xl"
