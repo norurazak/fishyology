@@ -8,10 +8,8 @@ import SocialChannels from "@/components/SocialChannels";
 import ReaderAnalytics from "@/components/ReaderAnalytics";
 
 export default function Home() {
-  // getAllPosts is newest first, so the first match per byline is the latest.
-  const posts = getAllPosts();
-  const story = posts.find((p) => p.frontmatter.author === "Noru Razak");
-  const research = posts.find((p) => p.frontmatter.author === "Nemo");
+  // getAllPosts is newest first, so the first match is Noru's latest story.
+  const story = getAllPosts().find((p) => p.frontmatter.author === "Noru Razak");
   const featuredTrips = getTripPackages()
     .filter((trip) => !trip.comingSoon && trip.group === "Expedition")
     .slice(0, 3);
@@ -21,8 +19,8 @@ export default function Home() {
       {/* A. INTRO + HERO SLIDER */}
       <HomeHero />
 
-      {/* B. SHOWCASE: LATEST STORY, RESEARCH, GUIDES, GAME, CALL FOR AUTHORS */}
-      <Showcase story={story} research={research} />
+      {/* B. SHOWCASE: LATEST STORY, VIDEO, GAME, CALL FOR AUTHORS */}
+      <Showcase story={story} />
 
       {/* C. BOOKABLE TRIPS */}
       <FeaturedTrips trips={featuredTrips} />

@@ -98,56 +98,23 @@ function PhotoTile({
   );
 }
 
-/** Research digest: dark tile with the headline figure, photo beside it. */
-function ResearchTile({ post, className = "" }: { post: Post; className?: string }) {
-  const { title, date, image, stat } = post.frontmatter;
-  return (
-    <Link href={`/blog/${post.slug}`} className={`${TILE} grid grid-cols-1 sm:grid-cols-2 bg-abyss ${className}`}>
-      <div className="relative h-44 sm:h-auto sm:order-2 overflow-hidden">
-        <img
-          {...cloudinaryImage(image || FALLBACK_IMAGE, { sizes: "(max-width: 640px) 100vw, 25vw" })}
-          alt=""
-          loading="lazy"
-          className={ZOOM}
-        />
-      </div>
-      <div className="flex flex-col justify-between gap-4 p-6 md:p-7">
-        <span className="block text-[#FFFFFF]/85 text-xs font-bold uppercase tracking-widest">
-          Research · {date}
-        </span>
-        <div>
-          {stat && (
-            <span className="block text-5xl md:text-6xl font-black tracking-tighter text-[#FFFFFF] tabular-nums mb-2">
-              {stat}
-            </span>
-          )}
-          <h3 className="text-lg md:text-xl font-serif text-[#FFFFFF] leading-snug text-balance line-clamp-3 group-hover:underline underline-offset-4">
-            {title}
-          </h3>
-          <p className="mt-3 text-[#FFFFFF]/85 text-xs font-bold uppercase tracking-widest">By Nemo · Fishyology Insight</p>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-/** The call for authors: a dark band whose Tuna pill is the one accent. */
+/** The call for authors: a dark tile whose Tuna pill is the one accent. */
 function AuthorCallTile({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/about#pitch-section"
-      className={`${TILE} flex flex-col gap-6 bg-abyss p-8 md:p-10 sm:flex-row sm:items-center sm:justify-between ${className}`}
+      className={`${TILE} flex flex-col justify-between gap-5 bg-abyss p-6 md:p-7 ${className}`}
     >
-      <div className="max-w-2xl">
+      <div>
         <span className="block text-white text-xs font-bold uppercase tracking-widest mb-3">Write for Fishyology</span>
-        <h3 className="font-serif text-3xl md:text-4xl leading-[1.1] text-white text-balance">
+        <h3 className="font-serif text-2xl md:text-3xl leading-[1.1] text-white text-balance">
           Tell your story. Inspire the next cast.
         </h3>
-        <p className="mt-3 text-[#FFFFFF]/80 text-sm md:text-base leading-relaxed">
+        <p className="mt-3 text-[#FFFFFF]/80 text-sm leading-relaxed">
           Have a trip report or strategy worth sharing? We want to publish it in the Fishyology Journal.
         </p>
       </div>
-      <span className="inline-flex min-h-[44px] shrink-0 items-center gap-2 self-start rounded-full bg-tuna px-6 text-sm font-bold text-white motion-safe:transition-colors group-hover:bg-tuna-on-light sm:self-center">
+      <span className="inline-flex min-h-[44px] shrink-0 items-center gap-2 self-start rounded-full bg-tuna px-6 text-sm font-bold text-white motion-safe:transition-colors group-hover:bg-tuna-on-light">
         Pitch your story
         <ArrowRight
           aria-hidden="true"
@@ -159,18 +126,18 @@ function AuthorCallTile({ className = "" }: { className?: string }) {
 }
 
 /**
- * Five things Fishyology is about, not just the newest posts: Noru's latest
- * story as the 2×2 feature, the latest research digest, a YouTube embed, the
- * game, and a call for authors as a dark band with a Tuna button. On desktop it is
- * 4 columns; tablets use 2 and phones 1.
+ * What Fishyology is about, not just the newest posts: Noru's latest story as
+ * the 2×2 feature, a YouTube embed beside it, and the game and a call for
+ * authors sharing the row below the video. On desktop it is 4 columns;
+ * tablets use 2 and phones 1.
  */
-export default function Showcase({ story, research }: { story?: Post; research?: Post }) {
+export default function Showcase({ story }: { story?: Post }) {
   return (
     <section
       aria-labelledby="showcase-heading"
-      className="py-16 md:py-20 px-6 md:px-12 max-w-[1600px] mx-auto"
+      className="py-12 md:py-14 px-6 md:px-12 max-w-[1600px] mx-auto"
     >
-      <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6 md:mb-8">
         <div>
           <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
             Inside Fishyology
@@ -194,7 +161,7 @@ export default function Showcase({ story, research }: { story?: Post; research?:
         </Link>
       </div>
 
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[18rem_18rem_auto] gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(18rem,auto)_minmax(18rem,auto)] gap-4">
         {story && (
           <li className="md:col-span-2 lg:row-span-2">
             <PhotoTile
@@ -210,11 +177,6 @@ export default function Showcase({ story, research }: { story?: Post; research?:
             />
           </li>
         )}
-        {research && (
-          <li className="md:col-span-2">
-            <ResearchTile post={research} className="h-full min-h-[16rem]" />
-          </li>
-        )}
         <li className="md:col-span-2">
           <VideoEmbed
             videoId={FEATURED_VIDEO.id}
@@ -223,11 +185,11 @@ export default function Showcase({ story, research }: { story?: Post; research?:
             className="h-full min-h-[16rem]"
           />
         </li>
-        <li className="md:col-span-2 lg:col-span-1">
-          <PhotoTile {...GAME} sizes="(max-width: 768px) 100vw, 25vw" className="h-full min-h-[14rem]" />
+        <li>
+          <PhotoTile {...GAME} sizes="(max-width: 768px) 100vw, 25vw" className="h-full min-h-[18rem]" />
         </li>
-        <li className="md:col-span-2 lg:col-span-3">
-          <AuthorCallTile className="h-full" />
+        <li>
+          <AuthorCallTile className="h-full min-h-[18rem]" />
         </li>
       </ul>
     </section>
