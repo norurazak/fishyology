@@ -10,7 +10,19 @@ const INTRO_VIDEO_BASE = "https://res.cloudinary.com/dub3h3elq/video/upload";
 const INTRO_VIDEO_FILE = "v1776573413/download_1_edhjld.mp4";
 
 // --- DATA: HOMEPAGE HERO SLIDES ---
-const heroSlides = [
+interface HeroSlide {
+  title: string;
+  subtitle: string;
+  text: string;
+  ctaText: string;
+  ctaLink: string;
+  /** Optional quieter second button; no slide uses it right now. */
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  image: string;
+}
+
+const heroSlides: HeroSlide[] = [
   {
     title: "Relive Our Journey",
     subtitle: "Crafted Through Water and Time",
