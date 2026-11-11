@@ -1,13 +1,18 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Post } from "@/lib/mdx";
 import { cloudinaryImage } from "@/lib/cloudinary";
+import VideoEmbed from "./VideoEmbed";
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=1200";
 
-/* Copy for the game tile, mirroring the game's own hero. The channel copy
-   mirrors the YouTube card in SocialChannels, so update those together. */
+/* The featured video on the @FishyologyTV channel. Leave the id empty to show
+   the placeholder; paste a YouTube video id (the part after v= in the URL)
+   and the title to switch the tile to a click-to-play embed. */
+const FEATURED_VIDEO = { id: "", title: "Fishyology on YouTube" };
+
+/* Copy for the game tile, mirroring the game's own hero. */
 const GAME = {
   href: "/game",
   image:
@@ -88,47 +93,6 @@ function PhotoTile({
   );
 }
 
-/**
- * YouTube channel placeholder. There is no photo yet, so a play button on the
- * dark base stands in. When the latest-videos feed is built, a video thumbnail
- * can replace the play button here.
- */
-function ChannelTile({ className = "" }: { className?: string }) {
-  return (
-    <a
-      href="https://www.youtube.com/@FishyologyTV"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${TILE} flex items-end bg-gradient-to-br from-[#1C1C1C] to-abyss ${className}`}
-    >
-      <span
-        aria-hidden="true"
-        className="absolute left-1/2 top-[38%] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#FFFFFF] text-abyss shadow-lg motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
-      >
-        <Play className="ml-0.5 h-7 w-7" fill="currentColor" />
-      </span>
-      <span
-        aria-hidden="true"
-        className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#FFFFFF] text-abyss shadow-lg motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-45"
-      >
-        <ArrowUpRight className="w-5 h-5" />
-      </span>
-      <div className="relative z-10 p-6">
-        <span className="block text-[#FFFFFF]/85 text-xs font-bold uppercase tracking-widest mb-3">
-          YouTube · @FishyologyTV
-        </span>
-        <h3 className="font-serif text-xl md:text-2xl leading-snug text-[#FFFFFF] text-balance">
-          Fishyology on YouTube
-        </h3>
-        <p className="mt-2 text-[#FFFFFF]/80 text-sm leading-relaxed line-clamp-2">
-          Full-length expedition films and in-depth technique breakdowns.
-        </p>
-        <span className="sr-only"> (opens in a new tab)</span>
-      </div>
-    </a>
-  );
-}
-
 /** Research digest: dark tile with the headline figure, photo beside it. */
 function ResearchTile({ post, className = "" }: { post: Post; className?: string }) {
   const { title, date, image, stat } = post.frontmatter;
@@ -191,8 +155,8 @@ function AuthorCallTile({ className = "" }: { className?: string }) {
 
 /**
  * Five things Fishyology is about, not just the newest posts: Noru's latest
- * story as the 2×2 feature, the latest research digest, the YouTube channel, the
- * game, and a call for authors as a full-width dark band with a Tuna button. On desktop it is
+ * story as the 2×2 feature, the latest research digest, a YouTube embed, the
+ * game, and a call for authors as a dark band with a Tuna button. On desktop it is
  * 4 columns; tablets use 2 and phones 1.
  */
 export default function Showcase({ story, research }: { story?: Post; research?: Post }) {
@@ -246,13 +210,13 @@ export default function Showcase({ story, research }: { story?: Post; research?:
             <ResearchTile post={research} className="h-full min-h-[16rem]" />
           </li>
         )}
-        <li>
-          <ChannelTile className="h-full min-h-[18rem]" />
+        <li className="md:col-span-2">
+          <VideoEmbed videoId={FEATURED_VIDEO.id} title={FEATURED_VIDEO.title} className="h-full min-h-[16rem]" />
         </li>
-        <li>
-          <PhotoTile {...GAME} sizes="(max-width: 768px) 100vw, 25vw" className="h-full min-h-[18rem]" />
+        <li className="md:col-span-2 lg:col-span-1">
+          <PhotoTile {...GAME} sizes="(max-width: 768px) 100vw, 25vw" className="h-full min-h-[14rem]" />
         </li>
-        <li className="md:col-span-2 lg:col-span-4">
+        <li className="md:col-span-2 lg:col-span-3">
           <AuthorCallTile className="h-full" />
         </li>
       </ul>
