@@ -38,7 +38,7 @@ export default function SiteFooter() {
   }
 
   return (
-    <footer className="bg-[#121212]text-[#E5E5E5] relative overflow-hidden pt-24 pb-10 flex flex-col items-center border-t border-white/5">
+    <footer className="bg-[#121212] text-[#E5E5E5] relative overflow-hidden pt-24 pb-10 flex flex-col items-center border-t border-white/5">
       
       {/* 1. Subscription Section */}
       <div className="flex flex-col items-center z-10 px-6 w-full max-w-xl text-center">
