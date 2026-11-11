@@ -18,7 +18,7 @@ export default function ReaderAnalytics() {
       className="pb-14 md:pb-16 px-6 md:px-12 max-w-[1600px] mx-auto"
     >
       <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10 pt-6 border-t border-abyss/10">
-        <p className="shrink-0 text-xs font-bold uppercase tracking-widest text-abyss/50">
+        <p className="shrink-0 text-xs font-bold uppercase tracking-widest text-tuna">
           Read Around The World
         </p>
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
