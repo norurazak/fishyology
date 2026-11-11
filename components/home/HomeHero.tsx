@@ -40,7 +40,7 @@ const heroSlides = [
 ];
 
 const TITLE_CLASS =
-  "text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl";
+  "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] font-extrabold text-[#FAFAFA] tracking-tight uppercase mb-5 drop-shadow-2xl max-w-5xl text-balance";
 
 export default function HomeHero() {
   const [currentSlide, setCurrentSlide] = useState(0);
