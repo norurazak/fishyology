@@ -138,7 +138,7 @@ export default function GalleryStrip({
       data-gallery-item
       onClick={() => openItem(index)}
       aria-label={`Open ${itemLabel.toLowerCase()} ${index + 1}: ${item.title}`}
-      className={`group shrink-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-4 focus-visible:ring-offset-[#FDFDFD] rounded-lg ${
+      className={`group shrink-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF] rounded-lg ${
         ITEM_WIDTHS[index % ITEM_WIDTHS.length]
       }`}
     >
@@ -200,13 +200,13 @@ export default function GalleryStrip({
           <>
             <div
               aria-hidden="true"
-              className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#FDFDFD] via-[#FDFDFD]/80 to-transparent transition-opacity duration-500 ${
+              className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#FFFFFF] via-[#FFFFFF]/80 to-transparent transition-opacity duration-500 ${
                 atStart ? "opacity-0" : "opacity-100"
               }`}
             />
             <div
               aria-hidden="true"
-              className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#FDFDFD] via-[#FDFDFD]/80 to-transparent transition-opacity duration-500 ${
+              className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#FFFFFF] via-[#FFFFFF]/80 to-transparent transition-opacity duration-500 ${
                 atEnd ? "opacity-0" : "opacity-100"
               }`}
             />

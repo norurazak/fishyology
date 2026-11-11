@@ -35,8 +35,8 @@ export default function Navbar() {
       <nav 
         className={`navbar-pill pointer-events-auto flex items-center justify-between text-abyss px-6 py-3 w-full max-w-6xl transition-all duration-500 relative ${
           isScrolled 
-            ? "bg-[#FDFDFD]/70 backdrop-blur-md hover:bg-[#FDFDFD] shadow-lg border border-abyss/10 rounded-2xl" 
-            : "bg-[#FDFDFD] shadow-sm border border-transparent rounded-2xl"
+            ? "bg-[#FFFFFF]/70 backdrop-blur-md hover:bg-[#FFFFFF] shadow-lg border border-abyss/10 rounded-2xl" 
+            : "bg-[#FFFFFF] shadow-sm border border-transparent rounded-2xl"
         }`}
       >
         {/* Left: Logo & Brand */}
@@ -77,7 +77,7 @@ export default function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         <div 
-          className={`absolute top-[calc(100%+12px)] left-0 w-full bg-[#FDFDFD] border border-abyss/10 rounded-2xl shadow-xl p-4 flex flex-col gap-2 transition-all duration-300 origin-top md:hidden ${
+          className={`absolute top-[calc(100%+12px)] left-0 w-full bg-[#FFFFFF] border border-abyss/10 rounded-2xl shadow-xl p-4 flex flex-col gap-2 transition-all duration-300 origin-top md:hidden ${
             isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
           }`}
         >

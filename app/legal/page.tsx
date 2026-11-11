@@ -41,7 +41,7 @@ export default function LegalPage() {
   const [activeDoc, setActiveDoc] = useState(0);
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-abyss pt-40 pb-20 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-[#FFFFFF] text-abyss pt-40 pb-20 selection:bg-[#0077C0] selection:text-white">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Navigation / Header */}

@@ -9,7 +9,7 @@ const FALLBACK_IMAGE =
 /* Shared keyboard focus ring for the tile links. The ring sits outside the box
    so the tiles' overflow-hidden never clips it. */
 const FOCUS_RING =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FDFDFD]";
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]";
 
 const TILE = `group relative overflow-hidden rounded-3xl shadow-sm hover:shadow-xl motion-safe:transition-shadow motion-safe:duration-500 ${FOCUS_RING}`;
 
@@ -34,24 +34,24 @@ function PhotoTile({ post, sizes, large = false, className = "" }: {
       {large && (
         <span
           aria-hidden="true"
-          className="absolute top-5 right-5 md:top-6 md:right-6 flex h-11 w-11 items-center justify-center rounded-full bg-[#FDFDFD] text-abyss shadow-lg motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-45"
+          className="absolute top-5 right-5 md:top-6 md:right-6 flex h-11 w-11 items-center justify-center rounded-full bg-[#FFFFFF] text-abyss shadow-lg motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-45"
         >
           <ArrowUpRight className="w-5 h-5" />
         </span>
       )}
       <div className={`relative z-10 ${large ? "p-8 md:p-10" : "p-6"}`}>
-        <span className="block text-[#FDFDFD]/85 text-xs font-bold uppercase tracking-widest mb-3">
+        <span className="block text-[#FFFFFF]/85 text-xs font-bold uppercase tracking-widest mb-3">
           {category} · {date}
         </span>
         <h3
-          className={`font-serif text-[#FDFDFD] text-balance ${
+          className={`font-serif text-[#FFFFFF] text-balance ${
             large ? "text-3xl md:text-5xl leading-[1.1] mb-3" : "text-lg md:text-xl leading-snug line-clamp-3"
           }`}
         >
           {title}
         </h3>
         {large && summary && (
-          <p className="text-[#FDFDFD]/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
+          <p className="text-[#FFFFFF]/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
             {summary}
           </p>
         )}
@@ -64,7 +64,7 @@ function PhotoTile({ post, sizes, large = false, className = "" }: {
 function SplitTile({ post, className = "" }: { post: Post; className?: string }) {
   const { title, category, date, summary, image } = post.frontmatter;
   return (
-    <Link href={`/blog/${post.slug}`} className={`${TILE} grid grid-cols-2 bg-white ${className}`}>
+    <Link href={`/blog/${post.slug}`} className={`${TILE} grid grid-cols-2 border border-abyss/10 bg-white ${className}`}>
       <div className="relative order-2 overflow-hidden bg-abyss/5">
         <img
           {...cloudinaryImage(image || FALLBACK_IMAGE, { sizes: "(max-width: 1024px) 50vw, 25vw" })}

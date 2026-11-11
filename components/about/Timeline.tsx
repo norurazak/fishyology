@@ -368,13 +368,13 @@ export default function Timeline() {
         {/* Edge fades, retreating at each end */}
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-[#FDFDFD] via-[#FDFDFD]/80 to-transparent transition-opacity duration-500 ${
+          className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-[#FFFFFF] via-[#FFFFFF]/80 to-transparent transition-opacity duration-500 ${
             atStart ? "opacity-0" : "opacity-100"
           }`}
         />
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-28 bg-gradient-to-l from-[#FDFDFD] via-[#FDFDFD]/80 to-transparent transition-opacity duration-500 ${
+          className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-28 bg-gradient-to-l from-[#FFFFFF] via-[#FFFFFF]/80 to-transparent transition-opacity duration-500 ${
             atEnd ? "opacity-0" : "opacity-100"
           }`}
         />

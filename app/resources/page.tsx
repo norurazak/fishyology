@@ -152,7 +152,7 @@ const HERO_IMAGE =
 
 export default function ResourcesPage() {
   return (
-    <div className="min-h-screen bg-[#FDFDFD]">
+    <div className="min-h-screen bg-[#FFFFFF]">
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[600px] w-full bg-abyss overflow-hidden">
         <img
@@ -173,16 +173,16 @@ export default function ResourcesPage() {
           <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
             Field Reference
           </span>
-          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FDFDFD] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
+          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FFFFFF] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
             Resources
           </h1>
-          <p className="text-lg md:text-2xl text-[#FDFDFD]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-[#FFFFFF]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
             Gear guides and field reference built from real Malaysian fishing conditions — starting with tackle,
             with more angles on the way.
           </p>
           <Link
             href="#rod-reel-sizing"
-            className="group relative inline-flex items-center gap-3 bg-[#FDFDFD] text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl"
+            className="group relative inline-flex items-center gap-3 bg-[#FFFFFF] text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl"
           >
             <span className="relative z-10">Explore the Guides</span>
             <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />

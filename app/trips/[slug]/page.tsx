@@ -94,7 +94,7 @@ export default async function TripPage({
 
   if (trip.comingSoon) {
     return (
-      <div className="min-h-screen bg-[#FDFDFD] flex flex-col">
+      <div className="min-h-screen bg-[#FFFFFF] flex flex-col">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }} />
         <section className="relative flex-1 flex items-center justify-center min-h-[70vh] w-full bg-abyss overflow-hidden">
           {trip.photos.length > 0 && (
@@ -120,10 +120,10 @@ export default async function TripPage({
           </div>
 
           <div className="relative z-10 text-center px-6 max-w-xl">
-            <span className="inline-block bg-[#FDFDFD]/90 text-abyss text-[11px] font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-md mb-5">
+            <span className="inline-block bg-[#FFFFFF]/90 text-abyss text-[11px] font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-md mb-5">
               Coming Soon
             </span>
-            <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FDFDFD] leading-tight mb-4">
+            <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FFFFFF] leading-tight mb-4">
               {trip.name}
             </h1>
             <p className="text-white/70 text-base md:text-lg leading-relaxed mb-8">
@@ -144,7 +144,7 @@ export default async function TripPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD]">
+    <div className="min-h-screen bg-[#FFFFFF]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }} />
       {/* HERO */}
       <section className="relative h-[60vh] md:h-[70vh] min-h-[420px] w-full bg-abyss overflow-hidden">
@@ -183,7 +183,7 @@ export default async function TripPage({
           <span className="text-[#C7EEFF] text-[11px] font-extrabold uppercase tracking-widest">
             {trip.category} · {stripParentheticals(trip.tripType)}
           </span>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FDFDFD] leading-tight mt-2">
+          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FFFFFF] leading-tight mt-2">
             {trip.name}
           </h1>
         </div>

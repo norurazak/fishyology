@@ -9,7 +9,7 @@ export default function ElectricGuideBrandExplorer() {
 
   return (
     <div>
-      <nav className="sticky top-24 z-30 bg-[#FDFDFD]/90 backdrop-blur-md border-y border-abyss/10 -mx-6 md:-mx-16 px-6 md:px-16">
+      <nav className="sticky top-24 z-30 bg-[#FFFFFF]/90 backdrop-blur-md border-y border-abyss/10 -mx-6 md:-mx-16 px-6 md:px-16">
         <div className="flex gap-2 overflow-x-auto py-3 hide-scrollbar max-w-7xl mx-auto">
           {BRANDS.map((b) => (
             <button

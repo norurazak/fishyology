@@ -180,7 +180,7 @@ export default function ReelGuideQuadrantPlot() {
             id="xAxis"
             value={xAxis}
             onChange={(e) => setXAxis(e.target.value as AxisKey)}
-            className="bg-[#FDFDFD] border border-abyss/10 rounded-full px-3 py-2 text-xs font-medium text-abyss max-w-[220px] focus:outline-none focus:border-[#0077C0]"
+            className="bg-[#FFFFFF] border border-abyss/10 rounded-full px-3 py-2 text-xs font-medium text-abyss max-w-[220px] focus:outline-none focus:border-[#0077C0]"
           >
             {AXIS_OPTIONS.map(([key, cfg]) => (
               <option key={key} value={key}>
@@ -197,7 +197,7 @@ export default function ReelGuideQuadrantPlot() {
             id="yAxis"
             value={yAxis}
             onChange={(e) => setYAxis(e.target.value as AxisKey)}
-            className="bg-[#FDFDFD] border border-abyss/10 rounded-full px-3 py-2 text-xs font-medium text-abyss max-w-[220px] focus:outline-none focus:border-[#0077C0]"
+            className="bg-[#FFFFFF] border border-abyss/10 rounded-full px-3 py-2 text-xs font-medium text-abyss max-w-[220px] focus:outline-none focus:border-[#0077C0]"
           >
             {AXIS_OPTIONS.map(([key, cfg]) => (
               <option key={key} value={key}>

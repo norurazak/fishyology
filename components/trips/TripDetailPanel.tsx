@@ -113,7 +113,7 @@ export default function TripDetailPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby="trip-detail-title"
-        className={`absolute right-0 top-0 h-[100dvh] w-full max-w-xl bg-[#FDFDFD] shadow-2xl flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+        className={`absolute right-0 top-0 h-[100dvh] w-full max-w-xl bg-[#FFFFFF] shadow-2xl flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
           entered ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -135,7 +135,7 @@ export default function TripDetailPanel({
             type="button"
             onClick={onClose}
             aria-label="Close trip details"
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#FDFDFD]/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#FFFFFF]/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -146,7 +146,7 @@ export default function TripDetailPanel({
             </span>
             <h2
               id="trip-detail-title"
-              className="text-2xl md:text-3xl font-serif font-bold text-[#FDFDFD] leading-tight mt-1"
+              className="text-2xl md:text-3xl font-serif font-bold text-[#FFFFFF] leading-tight mt-1"
             >
               {trip.name}
             </h2>

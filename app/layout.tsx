@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="bg-[#FDFDFD] text-abyss antialiased flex flex-col min-h-[100dvh]"
+        className="bg-[#FFFFFF] text-abyss antialiased flex flex-col min-h-[100dvh]"
         suppressHydrationWarning
       >
         
