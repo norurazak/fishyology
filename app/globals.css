@@ -6,7 +6,7 @@ html {
 }
 
 :root {
-  --background: #f4f1ea;
+  --background: #ffffff;
   --foreground: #121212;
 }
 
@@ -14,15 +14,15 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Palette: two bases set the mood, one accent gives it personality.
-     Tuna is a fill only (white text on it is 4.96:1). As text it fails on
-     Abyss (3.78:1) and just misses on Salt (4.40:1), so use the two tuna-*
-     variants for the rare case where it has to be text. */
+  /* Palette: a dark base and one accent. The light base is the page's own
+     #FAFAFA. Tuna is a fill only (white text on it is 4.96:1). As text it
+     fails on the dark base (3.78:1) and only just passes on #FAFAFA
+     (4.75:1), so use the two tuna-* variants for the rare case where it has
+     to be text. */
   --color-abyss: #121212;
-  --color-salt: #f4f1ea;
   --color-tuna: #d7263d;
-  --color-tuna-on-dark: #f0566a; /* 5.57:1 on abyss */
-  --color-tuna-on-light: #b81e33; /* 5.69:1 on salt */
+  --color-tuna-on-dark: #f0566a; /* 5.57:1 on the dark base */
+  --color-tuna-on-light: #b81e33; /* 6.15:1 on #FAFAFA */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -30,7 +30,7 @@ html {
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #121212;
-    --foreground: #f4f1ea;
+    --foreground: #ededed;
   }
 }
 

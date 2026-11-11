@@ -40,7 +40,7 @@ const heroSlides = [
 ];
 
 const TITLE_CLASS =
-  "text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-salt tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl";
+  "text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl";
 
 export default function HomeHero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -111,7 +111,7 @@ export default function HomeHero() {
           </video>
         )}
         <div className="absolute inset-0 bg-black/10"></div>
-        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-salt tracking-wide text-center drop-shadow-2xl">
+        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-[#FAFAFA] tracking-wide text-center drop-shadow-2xl">
           WELCOME TO OUR WORLD
         </p>
       </div>
@@ -157,7 +157,7 @@ export default function HomeHero() {
               ) : (
                 <h2 className={TITLE_CLASS}>{slide.title}</h2>
               )}
-              <p className="text-lg md:text-2xl text-salt/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+              <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
                 {slide.text}
               </p>
 
@@ -172,7 +172,7 @@ export default function HomeHero() {
                 {slide.secondaryCtaLink && (
                   <Link
                     href={slide.secondaryCtaLink}
-                    className="inline-flex items-center gap-3 border border-salt/60 text-salt px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-salt/10 transition-colors"
+                    className="inline-flex items-center gap-3 border border-[#FAFAFA]/60 text-[#FAFAFA] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-[#FAFAFA]/10 transition-colors"
                   >
                     {slide.secondaryCtaText}
                   </Link>

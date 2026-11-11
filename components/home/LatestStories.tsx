@@ -49,11 +49,11 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
             <span className="block text-[#C7EEFF] text-xs font-bold uppercase tracking-widest mb-3">
               {feature.frontmatter.category} · {feature.frontmatter.date}
             </span>
-            <h3 className="text-3xl md:text-5xl font-serif text-salt leading-[1.1] mb-3">
+            <h3 className="text-3xl md:text-5xl font-serif text-[#FAFAFA] leading-[1.1] mb-3">
               {feature.frontmatter.title}
             </h3>
             {feature.frontmatter.summary && (
-              <p className="text-salt/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
+              <p className="text-[#FAFAFA]/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
                 {feature.frontmatter.summary}
               </p>
             )}

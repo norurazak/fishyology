@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
 const TITLE_CLASS =
-  "text-5xl md:text-8xl lg:text-[7rem] font-black text-salt tracking-tighter uppercase leading-[0.85] mb-8 drop-shadow-2xl";
+  "text-5xl md:text-8xl lg:text-[7rem] font-black text-[#FAFAFA] tracking-tighter uppercase leading-[0.85] mb-8 drop-shadow-2xl";
 
 const heroSlides = [
   {
@@ -82,7 +82,7 @@ export default function AboutHero() {
               ) : (
                 <h2 className={TITLE_CLASS}>{slide.title}</h2>
               )}
-              <p className="text-lg md:text-2xl text-salt/90 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+              <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-2xl font-medium leading-relaxed drop-shadow-md">
                 {slide.text}
               </p>
             </div>

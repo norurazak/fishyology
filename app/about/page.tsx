@@ -10,7 +10,7 @@ export default function AboutPage() {
   const plates = getGalleryPlates();
 
   return (
-    <div className="bg-salt text-abyss min-h-screen">
+    <div className="bg-[#FAFAFA] text-abyss min-h-screen">
       {/* GLOBAL NOISE TEXTURE */}
       <svg className="pointer-events-none fixed inset-0 z-40 h-full w-full opacity-[0.03] mix-blend-overlay">
         <filter id="noise">
@@ -121,13 +121,13 @@ export default function AboutPage() {
             <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-3 block text-sm">
               Get Hooked With Us
             </span>
-            <h2 className="text-4xl md:text-6xl font-black text-salt uppercase tracking-tight leading-[1.1] mb-4">
+            <h2 className="text-4xl md:text-6xl font-black text-[#FAFAFA] uppercase tracking-tight leading-[1.1] mb-4">
               Tell your story. <br />
               <span className="text-[#408A71] italic font-serif lowercase tracking-normal">
                 Inspire the next cast.
               </span>
             </h2>
-            <p className="text-salt/70 text-lg md:text-xl font-medium max-w-2xl mb-8">
+            <p className="text-[#FAFAFA]/70 text-lg md:text-xl font-medium max-w-2xl mb-8">
               Passionate anglers, conservationists, and storytellers — if you have a trip report
               or strategy worth sharing, we want to publish it in the Fishyology Journal.
             </p>

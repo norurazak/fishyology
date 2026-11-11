@@ -80,7 +80,7 @@ export default function StressorMap({
       {note && (
         <div className="mt-5 flex items-start gap-3 rounded-[0.75rem] bg-abyss p-5">
           <span className="mt-[3px] block h-2 w-2 shrink-0 rounded-full bg-[#FF9A42]" />
-          <p className="text-sm leading-relaxed text-salt/80 font-medium">{note}</p>
+          <p className="text-sm leading-relaxed text-[#FAFAFA]/80 font-medium">{note}</p>
         </div>
       )}
 

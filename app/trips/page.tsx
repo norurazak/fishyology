@@ -90,7 +90,7 @@ export default async function TripsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-salt">
+    <div className="min-h-screen bg-[#FAFAFA]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -129,17 +129,17 @@ export default async function TripsPage() {
           <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
             Guided Expeditions
           </span>
-          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-salt tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
+          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
             Fishing Trips
           </h1>
-          <p className="text-lg md:text-2xl text-salt/90 max-w-3xl font-medium mb-8 leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-8 leading-relaxed drop-shadow-md">
             Guided charters across Malaysia&apos;s saltwater and freshwater grounds — from a full-day
             Rompin run to a multi-day Tioman expedition. Every trip is bookable directly through us.
           </p>
 
           <Link
             href="#trips"
-            className="group relative inline-flex items-center gap-3 bg-salt text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl mb-10"
+            className="group relative inline-flex items-center gap-3 bg-[#FAFAFA] text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl mb-10"
           >
             <span className="relative z-10">See the Trips</span>
             <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -150,8 +150,8 @@ export default async function TripsPage() {
               <div key={label} className="flex items-center gap-3">
                 <Icon className="w-5 h-5 text-[#C7EEFF] flex-shrink-0" strokeWidth={1.75} />
                 <div>
-                  <dd className="text-xl font-black text-salt leading-none">{value}</dd>
-                  <dt className="text-[11px] font-bold uppercase tracking-widest text-salt/70 mt-1">
+                  <dd className="text-xl font-black text-[#FAFAFA] leading-none">{value}</dd>
+                  <dt className="text-[11px] font-bold uppercase tracking-widest text-[#FAFAFA]/70 mt-1">
                     {label}
                   </dt>
                 </div>

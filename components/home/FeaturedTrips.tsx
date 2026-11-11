@@ -11,7 +11,7 @@ function TripCard({ trip }: { trip: TripPackage }) {
   return (
     <Link
       href={`/trips/${trip.slug}`}
-      className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-salt shadow-xl transition-transform duration-500 hover:-translate-y-1"
+      className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-[#FAFAFA] shadow-xl transition-transform duration-500 hover:-translate-y-1"
     >
       <div className="relative aspect-[4/3] bg-abyss overflow-hidden">
         {trip.photos[0] && (
@@ -70,16 +70,16 @@ export default function FeaturedTrips({ trips }: { trips: TripPackage[] }) {
             <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-3 block text-sm">
               Guided Expeditions
             </span>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-salt mb-4">
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#FAFAFA] mb-4">
               Fish With Us
             </h2>
-            <p className="text-salt/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
+            <p className="text-[#FAFAFA]/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
               Guided charters and expeditions across Malaysia, booked directly with us.
             </p>
           </div>
           <Link
             href="/trips"
-            className="group inline-flex items-center gap-2 font-bold text-salt hover:text-[#C7EEFF] transition-colors"
+            className="group inline-flex items-center gap-2 font-bold text-[#FAFAFA] hover:text-[#C7EEFF] transition-colors"
           >
             All Trips
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
