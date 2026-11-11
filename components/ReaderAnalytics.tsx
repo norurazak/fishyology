@@ -19,7 +19,7 @@ export default function ReaderAnalytics() {
     >
       <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10 pt-6 border-t border-abyss/10">
         <p className="shrink-0 text-xs font-bold uppercase tracking-widest text-tuna">
-          Read Around The World
+          Read by Readers Around the World
         </p>
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
           {countries.map((country) => (
