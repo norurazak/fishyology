@@ -15,9 +15,9 @@ export default function ReaderAnalytics() {
   return (
     <section
       aria-label="Where our readers are"
-      className="pb-20 md:pb-24 px-6 md:px-12 max-w-[1600px] mx-auto"
+      className="pb-14 md:pb-16 px-6 md:px-12 max-w-[1600px] mx-auto"
     >
-      <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10 pt-8 border-t border-abyss/10">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10 pt-6 border-t border-abyss/10">
         <p className="shrink-0 text-xs font-bold uppercase tracking-widest text-abyss/50">
           Read Around The World
         </p>
