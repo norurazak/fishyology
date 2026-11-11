@@ -10,7 +10,12 @@ const FALLBACK_IMAGE =
 /* The featured video on the @FishyologyTV channel. Leave the id empty to show
    the placeholder; paste a YouTube video id (the part after v= in the URL)
    and the title to switch the tile to a click-to-play embed. */
-const FEATURED_VIDEO = { id: "", title: "Fishyology on YouTube" };
+const FEATURED_VIDEO = {
+  id: "",
+  title: "Fishyology on YouTube",
+  poster:
+    "https://res.cloudinary.com/dub3h3elq/image/upload/v1792204134/Tioman_Island_Fishing_Expedition_10_nv6kvs.jpg",
+};
 
 /* Copy for the game tile, mirroring the game's own hero. */
 const GAME = {
@@ -211,7 +216,12 @@ export default function Showcase({ story, research }: { story?: Post; research?:
           </li>
         )}
         <li className="md:col-span-2">
-          <VideoEmbed videoId={FEATURED_VIDEO.id} title={FEATURED_VIDEO.title} className="h-full min-h-[16rem]" />
+          <VideoEmbed
+            videoId={FEATURED_VIDEO.id}
+            title={FEATURED_VIDEO.title}
+            poster={FEATURED_VIDEO.poster}
+            className="h-full min-h-[16rem]"
+          />
         </li>
         <li className="md:col-span-2 lg:col-span-1">
           <PhotoTile {...GAME} sizes="(max-width: 768px) 100vw, 25vw" className="h-full min-h-[14rem]" />

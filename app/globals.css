@@ -61,6 +61,46 @@ html {
   box-shadow: 0 0 0 4px var(--color-abyss);
 }
 
+/* Video placeholder in the home showcase: the backdrop drifts slowly and a ring
+   pulses out of the play button, a quiet "something will play here" cue. Both
+   run only without a reduced-motion preference; otherwise the tile is a still
+   photo with a play button and the rings stay hidden. */
+@keyframes placeholder-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+@keyframes play-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.play-ring {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .placeholder-drift {
+    animation: placeholder-drift 18s ease-in-out infinite alternate;
+  }
+  .play-ring {
+    animation: play-ring 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+  .play-ring-delayed {
+    animation-delay: 1.3s;
+  }
+}
+
 /* Research stat meters (<StatGrid>/<StatMeter>). The bars sweep out from the
    baseline so the three habitats read as one comparison rather than three static
    blocks. scaleX is used rather than width so the growth is composited and never
