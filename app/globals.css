@@ -13,6 +13,16 @@ html {
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Palette: two bases set the mood, one accent gives it personality.
+     Tuna is a fill only (white text on it is 4.96:1). As text it fails on
+     Abyss (3.57:1) and just misses on Salt (4.40:1), so use the two tuna-*
+     variants for the rare case where it has to be text. */
+  --color-abyss: #0e1a1f;
+  --color-salt: #f4f1ea;
+  --color-tuna: #d7263d;
+  --color-tuna-on-dark: #f0566a; /* 5.26:1 on abyss */
+  --color-tuna-on-light: #b81e33; /* 5.69:1 on salt */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
