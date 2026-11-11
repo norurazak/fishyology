@@ -94,7 +94,7 @@ export default function StandardSection() {
           width={1024}
           height={1024}
           sizes="288px"
-          className="hidden lg:block shrink-0 w-56 xl:w-72 h-auto lg:mr-8 xl:mr-16 transition-[transform,filter] duration-500 hover:drop-shadow-xl motion-safe:hover:-translate-y-1"
+          className="hidden lg:block shrink-0 w-56 xl:w-72 h-auto lg:mr-8 xl:mr-16 transition-[transform,filter] duration-500 hover:drop-shadow-[0_18px_24px_rgba(0,0,0,0.3)] motion-safe:hover:-translate-y-1"
         />
       </div>
 
