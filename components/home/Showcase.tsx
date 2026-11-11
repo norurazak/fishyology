@@ -149,16 +149,6 @@ export default function Showcase({ story }: { story?: Post }) {
             Start Here
           </h2>
         </div>
-        <Link
-          href="/blog"
-          className={`group inline-flex min-h-[44px] items-center gap-2 rounded-lg font-bold text-abyss hover:underline underline-offset-4 ${FOCUS_RING}`}
-        >
-          Read The Journal
-          <ArrowRight
-            aria-hidden="true"
-            className="w-4 h-4 motion-safe:transition-transform motion-safe:group-hover:translate-x-1"
-          />
-        </Link>
       </div>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(18rem,auto)_minmax(18rem,auto)] gap-4">
