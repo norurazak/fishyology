@@ -130,23 +130,23 @@ function ResearchTile({ post, className = "" }: { post: Post; className?: string
   );
 }
 
-/** The call for authors: the one Tuna tile, with a pill that reads as a button. */
+/** The call for authors: a dark band whose Tuna pill is the one accent. */
 function AuthorCallTile({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/about#pitch-section"
-      className={`${TILE} flex flex-col gap-6 bg-tuna hover:bg-tuna-on-light motion-safe:transition-colors p-8 md:p-10 sm:flex-row sm:items-center sm:justify-between ${className}`}
+      className={`${TILE} flex flex-col gap-6 bg-abyss p-8 md:p-10 sm:flex-row sm:items-center sm:justify-between ${className}`}
     >
       <div className="max-w-2xl">
         <span className="block text-white text-xs font-bold uppercase tracking-widest mb-3">Write for Fishyology</span>
         <h3 className="font-serif text-3xl md:text-4xl leading-[1.1] text-white text-balance">
           Tell your story. Inspire the next cast.
         </h3>
-        <p className="mt-3 text-white text-sm md:text-base leading-relaxed">
+        <p className="mt-3 text-[#FFFFFF]/80 text-sm md:text-base leading-relaxed">
           Have a trip report or strategy worth sharing? We want to publish it in the Fishyology Journal.
         </p>
       </div>
-      <span className="inline-flex min-h-[44px] shrink-0 items-center gap-2 self-start rounded-full bg-[#FFFFFF] px-6 text-sm font-bold text-abyss sm:self-center">
+      <span className="inline-flex min-h-[44px] shrink-0 items-center gap-2 self-start rounded-full bg-tuna px-6 text-sm font-bold text-white motion-safe:transition-colors group-hover:bg-tuna-on-light sm:self-center">
         Pitch your story
         <ArrowRight
           aria-hidden="true"
@@ -160,7 +160,7 @@ function AuthorCallTile({ className = "" }: { className?: string }) {
 /**
  * Five things Fishyology is about, not just the newest posts: Noru's latest
  * story as the 2×2 feature, the latest research digest, the reel guides, the
- * game, and a call for authors as a full-width Tuna band. On desktop it is
+ * game, and a call for authors as a full-width dark band with a Tuna button. On desktop it is
  * 4 columns; tablets use 2 and phones 1.
  */
 export default function Showcase({ story, research }: { story?: Post; research?: Post }) {
