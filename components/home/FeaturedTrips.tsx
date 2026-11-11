@@ -11,8 +11,12 @@ const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FAFAFA] focus-visible:ring-offset-4 focus-visible:ring-offset-abyss";
 
 /**
- * Photo-led trip card. The details sit on a solid panel rather than a gradient
- * over the photo, so the text keeps its contrast whatever the photo looks like.
+ * Photo-led trip card. The photo frame is widescreen like the trip photos
+ * themselves, so they are barely cropped and the srcset width is the width
+ * actually shown (a tall frame upscaled them and went soft). The details sit
+ * on a solid panel overlapping the photo's lower edge, so the text keeps its
+ * contrast whatever the photo looks like and the card is only as tall as its
+ * content.
  */
 function TripCard({ trip }: { trip: TripPackage }) {
   const price = fromPrice(trip.priceHeadline);
@@ -20,33 +24,34 @@ function TripCard({ trip }: { trip: TripPackage }) {
   return (
     <Link
       href={`/trips/${trip.slug}`}
-      className={`group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-[#1C1C1C] aspect-[4/5] sm:aspect-[16/10] lg:aspect-[3/4] ${FOCUS_RING}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-3xl bg-[#1C1C1C] ${FOCUS_RING}`}
     >
-      {trip.photos[0] && (
-        <Image
-          src={trip.photos[0]}
-          alt={tripImageAlt(trip)}
-          fill
-          sizes="(max-width: 1024px) 100vw, 33vw"
-          className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
-        />
-      )}
+      <div className="relative aspect-[16/10] overflow-hidden">
+        {trip.photos[0] && (
+          <Image
+            src={trip.photos[0]}
+            alt={tripImageAlt(trip)}
+            fill
+            sizes="(max-width: 1024px) 100vw, 33vw"
+            className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
+          />
+        )}
+        <span className="absolute top-4 left-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-1.5 rounded-full bg-[#FAFAFA] px-3 py-1.5 text-xs font-bold text-abyss shadow-md">
+          <MapPin aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">{shortLocation(trip.location)}</span>
+        </span>
+      </div>
 
-      <span className="absolute top-4 left-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-1.5 rounded-full bg-[#FAFAFA] px-3 py-1.5 text-xs font-bold text-abyss shadow-md">
-        <MapPin aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
-        <span className="truncate">{shortLocation(trip.location)}</span>
-      </span>
-
-      <div className="relative m-3 rounded-2xl bg-[#FAFAFA] p-5 md:p-6 shadow-xl sm:max-w-md lg:max-w-none">
+      <div className="relative z-10 -mt-10 mx-3 mb-3 flex flex-1 flex-col rounded-2xl bg-[#FAFAFA] p-5 md:p-6 shadow-xl">
         <h3 className="text-xl md:text-2xl font-serif font-bold text-abyss leading-tight text-balance line-clamp-2">
           {trip.name}
         </h3>
-        <p className="mt-2 flex items-center gap-2 text-sm text-abyss/70">
+        <p className="mt-2 mb-5 flex items-center gap-2 text-sm text-abyss/70">
           <Clock aria-hidden="true" className="w-4 h-4 shrink-0" />
           {shortPhrase(trip.duration)}
         </p>
 
-        <div className="mt-5 flex items-center justify-between gap-4 border-t border-abyss/10 pt-4">
+        <div className="mt-auto flex items-center justify-between gap-4 border-t border-abyss/10 pt-4">
           <span className="text-lg font-black text-abyss tracking-tight">
             {price}
             {/* Some headlines already say "per day", so only add the unit when it's missing. */}
@@ -73,9 +78,9 @@ export default function FeaturedTrips({ trips }: { trips: TripPackage[] }) {
   if (trips.length === 0) return null;
 
   return (
-    <section aria-labelledby="fish-with-us-heading" className="bg-abyss py-20 md:py-28">
+    <section aria-labelledby="fish-with-us-heading" className="bg-abyss py-16 md:py-24">
       <div className="px-6 md:px-12 max-w-[1600px] mx-auto">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-10 md:mb-14">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
           <div>
             <span className="text-[#FAFAFA]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
               Guided Expeditions
@@ -102,7 +107,7 @@ export default function FeaturedTrips({ trips }: { trips: TripPackage[] }) {
           </Link>
         </div>
 
-        <ul className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+        <ul className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {trips.map((trip) => (
             <li key={trip.slug}>
               <TripCard trip={trip} />
