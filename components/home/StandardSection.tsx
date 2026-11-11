@@ -85,14 +85,16 @@ export default function StandardSection() {
             </span>
           </div>
         </div>
-        {/* Decorative: the brand is already named in the heading and the nav. */}
+        {/* Decorative: the brand is already named in the heading and the nav. On hover
+            it lifts like the cards; drop-shadow follows the round shape where a box
+            shadow would draw a square behind the transparent PNG. */}
         <Image
           src="/logo.png"
           alt=""
           width={1024}
           height={1024}
           sizes="288px"
-          className="hidden lg:block shrink-0 w-56 xl:w-72 h-auto"
+          className="hidden lg:block shrink-0 w-56 xl:w-72 h-auto lg:mr-8 xl:mr-16 transition-[transform,filter] duration-500 hover:drop-shadow-xl motion-safe:hover:-translate-y-1"
         />
       </div>
 
