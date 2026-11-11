@@ -115,9 +115,9 @@ export default async function TripsPage() {
         />
         <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent" />
-        {/* Fades the hero's #0E1A1F base into the #121212 of the section below,
+        {/* Lets the hero's Abyss base flow into the Abyss section below,
             so the two meet with no visible seam. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[#121212]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-abyss" />
         <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-[0.03] mix-blend-overlay">
           <filter id="noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
@@ -163,7 +163,7 @@ export default async function TripsPage() {
 
       {/* HOW BOOKING WORKS — carries the footer's neutral palette, bridging the
           dark hero into the light trip sections below. */}
-      <section className="bg-[#121212] px-6 md:px-16 py-12 md:py-20">
+      <section className="bg-abyss px-6 md:px-16 py-12 md:py-20">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 md:mb-10 max-w-2xl">
             <span className="text-[#A3A3A3] font-bold tracking-widest uppercase mb-2 block text-sm">

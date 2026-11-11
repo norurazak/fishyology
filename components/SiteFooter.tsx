@@ -38,7 +38,7 @@ export default function SiteFooter() {
   }
 
   return (
-    <footer className="bg-[#121212] text-[#E5E5E5] relative overflow-hidden pt-24 pb-10 flex flex-col items-center border-t border-white/5">
+    <footer className="bg-abyss text-[#E5E5E5] relative overflow-hidden pt-24 pb-10 flex flex-col items-center border-t border-white/5">
       
       {/* 1. Subscription Section */}
       <div className="flex flex-col items-center z-10 px-6 w-full max-w-xl text-center">
@@ -69,7 +69,7 @@ export default function SiteFooter() {
               <button 
                 type="submit" 
                 disabled={status === "loading"}
-                className="group flex items-center gap-2 bg-[#E5E5E5] text-[#121212] hover:bg-white px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 disabled:opacity-50"
+                className="btn-primary group flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm disabled:opacity-50"
               >
                 {status === "loading" ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
