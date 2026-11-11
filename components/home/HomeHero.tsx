@@ -40,7 +40,7 @@ const heroSlides = [
 ];
 
 const TITLE_CLASS =
-  "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] font-extrabold text-[#FAFAFA] tracking-tight uppercase mb-5 drop-shadow-2xl max-w-5xl text-balance";
+  "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] font-extrabold text-[#FDFDFD] tracking-tight uppercase mb-5 drop-shadow-2xl max-w-5xl text-balance";
 
 export default function HomeHero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -111,7 +111,7 @@ export default function HomeHero() {
           </video>
         )}
         <div className="absolute inset-0 bg-black/10"></div>
-        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-[#FAFAFA] tracking-wide text-center drop-shadow-2xl">
+        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-[#FDFDFD] tracking-wide text-center drop-shadow-2xl">
           WELCOME TO OUR WORLD
         </p>
       </div>
@@ -149,7 +149,7 @@ export default function HomeHero() {
             <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent"></div>
 
             <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
-              <span className="text-[#FAFAFA]/85 font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
+              <span className="text-[#FDFDFD]/85 font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
                 {slide.subtitle}
               </span>
               {index === 0 ? (
@@ -157,7 +157,7 @@ export default function HomeHero() {
               ) : (
                 <h2 className={TITLE_CLASS}>{slide.title}</h2>
               )}
-              <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+              <p className="text-lg md:text-2xl text-[#FDFDFD]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
                 {slide.text}
               </p>
 
@@ -172,7 +172,7 @@ export default function HomeHero() {
                 {slide.secondaryCtaLink && (
                   <Link
                     href={slide.secondaryCtaLink}
-                    className="inline-flex items-center gap-3 border border-[#FAFAFA]/60 text-[#FAFAFA] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-[#FAFAFA]/10 transition-colors"
+                    className="inline-flex items-center gap-3 border border-[#FDFDFD]/60 text-[#FDFDFD] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-[#FDFDFD]/10 transition-colors"
                   >
                     {slide.secondaryCtaText}
                   </Link>

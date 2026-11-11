@@ -62,7 +62,7 @@ export default function SiteFooter() {
                 type="email" 
                 name="email" 
                 placeholder="Your Email" 
-                className="flex-1 bg-transparent px-4 outline-none text-[#FAFAFA] placeholder:text-white/20 text-sm font-medium disabled:opacity-50"
+                className="flex-1 bg-transparent px-4 outline-none text-[#FDFDFD] placeholder:text-white/20 text-sm font-medium disabled:opacity-50"
                 required
                 disabled={status === "loading"}
               />

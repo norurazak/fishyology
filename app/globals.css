@@ -15,14 +15,14 @@ html {
   --color-foreground: var(--foreground);
 
   /* Palette: a dark base and one accent. The light base is the page's own
-     #FAFAFA. Tuna is a fill only (white text on it is 4.96:1). As text it
-     fails on the dark base (3.78:1) and only just passes on #FAFAFA
-     (4.75:1), so use the two tuna-* variants for the rare case where it has
+     #FDFDFD. Tuna is a fill only (white text on it is 4.96:1). As text it
+     fails on the dark base (3.78:1) and only just passes on #FDFDFD
+     (4.88:1), so use the two tuna-* variants for the rare case where it has
      to be text. */
   --color-abyss: #121212;
   --color-tuna: #d7263d;
   --color-tuna-on-dark: #f0566a; /* 5.57:1 on the dark base */
-  --color-tuna-on-light: #b81e33; /* 6.15:1 on #FAFAFA */
+  --color-tuna-on-light: #b81e33; /* 6.31:1 on #FDFDFD */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

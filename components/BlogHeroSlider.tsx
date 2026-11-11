@@ -52,17 +52,17 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
             
             {/* Slide Content */}
             <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 flex flex-col items-start">
-              <span className="inline-block bg-[#FAFAFA] text-abyss text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg">
+              <span className="inline-block bg-[#FDFDFD] text-abyss text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg">
                 {slide.category}
               </span>
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-[#FAFAFA] leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-[#FDFDFD] leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
                 {slide.title}
               </h2>
               
               {/* CTA Button linking to the specific story */}
               <Link 
                 href={slide.link}
-                className="group/btn inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base hover:bg-[#FAFAFA] hover:text-abyss transition-colors duration-300 shadow-xl"
+                className="group/btn inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base hover:bg-[#FDFDFD] hover:text-abyss transition-colors duration-300 shadow-xl"
               >
                 Read Story
                 <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />

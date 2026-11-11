@@ -46,7 +46,7 @@ export default function PitchSection() {
         onClick={toggle}
         aria-expanded={isOpen}
         aria-controls="pitch-form-panel"
-        className="group relative inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-[#FAFAFA] hover:text-abyss transition-colors duration-300 shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
+        className="group relative inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-[#FDFDFD] hover:text-abyss transition-colors duration-300 shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
       >
         <span className="relative z-10">{isOpen ? "Close Form" : "Pitch a Story"}</span>
         <PenTool className="w-5 h-5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -63,7 +63,7 @@ export default function PitchSection() {
             <p className="text-[#C7EEFF] font-bold tracking-widest uppercase text-lg mb-2">
               Pitch Received!
             </p>
-            <p className="text-[#FAFAFA]/80">
+            <p className="text-[#FDFDFD]/80">
               We will review your submission and reach out via email shortly.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function PitchSection() {
             className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col gap-4 text-left shadow-2xl backdrop-blur-sm"
           >
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="name" className="text-[#FAFAFA] text-sm font-bold ml-2">
+              <label htmlFor="name" className="text-[#FDFDFD] text-sm font-bold ml-2">
                 Name
               </label>
               <input
@@ -82,11 +82,11 @@ export default function PitchSection() {
                 name="name"
                 required
                 placeholder="E.g. Jeremy Wade"
-                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-[#FAFAFA] placeholder:text-[#FAFAFA]/30 focus:outline-none focus:border-[#0077C0] transition-colors"
+                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-[#FDFDFD] placeholder:text-[#FDFDFD]/30 focus:outline-none focus:border-[#0077C0] transition-colors"
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="email" className="text-[#FAFAFA] text-sm font-bold ml-2">
+              <label htmlFor="email" className="text-[#FDFDFD] text-sm font-bold ml-2">
                 Email
               </label>
               <input
@@ -95,11 +95,11 @@ export default function PitchSection() {
                 name="email"
                 required
                 placeholder="your@email.com"
-                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-[#FAFAFA] placeholder:text-[#FAFAFA]/30 focus:outline-none focus:border-[#0077C0] transition-colors"
+                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-[#FDFDFD] placeholder:text-[#FDFDFD]/30 focus:outline-none focus:border-[#0077C0] transition-colors"
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="message" className="text-[#FAFAFA] text-sm font-bold ml-2">
+              <label htmlFor="message" className="text-[#FDFDFD] text-sm font-bold ml-2">
                 Your Story Idea
               </label>
               <textarea
@@ -108,13 +108,13 @@ export default function PitchSection() {
                 required
                 rows={4}
                 placeholder="Tell us briefly about the trip, strategy, or story you want to share..."
-                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-[#FAFAFA] placeholder:text-[#FAFAFA]/30 focus:outline-none focus:border-[#0077C0] transition-colors resize-none"
+                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-[#FDFDFD] placeholder:text-[#FDFDFD]/30 focus:outline-none focus:border-[#0077C0] transition-colors resize-none"
               />
             </div>
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full mt-1 bg-[#FAFAFA] text-abyss px-8 py-3.5 rounded-lg font-bold text-lg hover:bg-[#0077C0] hover:text-white transition-colors duration-300 disabled:opacity-70"
+              className="w-full mt-1 bg-[#FDFDFD] text-abyss px-8 py-3.5 rounded-lg font-bold text-lg hover:bg-[#0077C0] hover:text-white transition-colors duration-300 disabled:opacity-70"
             >
               {status === "loading" ? "Sending Pitch..." : "Submit Pitch"}
             </button>

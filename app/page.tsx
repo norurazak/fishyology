@@ -14,7 +14,7 @@ export default function Home() {
     .slice(0, 3);
 
   return (
-    <div className="relative bg-[#FAFAFA] text-abyss overflow-hidden selection:bg-tuna selection:text-white">
+    <div className="relative bg-[#FDFDFD] text-abyss overflow-hidden selection:bg-tuna selection:text-white">
       {/* A. INTRO + HERO SLIDER */}
       <HomeHero />
 

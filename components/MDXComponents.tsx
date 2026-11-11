@@ -12,8 +12,8 @@ import StressorMap, { Stressor } from './StressorMap';
 // and sit on top of the fixed shadow gradients (`scroll`), masking them at each end.
 const scrollShadow: React.CSSProperties = {
   backgroundImage: `
-    linear-gradient(to right, #FAFAFA 40%, rgba(250,250,250,0)),
-    linear-gradient(to left, #FAFAFA 40%, rgba(250,250,250,0)),
+    linear-gradient(to right, #FDFDFD 40%, rgba(253,253,253,0)),
+    linear-gradient(to left, #FDFDFD 40%, rgba(253,253,253,0)),
     linear-gradient(to right, rgba(29,36,43,0.14), rgba(29,36,43,0)),
     linear-gradient(to left, rgba(29,36,43,0.14), rgba(29,36,43,0))`,
   backgroundPosition: 'left center, right center, left center, right center',
@@ -105,10 +105,10 @@ export const mdxComponents = {
 
   // 7. Species Stats Card
   SpeciesStats: ({ name, scientific, weight, diet }: { name: string, scientific: string, weight: string, diet: string }) => (
-    <div className="my-10 bg-abyss text-[#FAFAFA] rounded-[1.5rem] p-6 md:p-8 shadow-2xl border-l-4 border-[#0077C0] flex flex-col md:flex-row md:items-center justify-between gap-6 not-prose">
+    <div className="my-10 bg-abyss text-[#FDFDFD] rounded-[1.5rem] p-6 md:p-8 shadow-2xl border-l-4 border-[#0077C0] flex flex-col md:flex-row md:items-center justify-between gap-6 not-prose">
       <div>
         <h3 className="text-2xl font-black mb-1">{name}</h3>
-        <p className="text-[#FAFAFA]/50 font-serif italic text-lg">{scientific}</p>
+        <p className="text-[#FDFDFD]/50 font-serif italic text-lg">{scientific}</p>
       </div>
       <div className="flex gap-8">
         <div><span className="block text-[#0077C0] text-xs font-bold uppercase tracking-widest mb-1">Avg Weight</span>{weight}</div>
@@ -302,7 +302,7 @@ export const mdxComponents = {
     const inner = (
       <div className="flex items-start gap-3">
         {n && (
-          <span className="shrink-0 mt-0.5 w-6 h-6 rounded-md bg-abyss text-[#FAFAFA] text-[11px] font-black flex items-center justify-center tabular-nums">
+          <span className="shrink-0 mt-0.5 w-6 h-6 rounded-md bg-abyss text-[#FDFDFD] text-[11px] font-black flex items-center justify-center tabular-nums">
             {n}
           </span>
         )}

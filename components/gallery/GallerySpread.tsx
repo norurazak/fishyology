@@ -148,7 +148,7 @@ export default function GallerySpread({
           type="button"
           onClick={onClose}
           aria-label="Close gallery"
-          className="absolute -top-2 right-0 md:-top-4 md:-right-4 z-20 w-10 h-10 rounded-full bg-[#FAFAFA]/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
+          className="absolute -top-2 right-0 md:-top-4 md:-right-4 z-20 w-10 h-10 rounded-full bg-[#FDFDFD]/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
         >
           <X className="w-5 h-5" />
         </button>
@@ -236,13 +236,13 @@ export default function GallerySpread({
             onClick={() => turn(-1)}
             disabled={index === 0}
             aria-label={`Previous ${itemLabel.toLowerCase()}`}
-            className="inline-flex items-center gap-2 text-[#FAFAFA] text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
+            className="inline-flex items-center gap-2 text-[#FDFDFD] text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
 
-          <span className="text-[#FAFAFA]/55 text-[11px] font-bold uppercase tracking-widest">
+          <span className="text-[#FDFDFD]/55 text-[11px] font-bold uppercase tracking-widest">
             Drag or use &larr; &rarr;
           </span>
 
@@ -251,7 +251,7 @@ export default function GallerySpread({
             onClick={() => turn(1)}
             disabled={index === items.length - 1}
             aria-label={`Next ${itemLabel.toLowerCase()}`}
-            className="inline-flex items-center gap-2 text-[#FAFAFA] text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
+            className="inline-flex items-center gap-2 text-[#FDFDFD] text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
           >
             Next
             <ChevronRight className="w-4 h-4" />

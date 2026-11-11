@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function ElectricReelGuidePage() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-20 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-[#FDFDFD] pb-20 selection:bg-[#0077C0] selection:text-white">
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[640px] w-full bg-abyss overflow-hidden">
         <img
@@ -50,7 +50,7 @@ export default function ElectricReelGuidePage() {
         <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
           <Link
             href="/resources"
-            className="flex items-center gap-2 text-[#FAFAFA]/80 hover:text-white text-sm font-bold uppercase tracking-widest mb-6 transition-colors"
+            className="flex items-center gap-2 text-[#FDFDFD]/80 hover:text-white text-sm font-bold uppercase tracking-widest mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Resources
           </Link>
@@ -59,11 +59,11 @@ export default function ElectricReelGuidePage() {
             Gear &amp; Tackle Guide
           </span>
 
-          <h1 className="text-5xl md:text-8xl lg:text-[7rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-5xl">
+          <h1 className="text-5xl md:text-8xl lg:text-[7rem] leading-[0.85] font-black text-[#FDFDFD] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-5xl">
             Electric Reel <br /> Master Guide
           </h1>
 
-          <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-[#FDFDFD]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
             {description}
           </p>
 

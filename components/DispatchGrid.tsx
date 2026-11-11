@@ -36,7 +36,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
 
         <div className="flex flex-col justify-center p-8 md:p-12">
           <div className="flex items-center gap-2 mb-5 flex-wrap">
-            <span className="inline-block bg-[#FAFAFA] text-abyss text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-widest">
+            <span className="inline-block bg-[#FDFDFD] text-abyss text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-widest">
               {feature.frontmatter.category || 'Species Profile'}
             </span>
             {feature.frontmatter.subcategory && (
@@ -46,12 +46,12 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
             )}
           </div>
 
-          <h3 className="text-3xl md:text-4xl xl:text-5xl font-serif text-[#FAFAFA] leading-[1.1] mb-5 group-hover:text-[#C7EEFF] transition-colors">
+          <h3 className="text-3xl md:text-4xl xl:text-5xl font-serif text-[#FDFDFD] leading-[1.1] mb-5 group-hover:text-[#C7EEFF] transition-colors">
             {feature.frontmatter.title}
           </h3>
 
           {feature.frontmatter.summary && (
-            <p className="text-[#FAFAFA]/70 text-sm md:text-base mb-8 line-clamp-3 leading-relaxed">
+            <p className="text-[#FDFDFD]/70 text-sm md:text-base mb-8 line-clamp-3 leading-relaxed">
               {feature.frontmatter.summary}
             </p>
           )}
@@ -64,8 +64,8 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
               className="w-12 h-12 rounded-full object-cover border-2 border-white/20 bg-abyss shrink-0"
             />
             <div className="min-w-0">
-              <p className="text-[#FAFAFA] font-bold text-sm truncate">{featureAuthor.name}</p>
-              <p className="text-[#FAFAFA]/70 text-xs">{feature.frontmatter.date}</p>
+              <p className="text-[#FDFDFD] font-bold text-sm truncate">{featureAuthor.name}</p>
+              <p className="text-[#FDFDFD]/70 text-xs">{feature.frontmatter.date}</p>
             </div>
           </div>
         </div>

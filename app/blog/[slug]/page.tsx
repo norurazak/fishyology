@@ -139,7 +139,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-32 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-[#FDFDFD] pb-32 selection:bg-[#0077C0] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }}
@@ -155,7 +155,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent"></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto text-center">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-[#FAFAFA]/100 hover:text-white text-sm font-bold uppercase tracking-widest mb-10 transition-colors">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-[#FDFDFD]/100 hover:text-white text-sm font-bold uppercase tracking-widest mb-10 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Journal
           </Link>
           
@@ -173,11 +173,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             )}
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-black text-[#FAFAFA] tracking-tighter leading-[0.95] mb-8 drop-shadow-2xl">
+          <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-black text-[#FDFDFD] tracking-tighter leading-[0.95] mb-8 drop-shadow-2xl">
             {title}
           </h1>
 
-          <div className="flex items-center justify-center gap-2 text-[#FAFAFA]/80 text-xs md:text-sm font-bold uppercase tracking-widest">
+          <div className="flex items-center justify-center gap-2 text-[#FDFDFD]/80 text-xs md:text-sm font-bold uppercase tracking-widest">
             <Calendar className="w-4 h-4" /> {date}
           </div>
         </div>

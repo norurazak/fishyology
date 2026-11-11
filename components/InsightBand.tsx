@@ -16,7 +16,7 @@ function InsightCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group snap-start shrink-0 w-[280px] sm:w-[330px] lg:w-[380px] flex flex-col rounded-[1.5rem] border border-[#FAFAFA]/10 bg-[#FAFAFA]/[0.03] overflow-hidden transition-all duration-300 hover:border-[#FF9A42]/40 hover:bg-[#FAFAFA]/[0.07]"
+      className="group snap-start shrink-0 w-[280px] sm:w-[330px] lg:w-[380px] flex flex-col rounded-[1.5rem] border border-[#FDFDFD]/10 bg-[#FDFDFD]/[0.03] overflow-hidden transition-all duration-300 hover:border-[#FF9A42]/40 hover:bg-[#FDFDFD]/[0.07]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-abyss">
         <img
@@ -35,17 +35,17 @@ function InsightCard({ post }: { post: Post }) {
 
       <div className="flex flex-col flex-grow p-5 md:p-6">
         {subcategory && (
-          <span className="block text-[10px] font-black uppercase tracking-widest text-[#FAFAFA]/40 mb-2">
+          <span className="block text-[10px] font-black uppercase tracking-widest text-[#FDFDFD]/40 mb-2">
             {subcategory}
           </span>
         )}
-        <h3 className="text-xl font-serif leading-snug text-[#FAFAFA] line-clamp-2 mb-3 transition-colors group-hover:text-[#FFC184]">
+        <h3 className="text-xl font-serif leading-snug text-[#FDFDFD] line-clamp-2 mb-3 transition-colors group-hover:text-[#FFC184]">
           {title}
         </h3>
         {summary && (
-          <p className="text-sm leading-relaxed text-[#FAFAFA]/50 line-clamp-2 mb-5">{summary}</p>
+          <p className="text-sm leading-relaxed text-[#FDFDFD]/50 line-clamp-2 mb-5">{summary}</p>
         )}
-        <div className="mt-auto flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#FAFAFA]/35">
+        <div className="mt-auto flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#FDFDFD]/35">
           {sources > 0 && (
             <>
               <span className="text-[#FF9A42]">{sources} sources</span>
@@ -84,10 +84,10 @@ export default function InsightBand({ posts }: { posts: Post[] }) {
               <p className="text-[11px] font-black uppercase tracking-widest text-[#FF9A42] mb-2">
                 Fishyology Insight
               </p>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-[#FAFAFA] mb-3">
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-[#FDFDFD] mb-3">
                 Research Digests
               </h2>
-              <p className="max-w-xl font-medium text-[#FAFAFA]/50">
+              <p className="max-w-xl font-medium text-[#FDFDFD]/50">
                 Syntheses of the peer-reviewed literature, researched and written by Nemo. Not field
                 reporting: every figure traces back to a citation you can open.
               </p>

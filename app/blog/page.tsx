@@ -57,7 +57,7 @@ export default function BlogIndex() {
   const dispatchPosts = humanPosts.slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-abyss pb-32 pt-32">
+    <div className="min-h-screen bg-[#FDFDFD] text-abyss pb-32 pt-32">
       {/* The slider's headings rotate, so the page's own heading sits outside it. */}
       <h1 className="sr-only">The Fishyology Journal</h1>
 

@@ -114,7 +114,7 @@ export default function SocialChannels() {
           const cardContent = (
             <>
               {comingSoon && (
-                <span className="absolute top-5 right-5 bg-abyss text-[#FAFAFA] text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
+                <span className="absolute top-5 right-5 bg-abyss text-[#FDFDFD] text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
                   Coming Soon
                 </span>
               )}

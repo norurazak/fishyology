@@ -128,7 +128,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-2xl bg-[#FAFAFA] rounded-xl p-8 md:p-12 shadow-2xl max-h-[90vh] overflow-y-auto hide-scrollbar"
+        className="relative w-full max-w-2xl bg-[#FDFDFD] rounded-xl p-8 md:p-12 shadow-2xl max-h-[90vh] overflow-y-auto hide-scrollbar"
         onClick={(event) => event.stopPropagation()}
       >
         <button
