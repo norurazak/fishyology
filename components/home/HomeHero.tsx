@@ -149,7 +149,7 @@ export default function HomeHero() {
             <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent"></div>
 
             <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
-              <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
+              <span className="text-[#FAFAFA]/85 font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
                 {slide.subtitle}
               </span>
               {index === 0 ? (
@@ -192,7 +192,7 @@ export default function HomeHero() {
             >
               <div
                 className={`h-1.5 transition-all duration-500 rounded-full ${
-                  index === currentSlide ? "w-16 bg-[#C7EEFF]" : "w-8 bg-white/30 group-hover:bg-white/60"
+                  index === currentSlide ? "w-16 bg-tuna" : "w-8 bg-white/30 group-hover:bg-white/60"
                 }`}
               />
             </button>
