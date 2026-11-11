@@ -132,7 +132,7 @@ export default function GallerySpread({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-8 bg-[#1D242B]/90 backdrop-blur-md"
+      className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-8 bg-abyss/90 backdrop-blur-md"
       onClick={onClose}
     >
       <div
@@ -148,7 +148,7 @@ export default function GallerySpread({
           type="button"
           onClick={onClose}
           aria-label="Close gallery"
-          className="absolute -top-2 right-0 md:-top-4 md:-right-4 z-20 w-10 h-10 rounded-full bg-[#FAFAFA]/90 text-[#1D242B] flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
+          className="absolute -top-2 right-0 md:-top-4 md:-right-4 z-20 w-10 h-10 rounded-full bg-salt/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
         >
           <X className="w-5 h-5" />
         </button>
@@ -169,7 +169,7 @@ export default function GallerySpread({
               if (info.offset.x < -SWIPE_THRESHOLD) turn(1);
               else if (info.offset.x > SWIPE_THRESHOLD) turn(-1);
             }}
-            className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1.75fr)_minmax(0,1fr)] rounded-xl overflow-hidden shadow-2xl bg-[#1D242B] h-[86dvh] md:h-[82dvh]"
+            className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1.75fr)_minmax(0,1fr)] rounded-xl overflow-hidden shadow-2xl bg-abyss h-[86dvh] md:h-[82dvh]"
           >
             {/* Left leaf — the photograph, uncropped, filling the height available */}
             <div className="relative bg-[#14181D] h-[52dvh] md:h-full p-3 md:p-5">
@@ -194,27 +194,27 @@ export default function GallerySpread({
                 without clipping long ones. */}
             <div className="bg-[#F5F5F0] min-h-0 overflow-y-auto hide-scrollbar">
               <div className="p-7 md:p-10 min-h-full flex flex-col justify-center">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-[#1D242B]/50 tabular-nums">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-abyss/50 tabular-nums">
                   {itemLabel} {itemNumber} / {total}
                 </span>
 
                 <h3
                   id="gallery-spread-title"
-                  className="text-2xl md:text-4xl font-serif font-bold text-[#1D242B] leading-tight mt-2 mb-4"
+                  className="text-2xl md:text-4xl font-serif font-bold text-abyss leading-tight mt-2 mb-4"
                 >
                   {item.title}
                 </h3>
 
                 {item.caption && (
-                  <p className="font-serif italic text-lg md:text-xl text-[#1D242B]/75 leading-relaxed">
+                  <p className="font-serif italic text-lg md:text-xl text-abyss/75 leading-relaxed">
                     {item.caption}
                   </p>
                 )}
 
                 {meta.length > 0 && (
                   <>
-                    <div className="w-12 h-px bg-[#1D242B]/20 my-6" />
-                    <dl className="flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest text-[#1D242B]/60">
+                    <div className="w-12 h-px bg-abyss/20 my-6" />
+                    <dl className="flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest text-abyss/60">
                       {meta.map(({ label, value }) => (
                         <div key={label}>
                           <dt className="sr-only">{label}</dt>
@@ -236,13 +236,13 @@ export default function GallerySpread({
             onClick={() => turn(-1)}
             disabled={index === 0}
             aria-label={`Previous ${itemLabel.toLowerCase()}`}
-            className="inline-flex items-center gap-2 text-[#FAFAFA] text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
+            className="inline-flex items-center gap-2 text-salt text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
 
-          <span className="text-[#FAFAFA]/55 text-[11px] font-bold uppercase tracking-widest">
+          <span className="text-salt/55 text-[11px] font-bold uppercase tracking-widest">
             Drag or use &larr; &rarr;
           </span>
 
@@ -251,7 +251,7 @@ export default function GallerySpread({
             onClick={() => turn(1)}
             disabled={index === items.length - 1}
             aria-label={`Next ${itemLabel.toLowerCase()}`}
-            className="inline-flex items-center gap-2 text-[#FAFAFA] text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
+            className="inline-flex items-center gap-2 text-salt text-xs font-bold uppercase tracking-widest disabled:opacity-25 disabled:cursor-not-allowed hover:text-[#C7EEFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full px-3 py-2"
           >
             Next
             <ChevronRight className="w-4 h-4" />

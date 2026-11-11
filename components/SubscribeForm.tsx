@@ -69,13 +69,13 @@ export default function SubscribeForm() {
               name="email"
               required
               placeholder="Enter your email address"
-              className="w-full bg-white border border-[#1D242B]/10 rounded-full px-6 py-4 text-[#1D242B] focus:outline-none focus:border-[#0077C0] transition-colors shadow-sm"
+              className="w-full bg-white border border-abyss/10 rounded-full px-6 py-4 text-abyss focus:outline-none focus:border-abyss transition-colors shadow-sm"
               disabled={status === "loading"}
             />
             <button
               type="submit"
               disabled={status === "loading" || !token}
-              className="absolute right-2 bg-[#1D242B] text-white px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-[#0077C0] transition-colors disabled:opacity-50 shadow-md"
+              className="absolute right-2 btn-primary px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider disabled:opacity-50 shadow-md"
             >
               {status === "loading" ? "Joining..." : "Join"}
             </button>

@@ -33,7 +33,7 @@ export default function MapEmbed({
 
   return (
     <figure className="my-16 not-prose">
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[1rem] overflow-hidden shadow-2xl border border-[#1D242B]/10 bg-[#1D242B]/5">
+      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[1rem] overflow-hidden shadow-2xl border border-abyss/10 bg-abyss/5">
         <iframe
           src={src}
           title={`Map of ${title}`}
@@ -43,7 +43,7 @@ export default function MapEmbed({
           className="absolute top-0 left-0 w-full h-full border-0"
         ></iframe>
       </div>
-      <figcaption className="mt-6 text-center text-[#1D242B]/60 font-serif italic text-lg md:text-xl px-4">
+      <figcaption className="mt-6 text-center text-abyss/60 font-serif italic text-lg md:text-xl px-4">
         {caption ?? title}
         <a
           href={mapLink}

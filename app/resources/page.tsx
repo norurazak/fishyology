@@ -95,8 +95,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Palomar, improved clinch, and braid-to-leader knots you'll actually tie on the water.",
     meta: "Coming Soon",
     icon: Spline,
-    iconBg: "#1D242B0D",
-    iconColor: "#1D242B59",
+    iconBg: "#0E1A1F0D",
+    iconColor: "#0E1A1F59",
   },
   {
     slug: "rod-and-reel-sizing",
@@ -114,8 +114,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Overhead casting, roll casts, and distance control mechanics.",
     meta: "Coming Soon",
     icon: Hand,
-    iconBg: "#1D242B0D",
-    iconColor: "#1D242B59",
+    iconBg: "#0E1A1F0D",
+    iconColor: "#0E1A1F59",
   },
   {
     slug: "live-bait-rigging",
@@ -123,8 +123,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Drop-shot, Carolina rig, slip bobber, and bottom rig setups.",
     meta: "Coming Soon",
     icon: Fish,
-    iconBg: "#1D242B0D",
-    iconColor: "#1D242B59",
+    iconBg: "#0E1A1F0D",
+    iconColor: "#0E1A1F59",
   },
   {
     slug: "malaysia-fishing-licenses",
@@ -142,8 +142,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Proper fish handling, revival techniques, and de-hooking ethics.",
     meta: "Coming Soon",
     icon: Heart,
-    iconBg: "#1D242B0D",
-    iconColor: "#1D242B59",
+    iconBg: "#0E1A1F0D",
+    iconColor: "#0E1A1F59",
   },
 ];
 
@@ -152,16 +152,16 @@ const HERO_IMAGE =
 
 export default function ResourcesPage() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-salt">
       {/* HERO */}
-      <section className="relative h-[100dvh] min-h-[600px] w-full bg-[#1D242B] overflow-hidden">
+      <section className="relative h-[100dvh] min-h-[600px] w-full bg-abyss overflow-hidden">
         <img
           {...cloudinaryImage(HERO_IMAGE, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })}
           alt="Fishyology Resources"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-[#1D242B]/20 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/20 to-transparent" />
+        <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent" />
         <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-[0.03] mix-blend-overlay">
           <filter id="noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
@@ -173,16 +173,16 @@ export default function ResourcesPage() {
           <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
             Field Reference
           </span>
-          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
+          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-salt tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
             Resources
           </h1>
-          <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-salt/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
             Gear guides and field reference built from real Malaysian fishing conditions — starting with tackle,
             with more angles on the way.
           </p>
           <Link
             href="#rod-reel-sizing"
-            className="group relative inline-flex items-center gap-3 bg-[#FAFAFA] text-[#1D242B] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl"
+            className="group relative inline-flex items-center gap-3 bg-salt text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl"
           >
             <span className="relative z-10">Explore the Guides</span>
             <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -198,16 +198,16 @@ export default function ResourcesPage() {
             <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
               Getting Started
             </span>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-4">
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-4">
               New to Angling? Start Here.
             </h2>
-            <p className="text-[#1D242B]/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
+            <p className="text-abyss/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
               Field-tested fundamentals before you hit the water — zero fluff, just the basics.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {gettingStarted.map((item) => {
-              const cardClassName = `group bg-white border border-[#1D242B]/10 rounded-xl shadow-sm p-6 flex items-start gap-4 transition-all duration-300 ${
+              const cardClassName = `group bg-white border border-abyss/10 rounded-xl shadow-sm p-6 flex items-start gap-4 transition-all duration-300 ${
                 item.href ? "hover:shadow-md" : "opacity-70"
               }`;
 
@@ -221,20 +221,20 @@ export default function ResourcesPage() {
                   </div>
                   <div>
                     <h3
-                      className={`font-serif italic text-lg text-[#1D242B] font-bold ${
+                      className={`font-serif italic text-lg text-abyss font-bold ${
                         item.href ? "group-hover:text-[#0077C0] transition-colors" : ""
                       }`}
                     >
                       {item.title}
                     </h3>
-                    <p className="text-sm text-[#1D242B]/60 mt-1 leading-relaxed">{item.summary}</p>
+                    <p className="text-sm text-abyss/60 mt-1 leading-relaxed">{item.summary}</p>
                     {item.href ? (
                       <span className="text-[11px] font-bold uppercase tracking-widest text-[#0077C0] mt-2 inline-block">
                         {item.meta}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#1D242B]/40 mt-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#1D242B]/40 animate-pulse"></span>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-abyss/40 mt-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-abyss/40 animate-pulse"></span>
                         {item.meta}
                       </span>
                     )}
@@ -265,7 +265,7 @@ export default function ResourcesPage() {
             id={category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
             className="mb-16 scroll-mt-32"
           >
-            <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#1D242B] mb-6">{category}</h2>
+            <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-abyss mb-6">{category}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {resources
                 .filter((r) => r.category === category)
@@ -273,9 +273,9 @@ export default function ResourcesPage() {
                   <Link
                     key={r.slug}
                     href={r.href}
-                    className="group flex flex-col bg-white border border-[#1D242B]/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                    className="group flex flex-col bg-white border border-abyss/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
                   >
-                    <div className="relative aspect-[4/3] bg-[#1D242B] flex items-center justify-center overflow-hidden">
+                    <div className="relative aspect-[4/3] bg-abyss flex items-center justify-center overflow-hidden">
                       {r.image ? (
                         <img
                           {...cloudinaryImage(r.image, { sizes: "(max-width: 768px) 100vw, 33vw", quality: "auto:best" })}
@@ -293,11 +293,11 @@ export default function ResourcesPage() {
                       <span className="inline-block self-start bg-[#C7EEFF]/50 text-[#0077C0] text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md mb-3">
                         {r.tag}
                       </span>
-                      <h3 className="text-xl font-serif font-bold text-[#1D242B] leading-tight group-hover:text-[#0077C0] transition-colors mb-2">
+                      <h3 className="text-xl font-serif font-bold text-abyss leading-tight group-hover:text-[#0077C0] transition-colors mb-2">
                         {r.title}
                       </h3>
-                      <p className="text-sm text-[#1D242B]/60 leading-relaxed line-clamp-3 flex-1">{r.summary}</p>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-[#1D242B] mt-4">
+                      <p className="text-sm text-abyss/60 leading-relaxed line-clamp-3 flex-1">{r.summary}</p>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss mt-4">
                         Read the guide
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </span>

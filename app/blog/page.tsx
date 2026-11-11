@@ -57,7 +57,7 @@ export default function BlogIndex() {
   const dispatchPosts = humanPosts.slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#1D242B] pb-32 pt-32">
+    <div className="min-h-screen bg-salt text-abyss pb-32 pt-32">
       {/* The slider's headings rotate, so the page's own heading sits outside it. */}
       <h1 className="sr-only">The Fishyology Journal</h1>
 
@@ -71,7 +71,7 @@ export default function BlogIndex() {
       <InsightBand posts={insightPosts} />
 
       {/* 4. THE DYNAMIC ARCHIVE FILTER SECTION (RESTORED SUSPENSE) */}
-      <Suspense fallback={<div className="text-center p-20 font-bold text-[#1D242B]/50 animate-pulse">Loading archive...</div>}>
+      <Suspense fallback={<div className="text-center p-20 font-bold text-abyss/50 animate-pulse">Loading archive...</div>}>
         <FilteredArchive posts={realPosts} />
       </Suspense>
 

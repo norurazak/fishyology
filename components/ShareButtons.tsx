@@ -45,14 +45,14 @@ export default function ShareButtons({ title }: { title: string }) {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/50 mr-2">Share</span>
+      <span className="text-xs font-bold uppercase tracking-widest text-abyss/50 mr-2">Share</span>
       
       {/* Threads */}
       <a 
         href={`https://www.threads.net/intent/post?text=${shareText}%20${shareUrl}`} 
         target="_blank" 
         rel="noreferrer" 
-        className="w-10 h-10 rounded-full bg-white border border-[#1D242B]/10 flex items-center justify-center text-[#1D242B] hover:bg-[#000000] hover:text-white hover:border-[#000000] transition-colors shadow-sm"
+        className="w-10 h-10 rounded-full bg-white border border-abyss/10 flex items-center justify-center text-abyss hover:bg-[#000000] hover:text-white hover:border-[#000000] transition-colors shadow-sm"
       >
         <ThreadsIcon className="w-4 h-4" />
       </a>
@@ -62,7 +62,7 @@ export default function ShareButtons({ title }: { title: string }) {
         href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`} 
         target="_blank" 
         rel="noreferrer" 
-        className="w-10 h-10 rounded-full bg-white border border-[#1D242B]/10 flex items-center justify-center text-[#1D242B] hover:bg-[#1D242B] hover:text-white transition-colors shadow-sm"
+        className="w-10 h-10 rounded-full bg-white border border-abyss/10 flex items-center justify-center text-abyss hover:bg-abyss hover:text-white transition-colors shadow-sm"
       >
         <TwitterIcon className="w-4 h-4" />
       </a>
@@ -72,7 +72,7 @@ export default function ShareButtons({ title }: { title: string }) {
         href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} 
         target="_blank" 
         rel="noreferrer" 
-        className="w-10 h-10 rounded-full bg-white border border-[#1D242B]/10 flex items-center justify-center text-[#1D242B] hover:bg-[#0077C0] hover:text-white hover:border-[#0077C0] transition-colors shadow-sm"
+        className="w-10 h-10 rounded-full bg-white border border-abyss/10 flex items-center justify-center text-abyss hover:bg-[#0077C0] hover:text-white hover:border-[#0077C0] transition-colors shadow-sm"
       >
         <FacebookIcon className="w-4 h-4" />
       </a>
@@ -80,11 +80,11 @@ export default function ShareButtons({ title }: { title: string }) {
       {/* Copy Link */}
       <button 
         onClick={copyLink} 
-        className="relative w-10 h-10 rounded-full bg-white border border-[#1D242B]/10 flex items-center justify-center text-[#1D242B] hover:bg-[#408A71] hover:text-white hover:border-[#408A71] transition-colors shadow-sm"
+        className="relative w-10 h-10 rounded-full bg-white border border-abyss/10 flex items-center justify-center text-abyss hover:bg-[#408A71] hover:text-white hover:border-[#408A71] transition-colors shadow-sm"
       >
         <Link2 className="w-4 h-4" />
         {copied && (
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#1D242B] text-white text-[10px] font-bold px-2 py-1 rounded">
+          <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-abyss text-white text-[10px] font-bold px-2 py-1 rounded">
             Copied!
           </span>
         )}

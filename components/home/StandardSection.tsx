@@ -64,20 +64,20 @@ export default function StandardSection() {
     <section ref={sectionRef} className="pt-[76px] pb-0 md:pt-[108px] px-6 md:px-12 max-w-[1600px] mx-auto relative">
       {/* The statement */}
       <div className="discovery-container max-w-5xl mb-16 md:mb-24">
-        <span className="text-[#1D242B]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
+        <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
           What We Stand For
         </span>
-        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-8">
+        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-8">
           The Fishyology Standard
         </h2>
-        <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-[#1D242B] leading-[1.2] mb-10">
+        <p className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-abyss leading-[1.2] mb-10">
           We document angling as an experience, not an outcome — every cast, every
           challenge, and every story that connects anglers across waters and generations.
         </p>
         <div className="flex flex-wrap items-center gap-4">
-          <div className="w-12 h-[2px] bg-[#1D242B]"></div>
-          <span className="font-serif italic text-xl md:text-2xl text-[#1D242B]">Noru Razak</span>
-          <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/40">
+          <div className="w-12 h-[2px] bg-abyss"></div>
+          <span className="font-serif italic text-xl md:text-2xl text-abyss">Noru Razak</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-abyss/40">
             Founder, Est. 2013
           </span>
         </div>
@@ -88,7 +88,7 @@ export default function StandardSection() {
         {standardPillars.map((pillar) => (
           <article
             key={pillar.id}
-            className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-[#1D242B]/8 shadow-sm hover:shadow-xl transition-all duration-500"
+            className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-abyss/8 shadow-sm hover:shadow-xl transition-all duration-500"
           >
             <div className="h-56 md:h-64 overflow-hidden">
               <img
@@ -100,16 +100,16 @@ export default function StandardSection() {
             </div>
 
             <div className="flex flex-col flex-1 p-6 md:p-8">
-              <span className="text-[#1D242B]/70 font-black tracking-widest uppercase text-[10px] md:text-xs mb-3">
+              <span className="text-abyss/70 font-black tracking-widest uppercase text-[10px] md:text-xs mb-3">
                 {pillar.label}
               </span>
-              <h3 className="font-serif italic text-2xl md:text-3xl text-[#1D242B] leading-tight mb-1">
+              <h3 className="font-serif italic text-2xl md:text-3xl text-abyss leading-tight mb-1">
                 {pillar.title}
               </h3>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/40 mb-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-abyss/40 mb-4">
                 {pillar.subtitle}
               </span>
-              <p className="text-[#1D242B]/70 text-sm md:text-base leading-relaxed">{pillar.text}</p>
+              <p className="text-abyss/70 text-sm md:text-base leading-relaxed">{pillar.text}</p>
             </div>
           </article>
         ))}
@@ -118,7 +118,7 @@ export default function StandardSection() {
       <div className="mt-10 md:mt-12 flex justify-end">
         <Link
           href="/about"
-          className="group relative inline-flex items-center gap-3 bg-[#1D242B] text-[#FAFAFA] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-xl hover:shadow-2xl"
+          className="btn-primary group relative inline-flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-xl hover:shadow-2xl"
         >
           <span className="relative z-10">Read Our Full Story</span>
           <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />

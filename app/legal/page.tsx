@@ -41,13 +41,13 @@ export default function LegalPage() {
   const [activeDoc, setActiveDoc] = useState(0);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#1D242B] pt-40 pb-20 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-salt text-abyss pt-40 pb-20 selection:bg-[#0077C0] selection:text-white">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Navigation / Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#1D242B]/40 hover:text-[#0077C0] transition-colors mb-4">
+            <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-abyss/40 hover:text-[#0077C0] transition-colors mb-4">
               <ArrowLeft className="w-4 h-4" /> Return to Port
             </Link>
             <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">Legal <br/><span className="text-[#0077C0]">& Compliance.</span></h1>
@@ -59,8 +59,8 @@ export default function LegalPage() {
                 onClick={() => setActiveDoc(index)}
                 className={`px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-widest transition-all ${
                   activeDoc === index 
-                    ? "bg-[#1D242B] text-white shadow-lg" 
-                    : "bg-white border border-[#1D242B]/10 text-[#1D242B]/50 hover:border-[#1D242B]/30"
+                    ? "bg-abyss text-white shadow-lg" 
+                    : "bg-white border border-abyss/10 text-abyss/50 hover:border-abyss/30"
                 }`}
               >
                 {doc.title}
@@ -70,7 +70,7 @@ export default function LegalPage() {
         </div>
 
         {/* Content Area */}
-        <div className="bg-white border border-[#1D242B]/5 rounded-[2.5rem] p-8 md:p-16 shadow-xl">
+        <div className="bg-white border border-abyss/5 rounded-[2.5rem] p-8 md:p-16 shadow-xl">
           <div className="flex items-center gap-3 mb-8 text-[#408A71]">
             <ShieldCheck className="w-6 h-6" />
             <span className="font-black uppercase tracking-widest text-sm">Official Fishyology Documentation</span>
@@ -82,8 +82,8 @@ export default function LegalPage() {
               const [title, ...text] = section.split('\n');
               return (
                 <div key={i} className="mb-10">
-                  <h2 className="text-2xl font-serif font-bold mb-4 text-[#1D242B]">{title.trim()}</h2>
-                  <p className="text-[#1D242B]/70 leading-relaxed font-medium whitespace-pre-line">
+                  <h2 className="text-2xl font-serif font-bold mb-4 text-abyss">{title.trim()}</h2>
+                  <p className="text-abyss/70 leading-relaxed font-medium whitespace-pre-line">
                     {text.join('\n').trim()}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default function LegalPage() {
           </div>
         </div>
 
-        <div className="mt-12 text-center text-[#1D242B]/40 text-xs font-bold uppercase tracking-[0.2em]">
+        <div className="mt-12 text-center text-abyss/40 text-xs font-bold uppercase tracking-[0.2em]">
           Last Updated: April 2026
         </div>
       </div>

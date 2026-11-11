@@ -15,16 +15,16 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
     <section className="py-20 md:py-28 px-6 md:px-12 max-w-[1600px] mx-auto">
       <div className="flex flex-wrap items-end justify-between gap-4 mb-10 md:mb-14">
         <div>
-          <span className="text-[#1D242B]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
+          <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
             From The Journal
           </span>
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B]">
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss">
             Latest Stories
           </h2>
         </div>
         <Link
           href="/blog"
-          className="group inline-flex items-center gap-2 font-bold text-[#1D242B] hover:underline underline-offset-4 transition-colors"
+          className="group inline-flex items-center gap-2 font-bold text-abyss hover:underline underline-offset-4 transition-colors"
         >
           All Stories
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -34,7 +34,7 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
       <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12">
         <Link
           href={`/blog/${feature.slug}`}
-          className="group relative flex items-end min-h-[420px] lg:min-h-[560px] rounded-[1.75rem] overflow-hidden bg-[#1D242B] shadow-xl"
+          className="group relative flex items-end min-h-[420px] lg:min-h-[560px] rounded-[1.75rem] overflow-hidden bg-abyss shadow-xl"
         >
           <img
             {...cloudinaryImage(feature.frontmatter.image || FALLBACK_IMAGE, {
@@ -44,16 +44,16 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/25 to-transparent" />
           <div className="relative z-10 p-8 md:p-10">
             <span className="block text-[#C7EEFF] text-xs font-bold uppercase tracking-widest mb-3">
               {feature.frontmatter.category} · {feature.frontmatter.date}
             </span>
-            <h3 className="text-3xl md:text-5xl font-serif text-[#FAFAFA] leading-[1.1] mb-3">
+            <h3 className="text-3xl md:text-5xl font-serif text-salt leading-[1.1] mb-3">
               {feature.frontmatter.title}
             </h3>
             {feature.frontmatter.summary && (
-              <p className="text-[#FAFAFA]/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
+              <p className="text-salt/80 text-sm md:text-base leading-relaxed line-clamp-2 max-w-2xl">
                 {feature.frontmatter.summary}
               </p>
             )}
@@ -63,7 +63,7 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
         <div className="flex flex-col justify-between gap-6">
           {rest.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex gap-5 items-center flex-1">
-              <div className="relative w-28 h-28 sm:w-40 sm:h-32 shrink-0 rounded-[1rem] overflow-hidden bg-[#1D242B]/5">
+              <div className="relative w-28 h-28 sm:w-40 sm:h-32 shrink-0 rounded-[1rem] overflow-hidden bg-abyss/5">
                 <img
                   {...cloudinaryImage(post.frontmatter.image || FALLBACK_IMAGE, {
                     sizes: "160px",
@@ -75,13 +75,13 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
                 />
               </div>
               <div className="min-w-0">
-                <span className="block text-[#1D242B]/70 text-[10px] font-black uppercase tracking-widest mb-2">
+                <span className="block text-abyss/70 text-[10px] font-black uppercase tracking-widest mb-2">
                   {post.frontmatter.category}
                 </span>
-                <h3 className="text-lg md:text-xl font-serif text-[#1D242B] leading-snug group-hover:underline underline-offset-4 transition-colors line-clamp-3">
+                <h3 className="text-lg md:text-xl font-serif text-abyss leading-snug group-hover:underline underline-offset-4 transition-colors line-clamp-3">
                   {post.frontmatter.title}
                 </h3>
-                <span className="block mt-2 text-xs font-medium text-[#1D242B]/50">
+                <span className="block mt-2 text-xs font-medium text-abyss/50">
                   {post.frontmatter.date}
                 </span>
               </div>

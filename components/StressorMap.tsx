@@ -35,8 +35,8 @@ export function Stressor({ origin, name, impact }: { origin: Origin; name: strin
   const o = ORIGINS[origin] ?? ORIGINS.local;
   return (
     <div className={`rounded-[0.75rem] border p-4 ${o.tint}`}>
-      <span className="block text-sm font-black text-[#1D242B] leading-snug mb-1.5">{name}</span>
-      <span className="block text-[13px] leading-relaxed text-[#1D242B]/65">{impact}</span>
+      <span className="block text-sm font-black text-abyss leading-snug mb-1.5">{name}</span>
+      <span className="block text-[13px] leading-relaxed text-abyss/65">{impact}</span>
     </div>
   );
 }
@@ -69,23 +69,23 @@ export default function StressorMap({
               <span className="text-[11px] font-black uppercase tracking-widest" style={{ color: g.color }}>
                 {g.label}
               </span>
-              <span className="text-[11px] font-bold tabular-nums text-[#1D242B]/35">{g.items.length}</span>
+              <span className="text-[11px] font-bold tabular-nums text-abyss/35">{g.items.length}</span>
             </span>
-            <span className="block text-[11px] font-medium text-[#1D242B]/45 mb-4">{g.note}</span>
+            <span className="block text-[11px] font-medium text-abyss/45 mb-4">{g.note}</span>
             <div className="flex flex-col gap-3">{g.items}</div>
           </div>
         ))}
       </div>
 
       {note && (
-        <div className="mt-5 flex items-start gap-3 rounded-[0.75rem] bg-[#1D242B] p-5">
+        <div className="mt-5 flex items-start gap-3 rounded-[0.75rem] bg-abyss p-5">
           <span className="mt-[3px] block h-2 w-2 shrink-0 rounded-full bg-[#FF9A42]" />
-          <p className="text-sm leading-relaxed text-[#FAFAFA]/80 font-medium">{note}</p>
+          <p className="text-sm leading-relaxed text-salt/80 font-medium">{note}</p>
         </div>
       )}
 
       {caption && (
-        <figcaption className="mt-4 text-sm font-medium italic text-[#1D242B]/50">{caption}</figcaption>
+        <figcaption className="mt-4 text-sm font-medium italic text-abyss/50">{caption}</figcaption>
       )}
     </figure>
   );

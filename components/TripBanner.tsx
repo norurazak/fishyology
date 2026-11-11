@@ -35,7 +35,7 @@ export function BannerShell({
   href: string;
 }) {
   return (
-    <div className="group relative my-16 overflow-hidden shadow-2xl not-prose min-h-[280px] md:min-h-[240px] flex items-end bg-[#1D242B]">
+    <div className="group relative my-16 overflow-hidden shadow-2xl not-prose min-h-[280px] md:min-h-[240px] flex items-end bg-abyss">
       <Image
         src={image}
         alt=""
@@ -43,7 +43,7 @@ export function BannerShell({
         sizes="(max-width: 768px) 100vw, 1200px"
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/65 to-[#1D242B]/15" />
+      <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/65 to-abyss/15" />
 
       <div className="relative z-10 w-full p-8 md:p-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div className="min-w-0">
@@ -57,7 +57,7 @@ export function BannerShell({
         </div>
         <Link
           href={href}
-          className="shrink-0 inline-flex items-center justify-center gap-2 bg-[#C7EEFF] text-[#1D242B] font-bold px-6 py-3 rounded-full hover:bg-white transition-colors"
+          className="shrink-0 inline-flex items-center justify-center gap-2 bg-[#C7EEFF] text-abyss font-bold px-6 py-3 rounded-full hover:bg-white transition-colors"
         >
           {ctaText}
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

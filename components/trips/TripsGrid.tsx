@@ -40,7 +40,7 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
 
   return (
     <article
-      className={`group bg-white border border-[#1D242B]/10 rounded-2xl overflow-hidden flex flex-col shadow-sm transition-all duration-300 ${
+      className={`group bg-white border border-abyss/10 rounded-2xl overflow-hidden flex flex-col shadow-sm transition-all duration-300 ${
         comingSoon ? "" : "hover:shadow-xl hover:-translate-y-1"
       }`}
     >
@@ -52,7 +52,7 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
         aria-hidden="true"
         onClick={comingSoon ? undefined : onOpen}
         disabled={comingSoon}
-        className={`relative aspect-[4/3] bg-[#1D242B] w-full block overflow-hidden ${
+        className={`relative aspect-[4/3] bg-abyss w-full block overflow-hidden ${
           comingSoon ? "cursor-default" : "cursor-pointer"
         }`}
       >
@@ -76,10 +76,10 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
           </span>
         )}
 
-        <span className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#1D242B]/80 to-transparent" />
+        <span className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-abyss/80 to-transparent" />
 
         {comingSoon ? (
-          <span className="absolute top-3 left-3 bg-[#1D242B]/90 text-white text-[11px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
+          <span className="absolute top-3 left-3 bg-abyss/90 text-white text-[11px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
             Coming Soon
           </span>
         ) : (
@@ -101,16 +101,16 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
           {comingSoon ? "Not Yet Bookable" : "Direct Booking"}
         </div>
 
-        <h3 className="text-xl font-serif font-bold text-[#1D242B] leading-tight mb-2">
+        <h3 className="text-xl font-serif font-bold text-abyss leading-tight mb-2">
           {trip.name}
         </h3>
 
-        <p className="text-sm text-[#1D242B]/80 leading-relaxed line-clamp-3">{trip.summary}</p>
+        <p className="text-sm text-abyss/80 leading-relaxed line-clamp-3">{trip.summary}</p>
 
         {/* flex-1 here keeps every card's price block on the same baseline */}
         <div className="flex-1" />
 
-        <dl className="flex flex-col gap-2 mt-5 pt-5 border-t border-[#1D242B]/8 text-xs text-[#1D242B]/70">
+        <dl className="flex flex-col gap-2 mt-5 pt-5 border-t border-abyss/8 text-xs text-abyss/70">
           <div className="flex items-center gap-2">
             <dt className="sr-only">Duration</dt>
             <Clock className="w-3.5 h-3.5 text-[#0077C0] flex-shrink-0" />
@@ -133,19 +133,19 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
 
       {/* Price + CTA footer */}
       {comingSoon ? (
-        <div className="bg-[#F5F5F0] border-t border-[#1D242B]/10 p-5 flex items-center justify-center">
-          <span className="text-sm font-bold text-[#1D242B]/50 uppercase tracking-widest">
+        <div className="bg-[#F5F5F0] border-t border-abyss/10 p-5 flex items-center justify-center">
+          <span className="text-sm font-bold text-abyss/50 uppercase tracking-widest">
             Coming Soon
           </span>
         </div>
       ) : (
-        <div className="bg-[#F5F5F0] border-t border-[#1D242B]/10 p-5 flex flex-col gap-3">
+        <div className="bg-[#F5F5F0] border-t border-abyss/10 p-5 flex flex-col gap-3">
           <div className="flex flex-wrap items-baseline gap-x-2">
-            <span className="text-2xl font-black text-[#1D242B] tracking-tight">
+            <span className="text-2xl font-black text-abyss tracking-tight">
               {fromPrice(trip.priceHeadline)}
             </span>
             {trip.priceUnit && (
-              <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/60">
+              <span className="text-xs font-bold uppercase tracking-widest text-abyss/60">
                 {trip.priceUnit}
               </span>
             )}
@@ -155,7 +155,7 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
             <button
               type="button"
               onClick={onOpen}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#1D242B] text-white text-sm font-bold px-3 py-2.5 rounded-full hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 bg-abyss text-white text-sm font-bold px-3 py-2.5 rounded-full hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
             >
               Trip Details
               <ArrowRight className="w-3.5 h-3.5" />
@@ -165,7 +165,7 @@ function TripCard({ trip, onOpen }: { trip: TripPackage; onOpen: () => void }) {
               target="_blank"
               rel="noreferrer"
               aria-label={`Enquire about ${trip.name} on WhatsApp`}
-              className="inline-flex items-center justify-center gap-1.5 bg-white border border-[#1D242B]/10 text-[#25D366] px-3 py-2.5 rounded-full hover:border-[#25D366] transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 bg-white border border-abyss/10 text-[#25D366] px-3 py-2.5 rounded-full hover:border-[#25D366] transition-colors"
             >
               <MessageCircle className="w-4 h-4" />
             </a>
@@ -197,14 +197,14 @@ export default function TripsGrid({
               {section.label}
             </span>
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-4">
-              <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B]">
+              <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss">
                 {section.title}
               </h2>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/50 tabular-nums">
+              <span className="text-xs font-bold uppercase tracking-widest text-abyss/50 tabular-nums">
                 {section.trips.length} {section.trips.length === 1 ? "trip" : "trips"}
               </span>
             </div>
-            <p className="text-[#1D242B]/70 max-w-2xl text-sm md:text-base font-medium leading-relaxed">
+            <p className="text-abyss/70 max-w-2xl text-sm md:text-base font-medium leading-relaxed">
               {section.description}
             </p>
           </div>

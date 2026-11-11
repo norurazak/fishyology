@@ -12,8 +12,8 @@ import StressorMap, { Stressor } from './StressorMap';
 // and sit on top of the fixed shadow gradients (`scroll`), masking them at each end.
 const scrollShadow: React.CSSProperties = {
   backgroundImage: `
-    linear-gradient(to right, #FAFAFA 40%, rgba(250,250,250,0)),
-    linear-gradient(to left, #FAFAFA 40%, rgba(250,250,250,0)),
+    linear-gradient(to right, #F4F1EA 40%, rgba(250,250,250,0)),
+    linear-gradient(to left, #F4F1EA 40%, rgba(250,250,250,0)),
     linear-gradient(to right, rgba(29,36,43,0.14), rgba(29,36,43,0)),
     linear-gradient(to left, rgba(29,36,43,0.14), rgba(29,36,43,0))`,
   backgroundPosition: 'left center, right center, left center, right center',
@@ -25,7 +25,7 @@ const scrollShadow: React.CSSProperties = {
 export const mdxComponents = {
   // 1. Upgrade standard markdown images to optimized Next.js Images
   img: (props: any) => (
-    <div className="relative w-full h-[400px] md:h-[500px] my-10 rounded-[2rem] overflow-hidden shadow-2xl bg-[#1D242B]/5">
+    <div className="relative w-full h-[400px] md:h-[500px] my-10 rounded-[2rem] overflow-hidden shadow-2xl bg-abyss/5">
       <Image 
         src={props.src} 
         alt={props.alt || "Fishyology Journal Image"} 
@@ -45,7 +45,7 @@ export const mdxComponents = {
 
   // 3. Custom Callout Component
   Callout: ({ title, children }: { title: string, children: React.ReactNode }) => (
-    <div className="bg-[#1D242B] text-white p-6 md:p-8 rounded-[1.5rem] my-10 border-l-4 border-[#408A71] shadow-xl not-prose">
+    <div className="bg-abyss text-white p-6 md:p-8 rounded-[1.5rem] my-10 border-l-4 border-[#408A71] shadow-xl not-prose">
       <strong className="block text-[#408A71] uppercase tracking-widest text-sm mb-3 font-black">{title}</strong>
       <div className="text-white/80 font-medium text-lg leading-relaxed">{children}</div>
     </div>
@@ -59,7 +59,7 @@ export const mdxComponents = {
 
     return (
       <figure className={`my-16 not-prose ${orientation === "vertical" ? "flex flex-col items-center" : ""}`}>
-        <div className={`relative rounded-[1rem] overflow-hidden shadow-2xl border border-[#1D242B]/5 ${heightClass}`}>
+        <div className={`relative rounded-[1rem] overflow-hidden shadow-2xl border border-abyss/5 ${heightClass}`}>
           <Image 
             src={src} 
             alt={alt} 
@@ -69,7 +69,7 @@ export const mdxComponents = {
           />
         </div>
         {caption && (
-          <figcaption className={`mt-6 text-center text-[#1D242B]/60 font-serif italic text-lg md:text-xl px-4 ${orientation === "vertical" ? "max-w-2xl" : ""}`}>
+          <figcaption className={`mt-6 text-center text-abyss/60 font-serif italic text-lg md:text-xl px-4 ${orientation === "vertical" ? "max-w-2xl" : ""}`}>
             {caption}
           </figcaption>
         )}
@@ -79,7 +79,7 @@ export const mdxComponents = {
 
   // 5. Cinematic YouTube Embed
   YouTube: ({ id }: { id: string }) => (
-    <div className="my-12 relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl border border-[#1D242B]/10 bg-black not-prose">
+    <div className="my-12 relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl border border-abyss/10 bg-black not-prose">
       <iframe
         src={`https://www.youtube.com/embed/${id}?rel=0&color=white`}
         title="YouTube video player"
@@ -92,23 +92,23 @@ export const mdxComponents = {
 
   // 6. Angler's Gear Loadout
   GearLoadout: ({ rod, reel, line, lure }: { rod: string, reel: string, line: string, lure: string }) => (
-    <div className="my-12 bg-white rounded-[2rem] p-8 shadow-xl border border-[#1D242B]/10 not-prose">
-      <h4 className="text-[#408A71] font-black uppercase tracking-widest text-sm mb-6 border-b border-[#1D242B]/10 pb-4">Captain's Loadout</h4>
+    <div className="my-12 bg-white rounded-[2rem] p-8 shadow-xl border border-abyss/10 not-prose">
+      <h4 className="text-[#408A71] font-black uppercase tracking-widest text-sm mb-6 border-b border-abyss/10 pb-4">Captain's Loadout</h4>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div><span className="block text-xs font-bold text-[#1D242B]/40 uppercase tracking-wider mb-1">Rod</span><span className="font-medium text-[#1D242B]">{rod}</span></div>
-        <div><span className="block text-xs font-bold text-[#1D242B]/40 uppercase tracking-wider mb-1">Reel</span><span className="font-medium text-[#1D242B]">{reel}</span></div>
-        <div><span className="block text-xs font-bold text-[#1D242B]/40 uppercase tracking-wider mb-1">Line</span><span className="font-medium text-[#1D242B]">{line}</span></div>
-        <div><span className="block text-xs font-bold text-[#1D242B]/40 uppercase tracking-wider mb-1">Lure/Bait</span><span className="font-medium text-[#0077C0]">{lure}</span></div>
+        <div><span className="block text-xs font-bold text-abyss/40 uppercase tracking-wider mb-1">Rod</span><span className="font-medium text-abyss">{rod}</span></div>
+        <div><span className="block text-xs font-bold text-abyss/40 uppercase tracking-wider mb-1">Reel</span><span className="font-medium text-abyss">{reel}</span></div>
+        <div><span className="block text-xs font-bold text-abyss/40 uppercase tracking-wider mb-1">Line</span><span className="font-medium text-abyss">{line}</span></div>
+        <div><span className="block text-xs font-bold text-abyss/40 uppercase tracking-wider mb-1">Lure/Bait</span><span className="font-medium text-[#0077C0]">{lure}</span></div>
       </div>
     </div>
   ),
 
   // 7. Species Stats Card
   SpeciesStats: ({ name, scientific, weight, diet }: { name: string, scientific: string, weight: string, diet: string }) => (
-    <div className="my-10 bg-[#1D242B] text-[#FAFAFA] rounded-[1.5rem] p-6 md:p-8 shadow-2xl border-l-4 border-[#0077C0] flex flex-col md:flex-row md:items-center justify-between gap-6 not-prose">
+    <div className="my-10 bg-abyss text-salt rounded-[1.5rem] p-6 md:p-8 shadow-2xl border-l-4 border-[#0077C0] flex flex-col md:flex-row md:items-center justify-between gap-6 not-prose">
       <div>
         <h3 className="text-2xl font-black mb-1">{name}</h3>
-        <p className="text-[#FAFAFA]/50 font-serif italic text-lg">{scientific}</p>
+        <p className="text-salt/50 font-serif italic text-lg">{scientific}</p>
       </div>
       <div className="flex gap-8">
         <div><span className="block text-[#0077C0] text-xs font-bold uppercase tracking-widest mb-1">Avg Weight</span>{weight}</div>
@@ -119,8 +119,8 @@ export const mdxComponents = {
 
   // 8. Editorial Pull Quote
   PullQuote: ({ children, author }: { children: React.ReactNode, author?: string }) => (
-    <div className="my-16 py-8 border-t-2 border-b-2 border-[#1D242B]/10 not-prose">
-      <blockquote className="text-3xl md:text-5xl font-serif text-[#1D242B] leading-tight text-center italic">
+    <div className="my-16 py-8 border-t-2 border-b-2 border-abyss/10 not-prose">
+      <blockquote className="text-3xl md:text-5xl font-serif text-abyss leading-tight text-center italic">
         "{children}"
       </blockquote>
       {author && <p className="text-center mt-6 text-[#408A71] font-bold uppercase tracking-widest text-sm">— {author}</p>}
@@ -130,9 +130,9 @@ export const mdxComponents = {
   // 9. Branded Visual Divider
   Divider: () => (
     <div className="flex items-center justify-center gap-4 my-16 not-prose opacity-40">
-      <div className="w-16 h-[1px] bg-[#1D242B]"></div>
+      <div className="w-16 h-[1px] bg-abyss"></div>
       <div className="w-2 h-2 rounded-full bg-[#0077C0]"></div>
-      <div className="w-16 h-[1px] bg-[#1D242B]"></div>
+      <div className="w-16 h-[1px] bg-abyss"></div>
     </div>
   ),
 
@@ -163,16 +163,16 @@ export const mdxComponents = {
           alt={imageAlt || ''}
           loading="lazy"
           decoding="async"
-          className="w-28 sm:w-36 md:w-44 lg:w-1/4 shrink-0 self-stretch object-cover bg-[#1D242B]/5"
+          className="w-28 sm:w-36 md:w-44 lg:w-1/4 shrink-0 self-stretch object-cover bg-abyss/5"
         />
       )}
       <div className="flex-1 min-w-0 border-l-[3px] border-[#0077C0] pl-5 md:pl-8">
-        <div className="text-6xl md:text-7xl font-black text-[#1D242B] leading-[0.85] tracking-tighter tabular-nums">{stat}</div>
+        <div className="text-6xl md:text-7xl font-black text-abyss leading-[0.85] tracking-tighter tabular-nums">{stat}</div>
         <figcaption className="mt-4">
-          <p className="text-[#1D242B] font-bold text-base md:text-lg leading-snug">{label}</p>
-          {children && <div className="text-[#1D242B]/70 font-medium mt-3 leading-relaxed [&>p]:m-0">{children}</div>}
+          <p className="text-abyss font-bold text-base md:text-lg leading-snug">{label}</p>
+          {children && <div className="text-abyss/70 font-medium mt-3 leading-relaxed [&>p]:m-0">{children}</div>}
           {source && (
-            <p className="mt-4 text-[11px] font-black uppercase tracking-widest text-[#1D242B]/40">Source: {source}</p>
+            <p className="mt-4 text-[11px] font-black uppercase tracking-widest text-abyss/40">Source: {source}</p>
           )}
         </figcaption>
       </div>
@@ -187,7 +187,7 @@ export const mdxComponents = {
     <figure className="my-12 not-prose">
       <div className="stat-grid grid gap-4 sm:grid-cols-3">{children}</div>
       {caption && (
-        <figcaption className="mt-5 text-sm font-medium italic text-[#1D242B]/50">{caption}</figcaption>
+        <figcaption className="mt-5 text-sm font-medium italic text-abyss/50">{caption}</figcaption>
       )}
     </figure>
   ),
@@ -198,20 +198,20 @@ export const mdxComponents = {
   //     non-taxonomic tag is never silently linked somewhere wrong.
   StatMeter: ({ label, value, unit, percent, percentLabel, tags, tagHref }: { label: string, value: string, unit?: string, percent?: string, percentLabel?: string, tags?: string, tagHref?: string }) => {
     const pct = Math.max(0, Math.min(100, Number(percent) || 0));
-    const pillClass = "rounded-full bg-[#1D242B]/5 px-2.5 py-1 text-[10px] font-bold text-[#1D242B]/60";
+    const pillClass = "rounded-full bg-abyss/5 px-2.5 py-1 text-[10px] font-bold text-abyss/60";
     return (
-      <div className="flex flex-col rounded-[1.25rem] border border-[#1D242B]/10 bg-white p-5 md:p-6 transition-shadow hover:shadow-md">
+      <div className="flex flex-col rounded-[1.25rem] border border-abyss/10 bg-white p-5 md:p-6 transition-shadow hover:shadow-md">
         <span className="block text-[10px] font-black uppercase tracking-widest text-[#408A71]">{label}</span>
 
         <span className="mt-3 flex flex-wrap items-baseline gap-x-1.5">
-          <span className="text-4xl md:text-5xl font-black leading-none tracking-tight text-[#1D242B]">{value}</span>
-          {unit && <span className="text-[11px] font-bold uppercase tracking-wider text-[#1D242B]/40">{unit}</span>}
+          <span className="text-4xl md:text-5xl font-black leading-none tracking-tight text-abyss">{value}</span>
+          {unit && <span className="text-[11px] font-bold uppercase tracking-wider text-abyss/40">{unit}</span>}
         </span>
 
         {percent && (
           <span className="mt-6 block">
             <span className="mb-2 flex items-baseline justify-between gap-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#1D242B]/50">{percentLabel}</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-abyss/50">{percentLabel}</span>
               <span className="text-lg font-black leading-none text-[#F2631A]">{pct}%</span>
             </span>
             {/* track: lighter step of the same hue, not grey, so state reads across the whole bar */}
@@ -222,7 +222,7 @@ export const mdxComponents = {
         )}
 
         {tags && (
-          <span className="mt-6 flex flex-wrap gap-1.5 border-t border-[#1D242B]/5 pt-4">
+          <span className="mt-6 flex flex-wrap gap-1.5 border-t border-abyss/5 pt-4">
             {tags.split(',').map((raw) => {
               const tag = raw.trim();
               if (!tagHref) return <span key={tag} className={pillClass}>{tag}</span>;
@@ -254,24 +254,24 @@ export const mdxComponents = {
     </div>
   ),
   thead: ({ children }: { children: React.ReactNode }) => (
-    <thead className="border-b-2 border-[#1D242B]">{children}</thead>
+    <thead className="border-b-2 border-abyss">{children}</thead>
   ),
   tbody: ({ children }: { children: React.ReactNode }) => (
-    <tbody className="[&>tr]:border-b [&>tr]:border-[#1D242B]/10">{children}</tbody>
+    <tbody className="[&>tr]:border-b [&>tr]:border-abyss/10">{children}</tbody>
   ),
   th: ({ children, ...props }: { children: React.ReactNode }) => (
-    <th {...props} className="px-4 py-3 text-[11px] font-black uppercase tracking-widest text-[#1D242B] align-bottom">{children}</th>
+    <th {...props} className="px-4 py-3 text-[11px] font-black uppercase tracking-widest text-abyss align-bottom">{children}</th>
   ),
   td: ({ children, ...props }: { children: React.ReactNode }) => (
-    <td {...props} className="px-4 py-5 text-sm md:text-[15px] font-medium leading-relaxed text-[#1D242B]/75 align-top">{children}</td>
+    <td {...props} className="px-4 py-5 text-sm md:text-[15px] font-medium leading-relaxed text-abyss/75 align-top">{children}</td>
   ),
 
   // 13. Collapsible reference list for Fishyology Insight reports. Native <details> so it
   //     stays a server component: no client JS, keyboard accessible, open-by-default for
   //     crawlers. Wraps <Source /> children.
   Sources: ({ children, title = "Sources" }: { children: React.ReactNode, title?: string }) => (
-    <details className="group my-16 not-prose rounded-[1.5rem] border border-[#1D242B]/10 bg-white overflow-hidden transition-shadow open:shadow-xl">
-      <summary className="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none select-none hover:bg-[#1D242B]/[0.02] transition-colors [&::-webkit-details-marker]:hidden">
+    <details className="group my-16 not-prose rounded-[1.5rem] border border-abyss/10 bg-white overflow-hidden transition-shadow open:shadow-xl">
+      <summary className="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none select-none hover:bg-abyss/[0.02] transition-colors [&::-webkit-details-marker]:hidden">
         <span className="flex items-center justify-center w-11 h-11 rounded-full bg-[#C7EEFF] text-[#0077C0] shrink-0">
           <Library className="w-5 h-5" />
         </span>
@@ -279,9 +279,9 @@ export const mdxComponents = {
           <span className="block text-[10px] font-black uppercase tracking-widest text-[#408A71] mb-0.5">
             Peer-reviewed references
           </span>
-          <span className="block text-lg font-black text-[#1D242B] tracking-tight">{title}</span>
+          <span className="block text-lg font-black text-abyss tracking-tight">{title}</span>
         </span>
-        <span className="flex items-center gap-2 shrink-0 text-[#1D242B]/40">
+        <span className="flex items-center gap-2 shrink-0 text-abyss/40">
           <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest group-open:hidden">
             Show
           </span>
@@ -291,7 +291,7 @@ export const mdxComponents = {
           <ChevronDown className="w-5 h-5 transition-transform duration-300 group-open:rotate-180" />
         </span>
       </summary>
-      <div className="border-t border-[#1D242B]/10 bg-[#1D242B]/[0.02] p-4 md:p-5 grid gap-3 md:grid-cols-2">
+      <div className="border-t border-abyss/10 bg-abyss/[0.02] p-4 md:p-5 grid gap-3 md:grid-cols-2">
         {children}
       </div>
     </details>
@@ -302,15 +302,15 @@ export const mdxComponents = {
     const inner = (
       <div className="flex items-start gap-3">
         {n && (
-          <span className="shrink-0 mt-0.5 w-6 h-6 rounded-md bg-[#1D242B] text-[#FAFAFA] text-[11px] font-black flex items-center justify-center tabular-nums">
+          <span className="shrink-0 mt-0.5 w-6 h-6 rounded-md bg-abyss text-salt text-[11px] font-black flex items-center justify-center tabular-nums">
             {n}
           </span>
         )}
         <span className="min-w-0 flex-1">
-          <span className="block font-bold text-[#1D242B] text-sm leading-snug group-hover/src:text-[#0077C0] transition-colors">
+          <span className="block font-bold text-abyss text-sm leading-snug group-hover/src:text-[#0077C0] transition-colors">
             {title}
           </span>
-          {authors && <span className="block text-xs text-[#1D242B]/50 mt-1.5 font-medium">{authors}</span>}
+          {authors && <span className="block text-xs text-abyss/50 mt-1.5 font-medium">{authors}</span>}
           {(publication || year) && (
             <span className="flex flex-wrap items-center gap-2 mt-2.5">
               {publication && (
@@ -318,15 +318,15 @@ export const mdxComponents = {
                   {publication}
                 </span>
               )}
-              {year && <span className="text-[10px] font-bold text-[#1D242B]/40 tabular-nums">{year}</span>}
+              {year && <span className="text-[10px] font-bold text-abyss/40 tabular-nums">{year}</span>}
             </span>
           )}
         </span>
-        {url && <ArrowUpRight className="w-4 h-4 shrink-0 text-[#1D242B]/20 group-hover/src:text-[#0077C0] transition-colors" />}
+        {url && <ArrowUpRight className="w-4 h-4 shrink-0 text-abyss/20 group-hover/src:text-[#0077C0] transition-colors" />}
       </div>
     );
 
-    const className = "group/src block h-full rounded-[1rem] bg-white border border-[#1D242B]/10 p-4 md:p-5 transition-all hover:border-[#0077C0]/40 hover:shadow-md";
+    const className = "group/src block h-full rounded-[1rem] bg-white border border-abyss/10 p-4 md:p-5 transition-all hover:border-[#0077C0]/40 hover:shadow-md";
 
     return url ? (
       <a href={url} target="_blank" rel="noopener noreferrer" className={className}>{inner}</a>

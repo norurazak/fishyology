@@ -116,7 +116,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-[#1D242B]/80 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-abyss/80 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
@@ -128,7 +128,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-2xl bg-[#FAFAFA] rounded-xl p-8 md:p-12 shadow-2xl max-h-[90vh] overflow-y-auto hide-scrollbar"
+        className="relative w-full max-w-2xl bg-salt rounded-xl p-8 md:p-12 shadow-2xl max-h-[90vh] overflow-y-auto hide-scrollbar"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -136,7 +136,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
           type="button"
           onClick={onClose}
           aria-label={`Close ${author.name} profile`}
-          className="absolute top-6 right-6 p-2 bg-[#1D242B]/5 hover:bg-[#1D242B]/10 text-[#1D242B] rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+          className="absolute top-6 right-6 p-2 bg-abyss/5 hover:bg-abyss/10 text-abyss rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
         >
           <X size={20} />
         </button>
@@ -157,7 +157,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
             </span>
             <h3
               id="author-modal-title"
-              className="text-4xl font-serif font-bold text-[#1D242B] mb-6 leading-tight"
+              className="text-4xl font-serif font-bold text-abyss mb-6 leading-tight"
             >
               {author.name}
             </h3>
@@ -173,7 +173,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
               ))}
             </div>
 
-            <p className="text-[#1D242B]/80 leading-relaxed font-medium">{author.fullBio}</p>
+            <p className="text-abyss/80 leading-relaxed font-medium">{author.fullBio}</p>
           </div>
         </div>
       </motion.div>
@@ -207,7 +207,7 @@ export default function AuthorRoster() {
                 ? "Pitch a story to Fishyology"
                 : `Read ${author.name}'s full profile`
             }
-            className="group flex h-full flex-col text-left cursor-pointer bg-white border border-[#1D242B]/10 rounded-lg p-5 shadow-sm hover:shadow-xl hover:border-[#1D242B]/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2"
+            className="group flex h-full flex-col text-left cursor-pointer bg-white border border-abyss/10 rounded-lg p-5 shadow-sm hover:shadow-xl hover:border-abyss/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2"
           >
             <div className="relative aspect-square rounded-lg overflow-hidden mb-5 bg-black/5">
               <Image
@@ -227,10 +227,10 @@ export default function AuthorRoster() {
             >
               {author.role}
             </span>
-            <h3 className="text-2xl font-serif font-bold leading-tight text-[#1D242B] mb-3 min-h-[3.75rem] group-hover:text-[#408A71] transition-colors">
+            <h3 className="text-2xl font-serif font-bold leading-tight text-abyss mb-3 min-h-[3.75rem] group-hover:text-[#408A71] transition-colors">
               {author.name}
             </h3>
-            <p className="text-[#1D242B]/70 text-sm font-medium leading-relaxed line-clamp-2">{author.shortBio}</p>
+            <p className="text-abyss/70 text-sm font-medium leading-relaxed line-clamp-2">{author.shortBio}</p>
           </button>
         ))}
       </div>

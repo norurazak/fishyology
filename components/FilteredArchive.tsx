@@ -55,17 +55,17 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
   });
 
   return (
-    <section id="archive" className="max-w-[1600px] mx-auto px-6 md:px-12 py-24 border-t border-[#1D242B]/10 mt-12 scroll-mt-24">
+    <section id="archive" className="max-w-[1600px] mx-auto px-6 md:px-12 py-24 border-t border-abyss/10 mt-12 scroll-mt-24">
       
       {/* HEADER & FILTERS */}
       <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-[#1D242B] mb-2">The Archive</h2>
-          <p className="text-[#1D242B]/60 font-medium text-lg">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-abyss mb-2">The Archive</h2>
+          <p className="text-abyss/60 font-medium text-lg">
             Explore our entire history of expeditions and guides
             {years.length > 1 ? `, ${years[years.length - 1]}–${years[0]}` : ""}.
           </p>
-          <p className="text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mt-3">
+          <p className="text-abyss/40 text-xs font-bold uppercase tracking-widest mt-3">
             {filteredPosts.length} {filteredPosts.length === 1 ? "entry" : "entries"}
           </p>
         </div>
@@ -73,13 +73,13 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
         <div className="flex flex-col items-start md:items-end gap-6">
           {/* 4. The New Search Bar */}
           <div className="relative w-full md:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1D242B]/40" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-abyss/40" />
             <input
               type="text"
               placeholder="Search dispatches..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-[#1D242B]/10 rounded-full pl-11 pr-4 py-3 text-sm text-[#1D242B] focus:outline-none focus:border-[#0077C0] focus:ring-1 focus:ring-[#0077C0] transition-all shadow-sm"
+              className="w-full bg-white border border-abyss/10 rounded-full pl-11 pr-4 py-3 text-sm text-abyss focus:outline-none focus:border-[#0077C0] focus:ring-1 focus:ring-[#0077C0] transition-all shadow-sm"
             />
           </div>
 
@@ -93,7 +93,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                 className={`px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-colors duration-300 ${
                   activeYear === year
                     ? "bg-[#0077C0] text-white shadow-md"
-                    : "bg-white border border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#0077C0]/40 hover:text-[#0077C0]"
+                    : "bg-white border border-abyss/10 text-abyss/60 hover:border-[#0077C0]/40 hover:text-[#0077C0]"
                 }`}
               >
                 {year === "All" ? "ALL YEARS" : year}
@@ -112,8 +112,8 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                 onClick={() => setActiveCategory(cat as string)}
                 className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
                   activeCategory === cat
-                    ? "bg-[#1D242B] text-white shadow-md"
-                    : "bg-white border border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#1D242B]/30 hover:text-[#1D242B]"
+                    ? "bg-abyss text-white shadow-md"
+                    : "bg-white border border-abyss/10 text-abyss/60 hover:border-abyss/30 hover:text-abyss"
                 }`}
               >
                 {cat as string}
@@ -140,7 +140,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
               <Link href={`/blog/${post.slug}`} className="group flex flex-col h-full">
                 
                 {/* THE IMAGE BLOCK */}
-                <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-[#1D242B]/5 border border-[#1D242B]/5 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1">
+                <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-abyss/5 border border-abyss/5 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1">
                   <img
                     {...cloudinaryImage(post.frontmatter.image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800", { sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" })}
                     alt={post.frontmatter.title}
@@ -166,7 +166,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                     </span>
                     {post.frontmatter.subcategory && (
                       <>
-                        <span className="text-[#1D242B]/30 text-[10px] font-black">•</span>
+                        <span className="text-abyss/30 text-[10px] font-black">•</span>
                         <span className="block text-[#0077C0] text-[10px] font-black uppercase tracking-widest">
                           {post.frontmatter.subcategory}
                         </span>
@@ -174,18 +174,18 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                     )}
                   </div>
 
-                  <h4 className="text-2xl font-serif text-[#1D242B] leading-tight group-hover:text-[#0077C0] transition-colors mb-3">
+                  <h4 className="text-2xl font-serif text-abyss leading-tight group-hover:text-[#0077C0] transition-colors mb-3">
                     {post.frontmatter.title}
                   </h4>
                   
                   {/* MDX Summary Injection */}
                   {post.frontmatter.summary && (
-                    <p className="text-[#1D242B]/70 text-sm mb-5 line-clamp-2 leading-relaxed flex-grow">
+                    <p className="text-abyss/70 text-sm mb-5 line-clamp-2 leading-relaxed flex-grow">
                       {post.frontmatter.summary}
                     </p>
                   )}
 
-                  <p className="text-xs font-bold text-[#1D242B]/40 mt-auto uppercase tracking-wider">{post.frontmatter.date}</p>
+                  <p className="text-xs font-bold text-abyss/40 mt-auto uppercase tracking-wider">{post.frontmatter.date}</p>
                 </div>
                 
               </Link>
@@ -201,9 +201,9 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-center py-20 bg-white rounded-[2rem] border border-[#1D242B]/10 mt-8"
+            className="text-center py-20 bg-white rounded-[2rem] border border-abyss/10 mt-8"
           >
-            <p className="text-[#1D242B]/50 font-serif italic text-xl">No dispatches match your search.</p>
+            <p className="text-abyss/50 font-serif italic text-xl">No dispatches match your search.</p>
           </motion.div>
         )}
       </AnimatePresence>

@@ -6,8 +6,8 @@ html {
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f1ea;
+  --foreground: #0e1a1f;
 }
 
 @theme inline {
@@ -29,8 +29,8 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0e1a1f;
+    --foreground: #f4f1ea;
   }
 }
 

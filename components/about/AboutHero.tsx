@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
 const TITLE_CLASS =
-  "text-5xl md:text-8xl lg:text-[7rem] font-black text-[#FAFAFA] tracking-tighter uppercase leading-[0.85] mb-8 drop-shadow-2xl";
+  "text-5xl md:text-8xl lg:text-[7rem] font-black text-salt tracking-tighter uppercase leading-[0.85] mb-8 drop-shadow-2xl";
 
 const heroSlides = [
   {
@@ -42,7 +42,7 @@ export default function AboutHero() {
 
   return (
     <section
-      className="relative h-[100dvh] w-full bg-[#1D242B] flex items-end pb-24 md:pb-32"
+      className="relative h-[100dvh] w-full bg-abyss flex items-end pb-24 md:pb-32"
       aria-roledescription="carousel"
       aria-label="Fishyology vision, mission and invitation"
       onMouseEnter={() => setPaused(true)}
@@ -74,15 +74,15 @@ export default function AboutHero() {
                     }`
               }`}
             />
-            <div className="absolute inset-0 bg-[#1D242B]/40 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-abyss/40 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-t from-abyss via-transparent to-transparent" />
             <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto">
               {index === 0 ? (
                 <h1 className={TITLE_CLASS}>{slide.title}</h1>
               ) : (
                 <h2 className={TITLE_CLASS}>{slide.title}</h2>
               )}
-              <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+              <p className="text-lg md:text-2xl text-salt/90 max-w-2xl font-medium leading-relaxed drop-shadow-md">
                 {slide.text}
               </p>
             </div>

@@ -138,12 +138,12 @@ export default function GalleryStrip({
       data-gallery-item
       onClick={() => openItem(index)}
       aria-label={`Open ${itemLabel.toLowerCase()} ${index + 1}: ${item.title}`}
-      className={`group shrink-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-4 focus-visible:ring-offset-[#FAFAFA] rounded-lg ${
+      className={`group shrink-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-4 focus-visible:ring-offset-salt rounded-lg ${
         ITEM_WIDTHS[index % ITEM_WIDTHS.length]
       }`}
     >
       <div
-        className={`relative ${ITEM_HEIGHT} rounded-lg overflow-hidden bg-[#1D242B] shadow-sm group-hover:shadow-2xl transition-shadow duration-300`}
+        className={`relative ${ITEM_HEIGHT} rounded-lg overflow-hidden bg-abyss shadow-sm group-hover:shadow-2xl transition-shadow duration-300`}
       >
         <Image
           src={item.image}
@@ -153,7 +153,7 @@ export default function GalleryStrip({
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           draggable={false}
         />
-        <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#1D242B]/85 to-transparent pointer-events-none" />
+        <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-abyss/85 to-transparent pointer-events-none" />
         <span className="absolute bottom-3 left-3 right-3 flex items-baseline gap-2">
           <span className="text-[11px] font-bold uppercase tracking-widest text-[#C7EEFF] tabular-nums">
             {String(index + 1).padStart(2, "0")}
@@ -200,13 +200,13 @@ export default function GalleryStrip({
           <>
             <div
               aria-hidden="true"
-              className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent transition-opacity duration-500 ${
+              className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-salt via-salt/80 to-transparent transition-opacity duration-500 ${
                 atStart ? "opacity-0" : "opacity-100"
               }`}
             />
             <div
               aria-hidden="true"
-              className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent transition-opacity duration-500 ${
+              className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-salt via-salt/80 to-transparent transition-opacity duration-500 ${
                 atEnd ? "opacity-0" : "opacity-100"
               }`}
             />
@@ -220,7 +220,7 @@ export default function GalleryStrip({
           onClick={() => step(-1)}
           disabled={atStart}
           aria-label="Scroll left"
-          className="w-10 h-10 rounded-full border border-[#1D242B]/15 flex items-center justify-center text-[#1D242B] hover:border-[#1D242B]/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+          className="w-10 h-10 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -229,11 +229,11 @@ export default function GalleryStrip({
           onClick={() => step(1)}
           disabled={atEnd}
           aria-label="Scroll right"
-          className="w-10 h-10 rounded-full border border-[#1D242B]/15 flex items-center justify-center text-[#1D242B] hover:border-[#1D242B]/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+          className="w-10 h-10 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
-        <span className="text-[11px] font-bold uppercase tracking-widest text-[#1D242B]/50 ml-2">
+        <span className="text-[11px] font-bold uppercase tracking-widest text-abyss/50 ml-2">
           Drag to explore · {items.length} {itemLabel.toLowerCase()}s
         </span>
       </div>

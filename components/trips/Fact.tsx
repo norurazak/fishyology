@@ -15,10 +15,10 @@ export default function Fact({
         <Icon className="w-4 h-4 text-[#0077C0]" />
       </div>
       <div className="min-w-0">
-        <span className="block text-[11px] font-bold uppercase tracking-widest text-[#1D242B]/50">
+        <span className="block text-[11px] font-bold uppercase tracking-widest text-abyss/50">
           {label}
         </span>
-        <span className="block text-sm text-[#1D242B]/80 leading-snug mt-0.5">{value}</span>
+        <span className="block text-sm text-abyss/80 leading-snug mt-0.5">{value}</span>
       </div>
     </div>
   );

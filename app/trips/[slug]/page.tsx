@@ -94,9 +94,9 @@ export default async function TripPage({
 
   if (trip.comingSoon) {
     return (
-      <div className="min-h-screen bg-[#FAFAFA] flex flex-col">
+      <div className="min-h-screen bg-salt flex flex-col">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }} />
-        <section className="relative flex-1 flex items-center justify-center min-h-[70vh] w-full bg-[#1D242B] overflow-hidden">
+        <section className="relative flex-1 flex items-center justify-center min-h-[70vh] w-full bg-abyss overflow-hidden">
           {trip.photos.length > 0 && (
             <Image
               src={trip.photos[0]}
@@ -107,7 +107,7 @@ export default async function TripPage({
               className="object-cover grayscale opacity-40"
             />
           )}
-          <div className="absolute inset-0 bg-[#1D242B]/40" />
+          <div className="absolute inset-0 bg-abyss/40" />
 
           <div className="absolute top-24 md:top-28 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto">
             <Link
@@ -120,10 +120,10 @@ export default async function TripPage({
           </div>
 
           <div className="relative z-10 text-center px-6 max-w-xl">
-            <span className="inline-block bg-[#FAFAFA]/90 text-[#1D242B] text-[11px] font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-md mb-5">
+            <span className="inline-block bg-salt/90 text-abyss text-[11px] font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-md mb-5">
               Coming Soon
             </span>
-            <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FAFAFA] leading-tight mb-4">
+            <h1 className="text-3xl md:text-5xl font-serif font-bold text-salt leading-tight mb-4">
               {trip.name}
             </h1>
             <p className="text-white/70 text-base md:text-lg leading-relaxed mb-8">
@@ -132,7 +132,7 @@ export default async function TripPage({
             </p>
             <Link
               href="/trips"
-              className="inline-flex items-center justify-center gap-2 bg-[#C7EEFF] text-[#1D242B] text-sm font-bold px-6 py-3 rounded-full hover:bg-white transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-[#C7EEFF] text-abyss text-sm font-bold px-6 py-3 rounded-full hover:bg-white transition-colors"
             >
               Explore Other Trips
               <ArrowRight className="w-3.5 h-3.5" />
@@ -144,10 +144,10 @@ export default async function TripPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-salt">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }} />
       {/* HERO */}
-      <section className="relative h-[60vh] md:h-[70vh] min-h-[420px] w-full bg-[#1D242B] overflow-hidden">
+      <section className="relative h-[60vh] md:h-[70vh] min-h-[420px] w-full bg-abyss overflow-hidden">
         {trip.photos.length > 0 ? (
           <Image
             src={trip.photos[0]}
@@ -166,8 +166,8 @@ export default async function TripPage({
             </span>
           </div>
         )}
-        <div className="absolute inset-0 bg-[#1D242B]/20 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/30 to-transparent" />
+        <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/30 to-transparent" />
 
         <div className="absolute top-24 md:top-28 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto">
           <Link
@@ -183,7 +183,7 @@ export default async function TripPage({
           <span className="text-[#C7EEFF] text-[11px] font-extrabold uppercase tracking-widest">
             {trip.category} · {stripParentheticals(trip.tripType)}
           </span>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FAFAFA] leading-tight mt-2">
+          <h1 className="text-3xl md:text-5xl font-serif font-bold text-salt leading-tight mt-2">
             {trip.name}
           </h1>
         </div>
@@ -203,7 +203,7 @@ export default async function TripPage({
 
             {trip.gallery.length > 0 && (
               <div>
-                <h2 className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/50 mb-4 px-0">
+                <h2 className="text-xs font-bold uppercase tracking-widest text-abyss/50 mb-4 px-0">
                   Gallery
                 </h2>
                 <TripGallery trip={trip} />
@@ -217,22 +217,22 @@ export default async function TripPage({
                   <span className="text-[11px] font-bold uppercase tracking-widest text-[#408A71] block mb-1">
                     Season
                   </span>
-                  <p className="text-sm text-[#1D242B]/80 leading-relaxed">{trip.season}</p>
+                  <p className="text-sm text-abyss/80 leading-relaxed">{trip.season}</p>
                 </div>
               </div>
             )}
 
             {(trip.summary || paragraphs.length > 0) && (
               <div>
-                <h2 className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/50 mb-3">
+                <h2 className="text-xs font-bold uppercase tracking-widest text-abyss/50 mb-3">
                   About this trip
                 </h2>
                 <div className="flex flex-col gap-4">
                   {trip.summary && (
-                    <p className="text-base text-[#1D242B]/80 leading-relaxed">{trip.summary}</p>
+                    <p className="text-base text-abyss/80 leading-relaxed">{trip.summary}</p>
                   )}
                   {paragraphs.map((paragraph, index) => (
-                    <p key={index} className="text-sm text-[#1D242B]/80 leading-relaxed">
+                    <p key={index} className="text-sm text-abyss/80 leading-relaxed">
                       {paragraph}
                     </p>
                   ))}
@@ -242,17 +242,17 @@ export default async function TripPage({
 
             {trip.addOns.length > 0 && (
               <div>
-                <h2 className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/50 mb-3">
+                <h2 className="text-xs font-bold uppercase tracking-widest text-abyss/50 mb-3">
                   Add-ons
                 </h2>
                 <ul className="flex flex-col gap-2">
                   {trip.addOns.map((addOn) => (
                     <li
                       key={addOn}
-                      className="flex gap-3 bg-white border border-[#1D242B]/10 rounded-xl px-4 py-3"
+                      className="flex gap-3 bg-white border border-abyss/10 rounded-xl px-4 py-3"
                     >
                       <Plus className="w-4 h-4 text-[#0077C0] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-[#1D242B]/80 leading-relaxed">{addOn}</span>
+                      <span className="text-sm text-abyss/80 leading-relaxed">{addOn}</span>
                     </li>
                   ))}
                 </ul>
@@ -262,12 +262,12 @@ export default async function TripPage({
 
           {/* Sticky sidebar: price, conditions, contact */}
           <aside className="flex flex-col gap-5 lg:sticky lg:top-28 lg:self-start">
-            <div className="bg-white border border-[#1D242B]/10 rounded-2xl p-5">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#1D242B]/50 block mb-2">
+            <div className="bg-white border border-abyss/10 rounded-2xl p-5">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-abyss/50 block mb-2">
                 Rate
               </span>
               <div className="flex flex-wrap items-baseline gap-x-2">
-                <span className="text-2xl font-black text-[#1D242B]">{fromPrice(trip.priceHeadline)}</span>
+                <span className="text-2xl font-black text-abyss">{fromPrice(trip.priceHeadline)}</span>
                 {trip.priceUnit && (
                   <span className="text-xs font-bold uppercase tracking-widest text-[#0077C0]">
                     {trip.priceUnit}
@@ -275,12 +275,12 @@ export default async function TripPage({
                 )}
               </div>
               {trip.priceNote && (
-                <p className="text-sm text-[#1D242B]/70 leading-relaxed mt-2">{trip.priceNote}</p>
+                <p className="text-sm text-abyss/70 leading-relaxed mt-2">{trip.priceNote}</p>
               )}
             </div>
 
-            <div className="bg-white border border-[#1D242B]/10 rounded-2xl p-5 flex flex-col gap-3">
-              <p className="text-sm text-[#1D242B]/60 text-center">
+            <div className="bg-white border border-abyss/10 rounded-2xl p-5 flex flex-col gap-3">
+              <p className="text-sm text-abyss/60 text-center">
                 Enquiries come straight to us — no booking platform in between.
               </p>
               <a
@@ -293,7 +293,7 @@ export default async function TripPage({
               </a>
               <a
                 href={emailLink(trip)}
-                className="inline-flex items-center justify-center gap-2 bg-[#1D242B] text-white text-sm font-bold px-4 py-3 rounded-full hover:opacity-90 transition-opacity"
+                className="inline-flex items-center justify-center gap-2 bg-abyss text-white text-sm font-bold px-4 py-3 rounded-full hover:opacity-90 transition-opacity"
               >
                 <Mail className="w-4 h-4" /> Email
               </a>

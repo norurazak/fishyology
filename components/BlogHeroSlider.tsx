@@ -29,7 +29,7 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
 
   return (
     <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 mb-20 group">
-      <div className="relative h-[68vh] md:h-[78vh] rounded-[1.25rem] overflow-hidden shadow-2xl bg-[#1D242B]">
+      <div className="relative h-[68vh] md:h-[78vh] rounded-[1.25rem] overflow-hidden shadow-2xl bg-abyss">
         
         {slides.map((slide, index) => (
           <div 
@@ -47,22 +47,22 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
               }`}
             />
             {/* Gradient Overlays for perfect text readability */}
-            <div className="absolute inset-0 bg-[#1D242B]/10 mix-blend-multiply"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B]/90 via-[#1D242B]/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-abyss/10 mix-blend-multiply"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-abyss/90 via-abyss/40 to-transparent"></div>
             
             {/* Slide Content */}
             <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 flex flex-col items-start">
-              <span className="inline-block bg-[#FAFAFA] text-[#1D242B] text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg">
+              <span className="inline-block bg-salt text-abyss text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg">
                 {slide.category}
               </span>
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-[#FAFAFA] leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-salt leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
                 {slide.title}
               </h2>
               
               {/* CTA Button linking to the specific story */}
               <Link 
                 href={slide.link}
-                className="group/btn inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base hover:bg-[#FAFAFA] hover:text-[#1D242B] transition-colors duration-300 shadow-xl"
+                className="group/btn inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base hover:bg-salt hover:text-abyss transition-colors duration-300 shadow-xl"
               >
                 Read Story
                 <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />

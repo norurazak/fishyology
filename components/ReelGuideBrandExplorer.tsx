@@ -9,7 +9,7 @@ export default function ReelGuideBrandExplorer() {
 
   return (
     <div>
-      <nav className="sticky top-24 z-30 bg-[#FAFAFA]/90 backdrop-blur-md border-y border-[#1D242B]/10 -mx-6 md:-mx-16 px-6 md:px-16">
+      <nav className="sticky top-24 z-30 bg-salt/90 backdrop-blur-md border-y border-abyss/10 -mx-6 md:-mx-16 px-6 md:px-16">
         <div className="flex gap-2 overflow-x-auto py-3 hide-scrollbar max-w-7xl mx-auto">
           {BRANDS.map((b) => (
             <button
@@ -17,8 +17,8 @@ export default function ReelGuideBrandExplorer() {
               onClick={() => setActiveId(b.id)}
               className={`shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-colors duration-200 border ${
                 activeId === b.id
-                  ? "bg-[#1D242B] border-[#1D242B] text-white"
-                  : "bg-white border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#0077C0]/40 hover:text-[#1D242B]"
+                  ? "bg-abyss border-abyss text-white"
+                  : "bg-white border-abyss/10 text-abyss/60 hover:border-[#0077C0]/40 hover:text-abyss"
               }`}
             >
               <span className="font-mono text-[10px] border border-current rounded px-1 py-0.5 opacity-75">{b.code}</span>

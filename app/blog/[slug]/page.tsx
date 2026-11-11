@@ -112,18 +112,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   if (layout === "editorial") {
     contentClasses = `
-      max-w-5xl mx-auto prose prose-xl md:prose-2xl text-[#1D242B]
+      max-w-5xl mx-auto prose prose-xl md:prose-2xl text-abyss
       prose-p:font-serif prose-p:leading-relaxed 
       prose-headings:font-sans prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter 
       prose-a:text-[#408A71] prose-a:underline-offset-4
-      prose-blockquote:border-l-8 prose-blockquote:border-[#1D242B] prose-blockquote:bg-gray-50 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-3xl
-      prose-p:first-of-type:first-letter:text-[7rem] prose-p:first-of-type:first-letter:font-black prose-p:first-of-type:first-letter:float-left prose-p:first-of-type:first-letter:mr-6 prose-p:first-of-type:first-letter:text-[#1D242B] prose-p:first-of-type:first-letter:leading-none
+      prose-blockquote:border-l-8 prose-blockquote:border-abyss prose-blockquote:bg-gray-50 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-3xl
+      prose-p:first-of-type:first-letter:text-[7rem] prose-p:first-of-type:first-letter:font-black prose-p:first-of-type:first-letter:float-left prose-p:first-of-type:first-letter:mr-6 prose-p:first-of-type:first-letter:text-abyss prose-p:first-of-type:first-letter:leading-none
     `;
   } 
   else if (layout === "dispatch") {
     contentClasses = `
-      max-w-7xl mx-auto prose prose-lg text-[#1D242B]
-      bg-white p-8 md:p-16 rounded-[2rem] shadow-xl border border-[#1D242B]/5
+      max-w-7xl mx-auto prose prose-lg text-abyss
+      bg-white p-8 md:p-16 rounded-[2rem] shadow-xl border border-abyss/5
       prose-headings:font-black prose-headings:text-[#408A71] prose-headings:tracking-tight
       prose-a:text-[#0077C0] prose-a:font-bold
       prose-blockquote:border-l-4 prose-blockquote:border-[#0077C0] prose-blockquote:not-italic prose-blockquote:bg-[#C7EEFF]/20 prose-blockquote:py-2
@@ -131,7 +131,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
   else {
     contentClasses = `
-      max-w-7xl mx-auto prose prose-lg md:prose-xl text-[#1D242B]
+      max-w-7xl mx-auto prose prose-lg md:prose-xl text-abyss
       prose-p:leading-relaxed 
       prose-headings:font-black prose-headings:tracking-tight 
       prose-a:text-[#0077C0] prose-a:underline-offset-4 
@@ -139,23 +139,23 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-32 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-salt pb-32 selection:bg-[#0077C0] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }}
       />
 
       {/* 1. STANDARDIZED HERO SECTION */}
-      <section className="relative h-[70vh] min-h-[600px] w-full flex items-end justify-center pb-20 px-6 overflow-hidden bg-[#1D242B]">
+      <section className="relative h-[70vh] min-h-[600px] w-full flex items-end justify-center pb-20 px-6 overflow-hidden bg-abyss">
         <img 
           {...cloudinaryImage(image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=2000", { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })} 
           alt={title}
           className="absolute inset-0 w-full h-full object-cover opacity-90"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent"></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto text-center">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-[#FAFAFA]/100 hover:text-white text-sm font-bold uppercase tracking-widest mb-10 transition-colors">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-salt/100 hover:text-white text-sm font-bold uppercase tracking-widest mb-10 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Journal
           </Link>
           
@@ -173,11 +173,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             )}
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-black text-[#FAFAFA] tracking-tighter leading-[0.95] mb-8 drop-shadow-2xl">
+          <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-black text-salt tracking-tighter leading-[0.95] mb-8 drop-shadow-2xl">
             {title}
           </h1>
 
-          <div className="flex items-center justify-center gap-2 text-[#FAFAFA]/80 text-xs md:text-sm font-bold uppercase tracking-widest">
+          <div className="flex items-center justify-center gap-2 text-salt/80 text-xs md:text-sm font-bold uppercase tracking-widest">
             <Calendar className="w-4 h-4" /> {date}
           </div>
         </div>
@@ -196,10 +196,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
       {/* 3. UPGRADED AUTHOR & SHARE BLOCK */}
       <section className="max-w-7xl mx-auto px-6">
-        <div className="border-t-2 border-[#1D242B]/10 pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-10 bg-white p-8 rounded-[2rem] shadow-sm border border-[#1D242B]/5">
+        <div className="border-t-2 border-abyss/10 pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-10 bg-white p-8 rounded-[2rem] shadow-sm border border-abyss/5">
           
           <div className="flex items-center gap-5 max-w-lg">
-            <div className="w-20 h-20 rounded-full overflow-hidden bg-white border border-[#1D242B]/10 shadow-md shrink-0">
+            <div className="w-20 h-20 rounded-full overflow-hidden bg-white border border-abyss/10 shadow-md shrink-0">
               <img 
                 {...cloudinaryImage(matchedAuthor.image, { sizes: "96px", widths: [192] })} 
                 alt={matchedAuthor.name} 
@@ -210,16 +210,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <span className="text-[#0077C0] font-black text-[10px] uppercase tracking-widest block mb-1">
                 {matchedAuthor.role}
               </span>
-              <p className="text-[#1D242B] font-black tracking-tight text-xl mb-1">
+              <p className="text-abyss font-black tracking-tight text-xl mb-1">
                 {matchedAuthor.name}
               </p>
-              <p className="text-[#1D242B]/60 text-sm font-medium leading-snug">
+              <p className="text-abyss/60 text-sm font-medium leading-snug">
                 {matchedAuthor.shortBio}
               </p>
               {authorEmail && (
                 <a 
                   href={`mailto:${authorEmail}`} 
-                  className="inline-flex items-center gap-1 text-[#408A71] hover:text-[#1D242B] text-xs font-bold uppercase tracking-widest transition-colors mt-3"
+                  className="inline-flex items-center gap-1 text-[#408A71] hover:text-abyss text-xs font-bold uppercase tracking-widest transition-colors mt-3"
                 >
                   <Mail className="w-3 h-3" /> Connect
                 </a>
@@ -240,12 +240,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           /* Nothing else in this stream yet, so offer the index rather than a blank band */
           <Link
             href={isDigest ? "/blog?category=Research#archive" : "/blog"}
-            className="group flex flex-col items-center justify-center p-10 text-center bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
+            className="group flex flex-col items-center justify-center p-10 text-center bg-transparent border-2 border-abyss/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
           >
-            <span className="text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">
+            <span className="text-abyss/40 text-xs font-bold uppercase tracking-widest mb-3">
               {isDigest ? "First digest in the series" : "End of the line"}
             </span>
-            <h4 className="font-serif text-xl md:text-2xl font-bold text-[#1D242B] leading-snug flex items-center gap-3">
+            <h4 className="font-serif text-xl md:text-2xl font-bold text-abyss leading-snug flex items-center gap-3">
               {isDigest ? "Browse all research digests" : "Back to the Journal"}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </h4>
@@ -257,12 +257,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           {prevPost ? (
             <Link 
               href={`/blog/${prevPost.slug}`} 
-              className="group flex-1 flex flex-col justify-center p-8 bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
+              className="group flex-1 flex flex-col justify-center p-8 bg-transparent border-2 border-abyss/5 rounded-[2rem] hover:bg-white hover:border-[#408A71]/50 hover:shadow-xl transition-all duration-300"
             >
-              <span className="flex items-center gap-2 text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">
+              <span className="flex items-center gap-2 text-abyss/40 text-xs font-bold uppercase tracking-widest mb-3">
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {isDigest ? "Previous Digest" : "Previous Chapter"}
               </span>
-              <h4 className="font-serif text-xl md:text-2xl font-bold text-[#1D242B] leading-snug line-clamp-2">
+              <h4 className="font-serif text-xl md:text-2xl font-bold text-abyss leading-snug line-clamp-2">
                 {prevPost.frontmatter.title}
               </h4>
             </Link>
@@ -274,12 +274,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           {nextPost ? (
             <Link 
               href={`/blog/${nextPost.slug}`} 
-              className="group flex-1 flex flex-col justify-center items-end text-right p-8 bg-transparent border-2 border-[#1D242B]/5 rounded-[2rem] hover:bg-white hover:border-[#0077C0]/50 hover:shadow-xl transition-all duration-300"
+              className="group flex-1 flex flex-col justify-center items-end text-right p-8 bg-transparent border-2 border-abyss/5 rounded-[2rem] hover:bg-white hover:border-[#0077C0]/50 hover:shadow-xl transition-all duration-300"
             >
-              <span className="flex items-center gap-2 text-[#1D242B]/40 text-xs font-bold uppercase tracking-widest mb-3">
+              <span className="flex items-center gap-2 text-abyss/40 text-xs font-bold uppercase tracking-widest mb-3">
                 {isDigest ? "Next Digest" : "Next Chapter"} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
-              <h4 className="font-serif text-xl md:text-2xl font-bold text-[#1D242B] leading-snug line-clamp-2">
+              <h4 className="font-serif text-xl md:text-2xl font-bold text-abyss leading-snug line-clamp-2">
                 {nextPost.frontmatter.title}
               </h4>
             </Link>

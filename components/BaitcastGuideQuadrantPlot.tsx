@@ -162,20 +162,20 @@ export default function BaitcastGuideQuadrantPlot() {
   const dcCount = POINTS.filter((p) => p.br && /\bdc\b|digital|intelligent/i.test(p.br)).length;
 
   return (
-    <section className="py-16 md:py-24 px-6 md:px-16 max-w-7xl mx-auto border-b border-[#1D242B]/10">
+    <section className="py-16 md:py-24 px-6 md:px-16 max-w-7xl mx-auto border-b border-abyss/10">
       <div className="flex items-baseline gap-3 mb-2">
         <span className="font-mono text-[#0077C0] text-sm font-bold">02</span>
-        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#1D242B]">
+        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-abyss">
           The positioning map
         </h2>
       </div>
-      <p className="text-[#1D242B]/60 text-base md:text-lg font-medium max-w-2xl mb-8">
+      <p className="text-abyss/60 text-base md:text-lg font-medium max-w-2xl mb-8">
         Every series from all six brands plotted on two axes you choose. The crosshair sits at the median of
         what&apos;s on screen, splitting the field into four quadrants. Tap or hover any point for the full spec.
       </p>
 
       {/* Controls */}
-      <div className="flex flex-wrap gap-4 items-center bg-white border border-[#1D242B]/10 rounded-[1.5rem] p-4 mb-4 shadow-sm">
+      <div className="flex flex-wrap gap-4 items-center bg-white border border-abyss/10 rounded-[1.5rem] p-4 mb-4 shadow-sm">
         <div className="flex items-center gap-2">
           <label htmlFor="xAxis" className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#0077C0]">
             X
@@ -184,7 +184,7 @@ export default function BaitcastGuideQuadrantPlot() {
             id="xAxis"
             value={xAxis}
             onChange={(e) => setXAxis(e.target.value as AxisKey)}
-            className="bg-[#FAFAFA] border border-[#1D242B]/10 rounded-full px-3 py-2 text-xs font-medium text-[#1D242B] max-w-[220px] focus:outline-none focus:border-[#0077C0]"
+            className="bg-salt border border-abyss/10 rounded-full px-3 py-2 text-xs font-medium text-abyss max-w-[220px] focus:outline-none focus:border-[#0077C0]"
           >
             {AXIS_OPTIONS.map(([key, cfg]) => (
               <option key={key} value={key}>
@@ -201,7 +201,7 @@ export default function BaitcastGuideQuadrantPlot() {
             id="yAxis"
             value={yAxis}
             onChange={(e) => setYAxis(e.target.value as AxisKey)}
-            className="bg-[#FAFAFA] border border-[#1D242B]/10 rounded-full px-3 py-2 text-xs font-medium text-[#1D242B] max-w-[220px] focus:outline-none focus:border-[#0077C0]"
+            className="bg-salt border border-abyss/10 rounded-full px-3 py-2 text-xs font-medium text-abyss max-w-[220px] focus:outline-none focus:border-[#0077C0]"
           >
             {AXIS_OPTIONS.map(([key, cfg]) => (
               <option key={key} value={key}>
@@ -210,7 +210,7 @@ export default function BaitcastGuideQuadrantPlot() {
             ))}
           </select>
         </div>
-        <label className="flex items-center gap-2 text-xs font-medium text-[#1D242B]/70 cursor-pointer">
+        <label className="flex items-center gap-2 text-xs font-medium text-abyss/70 cursor-pointer">
           <input
             type="checkbox"
             checked={showLabels}
@@ -228,8 +228,8 @@ export default function BaitcastGuideQuadrantPlot() {
                 onClick={() => toggleBrand(b.id)}
                 className={`flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-full border transition-colors ${
                   off
-                    ? "border-[#1D242B]/10 text-[#1D242B]/30 line-through"
-                    : "border-[#1D242B]/15 text-[#1D242B]/70 hover:border-[#0077C0]/40"
+                    ? "border-abyss/10 text-abyss/30 line-through"
+                    : "border-abyss/15 text-abyss/70 hover:border-[#0077C0]/40"
                 }`}
               >
                 <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: BRAND_COLORS[b.id] ?? "#999" }} />
@@ -240,14 +240,14 @@ export default function BaitcastGuideQuadrantPlot() {
         </div>
       </div>
 
-      {countText && <p className="font-mono text-xs text-[#1D242B]/40 mb-4">{countText}</p>}
+      {countText && <p className="font-mono text-xs text-abyss/40 mb-4">{countText}</p>}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-start">
         {/* Canvas */}
-        <div ref={canvasRef} className="relative bg-white border border-[#1D242B]/10 rounded-[1.5rem] p-2 shadow-sm">
+        <div ref={canvasRef} className="relative bg-white border border-abyss/10 rounded-[1.5rem] p-2 shadow-sm">
           {tooltip && (
             <div
-              className="absolute z-10 pointer-events-none bg-[#1D242B] text-white rounded-lg px-3 py-2 text-xs shadow-xl -translate-x-1/2 -translate-y-full"
+              className="absolute z-10 pointer-events-none bg-abyss text-white rounded-lg px-3 py-2 text-xs shadow-xl -translate-x-1/2 -translate-y-full"
               style={{ left: tooltip.left, top: tooltip.top }}
             >
               <b className="block font-serif text-sm leading-tight">{tooltip.point.name}</b>
@@ -258,7 +258,7 @@ export default function BaitcastGuideQuadrantPlot() {
           )}
           {plotted.length === 0 ? (
             <div className="flex items-center justify-center h-[360px]">
-              <p className="font-mono text-sm text-[#1D242B]/40">Turn a brand back on to plot points.</p>
+              <p className="font-mono text-sm text-abyss/40">Turn a brand back on to plot points.</p>
             </div>
           ) : (
             <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto block" role="img" aria-label="Scatter plot positioning every reel series by the two selected axes">
@@ -277,10 +277,10 @@ export default function BaitcastGuideQuadrantPlot() {
                     <g key={i}>
                       <line x1={px} y1={PAD_T} x2={px} y2={PAD_T + PH} stroke="rgba(29,36,43,0.06)" />
                       <line x1={PAD_L} y1={py} x2={PAD_L + PW} y2={py} stroke="rgba(29,36,43,0.06)" />
-                      <text x={px} y={PAD_T + PH + 18} fill="#1D242B" fillOpacity={0.4} fontSize={10} textAnchor="middle" className="font-mono">
+                      <text x={px} y={PAD_T + PH + 18} fill="#0E1A1F" fillOpacity={0.4} fontSize={10} textAnchor="middle" className="font-mono">
                         {ax.fmt(vx)}
                       </text>
-                      <text x={PAD_L - 9} y={py + 3} fill="#1D242B" fillOpacity={0.4} fontSize={10} textAnchor="end" className="font-mono">
+                      <text x={PAD_L - 9} y={py + 3} fill="#0E1A1F" fillOpacity={0.4} fontSize={10} textAnchor="end" className="font-mono">
                         {ay.fmt(vy)}
                       </text>
                     </g>
@@ -328,12 +328,12 @@ export default function BaitcastGuideQuadrantPlot() {
                       r={isPinned ? 8 : 5.5}
                       fill={pp.point.color}
                       fillOpacity={isPinned ? 1 : 0.78}
-                      stroke={isPinned ? "#1D242B" : "rgba(255,255,255,0.85)"}
+                      stroke={isPinned ? "#0E1A1F" : "rgba(255,255,255,0.85)"}
                       strokeWidth={isPinned ? 2 : 1}
                       tabIndex={0}
                       role="button"
                       aria-label={`${pp.point.brandName} ${pp.point.name}`}
-                      className="cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1D242B]"
+                      className="cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-abyss"
                       onMouseEnter={(e) => handleEnter(pp, e.currentTarget)}
                       onMouseLeave={handleLeave}
                       onFocus={() => !pinned && setHovered(pp.point)}
@@ -346,7 +346,7 @@ export default function BaitcastGuideQuadrantPlot() {
                       <text
                         x={pp.cx + 9}
                         y={pp.cy + 3.5}
-                        fill={isPinned ? "#1D242B" : "rgba(29,36,43,0.55)"}
+                        fill={isPinned ? "#0E1A1F" : "rgba(29,36,43,0.55)"}
                         fontSize={9.5}
                         className="font-mono pointer-events-none"
                       >
@@ -383,36 +383,36 @@ export default function BaitcastGuideQuadrantPlot() {
         </div>
 
         {/* Detail panel */}
-        <aside className="bg-white border border-[#1D242B]/10 rounded-[1.5rem] p-5 shadow-sm min-h-[240px] lg:sticky lg:top-24">
+        <aside className="bg-white border border-abyss/10 rounded-[1.5rem] p-5 shadow-sm min-h-[240px] lg:sticky lg:top-24">
           {activePoint ? (
             <div>
               <div className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: activePoint.color }}>
                 {activePoint.brandName}
               </div>
-              <h4 className="text-2xl font-black uppercase tracking-tight text-[#1D242B] mb-1 leading-none">
+              <h4 className="text-2xl font-black uppercase tracking-tight text-abyss mb-1 leading-none">
                 {activePoint.name}
               </h4>
-              <p className="text-xs text-[#1D242B]/50 mb-4">{activePoint.tier}</p>
+              <p className="text-xs text-abyss/50 mb-4">{activePoint.tier}</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="font-mono text-[11px] border border-[#1D242B]/10 rounded-md px-2 py-1 text-[#1D242B]/70">
+                <span className="font-mono text-[11px] border border-abyss/10 rounded-md px-2 py-1 text-abyss/70">
                   {activePoint.priceTxt}
                 </span>
-                <span className="font-mono text-[11px] border border-[#1D242B]/10 rounded-md px-2 py-1 text-[#1D242B]/70">
+                <span className="font-mono text-[11px] border border-abyss/10 rounded-md px-2 py-1 text-abyss/70">
                   {activePoint.wTxt}
                 </span>
-                <span className="font-mono text-[11px] border border-[#1D242B]/10 rounded-md px-2 py-1 text-[#1D242B]/70">
+                <span className="font-mono text-[11px] border border-abyss/10 rounded-md px-2 py-1 text-abyss/70">
                   {activePoint.bTxt} BB
                 </span>
                 <span className="font-mono text-[11px] border border-[#0077C0]/30 rounded-md px-2 py-1 text-[#0077C0]">
                   Drag {dragRange(activePoint.dg)}
                 </span>
                 {activePoint.br && (
-                  <span className="font-mono text-[11px] border border-[#1D242B]/10 rounded-md px-2 py-1 text-[#1D242B]/70">
+                  <span className="font-mono text-[11px] border border-abyss/10 rounded-md px-2 py-1 text-abyss/70">
                     {activePoint.br}
                   </span>
                 )}
                 {activePoint.fr && (
-                  <span className="font-mono text-[11px] border border-[#1D242B]/10 rounded-md px-2 py-1 text-[#1D242B]/70">
+                  <span className="font-mono text-[11px] border border-abyss/10 rounded-md px-2 py-1 text-abyss/70">
                     {activePoint.fr}
                   </span>
                 )}
@@ -420,28 +420,28 @@ export default function BaitcastGuideQuadrantPlot() {
               <div className="space-y-3 text-sm">
                 <div>
                   <span className="block font-mono text-[10px] uppercase tracking-widest text-[#408A71] mb-0.5">Advantage</span>
-                  <p className="text-[#1D242B]/70 leading-relaxed">{activePoint.adv}</p>
+                  <p className="text-abyss/70 leading-relaxed">{activePoint.adv}</p>
                 </div>
                 <div>
                   <span className="block font-mono text-[10px] uppercase tracking-widest text-[#C1633C] mb-0.5">Weakness</span>
-                  <p className="text-[#1D242B]/70 leading-relaxed">{activePoint.weak}</p>
+                  <p className="text-abyss/70 leading-relaxed">{activePoint.weak}</p>
                 </div>
                 <div>
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-[#1D242B]/40 mb-0.5">Best for</span>
-                  <p className="text-[#1D242B]/70 leading-relaxed">{activePoint.app}</p>
+                  <span className="block font-mono text-[10px] uppercase tracking-widest text-abyss/40 mb-0.5">Best for</span>
+                  <p className="text-abyss/70 leading-relaxed">{activePoint.app}</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-4">
                 {activePoint.sizes.map((s) => (
-                  <span key={s} className="font-mono text-[10px] bg-[#1D242B] text-white rounded-md px-2 py-0.5">
+                  <span key={s} className="font-mono text-[10px] bg-abyss text-white rounded-md px-2 py-0.5">
                     {s}
                   </span>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="text-sm text-[#1D242B]/50 leading-relaxed">
-              <strong className="block text-[#1D242B] text-base mb-2">Pick a point</strong>
+            <div className="text-sm text-abyss/50 leading-relaxed">
+              <strong className="block text-abyss text-base mb-2">Pick a point</strong>
               Hover or tap any dot to read its full spec here. Switch the axes to re-frame the field – price
               against drag shows what you pay for stopping power; weight against drag shows how much muscle you
               get per gram on your wrist.
@@ -450,29 +450,29 @@ export default function BaitcastGuideQuadrantPlot() {
         </aside>
       </div>
 
-      <p className="text-xs text-[#1D242B]/40 leading-relaxed mt-4 max-w-3xl">
+      <p className="text-xs text-abyss/40 leading-relaxed mt-4 max-w-3xl">
         Price is the midpoint of each series&apos; quoted range. Weight uses the lightest and heaviest size in the
         series. Size class runs 1 (BFS / micro) to 6 (extra heavy) and is normalised across brands.
       </p>
 
-      <details className="mt-4 bg-white border border-[#1D242B]/10 rounded-[1.5rem] shadow-sm overflow-hidden group">
+      <details className="mt-4 bg-white border border-abyss/10 rounded-[1.5rem] shadow-sm overflow-hidden group">
         <summary className="cursor-pointer px-5 py-4 text-sm font-bold text-[#0077C0] list-none flex items-center gap-2 select-none">
-          <span className="font-mono text-[#1D242B]/40 group-open:hidden">+</span>
-          <span className="font-mono text-[#1D242B]/40 hidden group-open:inline">−</span>
+          <span className="font-mono text-abyss/40 group-open:hidden">+</span>
+          <span className="font-mono text-abyss/40 hidden group-open:inline">−</span>
           Braking, frame &amp; drag cross-reference
         </summary>
         <div className="px-5 pb-5">
-          <p className="text-xs text-[#1D242B]/50 leading-relaxed mb-3">
+          <p className="text-xs text-abyss/50 leading-relaxed mb-3">
             Max drag is quoted per size, not per series, so each entry gives the range across that series&apos; sizes.
             Braking and frame material are as stated by the manufacturer where available – a handful of budget
             entries don&apos;t publish either spec.
           </p>
-          <div className="overflow-x-auto rounded-xl border border-[#1D242B]/10">
+          <div className="overflow-x-auto rounded-xl border border-abyss/10">
             <table className="w-full border-collapse min-w-[760px]">
               <thead>
                 <tr>
                   {["Series", "Brand", "Braking", "Frame", "Max drag", "Size class"].map((h) => (
-                    <th key={h} className="text-left px-3 py-2 text-[10px] font-black uppercase tracking-widest bg-[#1D242B] text-white whitespace-nowrap">
+                    <th key={h} className="text-left px-3 py-2 text-[10px] font-black uppercase tracking-widest bg-abyss text-white whitespace-nowrap">
                       {h}
                     </th>
                   ))}
@@ -480,19 +480,19 @@ export default function BaitcastGuideQuadrantPlot() {
               </thead>
               <tbody>
                 {POINTS.map((p, i) => (
-                  <tr key={`${p.brand}-${p.name}`} className={i % 2 === 1 ? "bg-[#1D242B]/[0.02]" : ""}>
-                    <td className="px-3 py-2 text-sm text-[#1D242B] font-semibold whitespace-nowrap border-t border-[#1D242B]/5">{p.name}</td>
-                    <td className="px-3 py-2 text-sm whitespace-nowrap border-t border-[#1D242B]/5" style={{ color: p.color }}>{p.brandName}</td>
-                    <td className="px-3 py-2 text-sm border-t border-[#1D242B]/5 whitespace-nowrap">
-                      {p.br ? <span className="text-[#1D242B]/70">{p.br}</span> : <span className="text-[#1D242B]/35">not stated</span>}
+                  <tr key={`${p.brand}-${p.name}`} className={i % 2 === 1 ? "bg-abyss/[0.02]" : ""}>
+                    <td className="px-3 py-2 text-sm text-abyss font-semibold whitespace-nowrap border-t border-abyss/5">{p.name}</td>
+                    <td className="px-3 py-2 text-sm whitespace-nowrap border-t border-abyss/5" style={{ color: p.color }}>{p.brandName}</td>
+                    <td className="px-3 py-2 text-sm border-t border-abyss/5 whitespace-nowrap">
+                      {p.br ? <span className="text-abyss/70">{p.br}</span> : <span className="text-abyss/35">not stated</span>}
                     </td>
-                    <td className="px-3 py-2 text-sm border-t border-[#1D242B]/5 whitespace-nowrap">
-                      {p.fr ? <span className="text-[#1D242B]/70">{p.fr}</span> : <span className="text-[#1D242B]/35">not stated</span>}
+                    <td className="px-3 py-2 text-sm border-t border-abyss/5 whitespace-nowrap">
+                      {p.fr ? <span className="text-abyss/70">{p.fr}</span> : <span className="text-abyss/35">not stated</span>}
                     </td>
-                    <td className="px-3 py-2 text-sm font-mono font-bold text-[#0077C0] whitespace-nowrap border-t border-[#1D242B]/5">
+                    <td className="px-3 py-2 text-sm font-mono font-bold text-[#0077C0] whitespace-nowrap border-t border-abyss/5">
                       {dragRange(p.dg)}
                     </td>
-                    <td className="px-3 py-2 text-sm text-[#1D242B]/70 whitespace-nowrap border-t border-[#1D242B]/5">
+                    <td className="px-3 py-2 text-sm text-abyss/70 whitespace-nowrap border-t border-abyss/5">
                       {AXES.scMax.fmt(p.scMax)}
                     </td>
                   </tr>
@@ -500,13 +500,13 @@ export default function BaitcastGuideQuadrantPlot() {
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-[#1D242B]/40 mt-3 leading-relaxed">
-            Of the {POINTS.length} series compared, <strong className="text-[#1D242B]/60">{brStatedCount}</strong>{" "}
-            state a braking system and <strong className="text-[#1D242B]/60">{frStatedCount}</strong> state a frame
-            material. <strong className="text-[#1D242B]/60">{magneticCount}</strong> run some form of magnetic
-            braking (MagTrax, Magforce-Z or similar), <strong className="text-[#1D242B]/60">{centrifugalCount}</strong>{" "}
+          <p className="text-xs text-abyss/40 mt-3 leading-relaxed">
+            Of the {POINTS.length} series compared, <strong className="text-abyss/60">{brStatedCount}</strong>{" "}
+            state a braking system and <strong className="text-abyss/60">{frStatedCount}</strong> state a frame
+            material. <strong className="text-abyss/60">{magneticCount}</strong> run some form of magnetic
+            braking (MagTrax, Magforce-Z or similar), <strong className="text-abyss/60">{centrifugalCount}</strong>{" "}
             use a centrifugal system (SVS, IVCB, ACS or similar), and{" "}
-            <strong className="text-[#1D242B]/60">{dcCount}</strong> run a digital or DC braking computer – some
+            <strong className="text-abyss/60">{dcCount}</strong> run a digital or DC braking computer – some
             series combine more than one system across their sizes and are counted in each group that applies.
           </p>
         </div>

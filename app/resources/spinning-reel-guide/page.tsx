@@ -30,16 +30,16 @@ export const metadata: Metadata = {
 
 export default function SpinningReelGuidePage() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-20 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-salt pb-20 selection:bg-[#0077C0] selection:text-white">
       {/* HERO */}
-      <section className="relative h-[100dvh] min-h-[640px] w-full bg-[#1D242B] overflow-hidden">
+      <section className="relative h-[100dvh] min-h-[640px] w-full bg-abyss overflow-hidden">
         <img
           {...cloudinaryImage(HERO_IMAGE, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })}
           alt="Spinning Reel Master Guide"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-[#1D242B]/20 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/20 to-transparent" />
+        <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent" />
         <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-[0.03] mix-blend-overlay">
           <filter id="noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
@@ -50,7 +50,7 @@ export default function SpinningReelGuidePage() {
         <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
           <Link
             href="/resources"
-            className="flex items-center gap-2 text-[#FAFAFA]/80 hover:text-white text-sm font-bold uppercase tracking-widest mb-6 transition-colors"
+            className="flex items-center gap-2 text-salt/80 hover:text-white text-sm font-bold uppercase tracking-widest mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Resources
           </Link>
@@ -59,11 +59,11 @@ export default function SpinningReelGuidePage() {
             Gear &amp; Tackle Guide
           </span>
 
-          <h1 className="text-5xl md:text-8xl lg:text-[7rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-5xl">
+          <h1 className="text-5xl md:text-8xl lg:text-[7rem] leading-[0.85] font-black text-salt tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-5xl">
             Spinning Reel <br /> Master Guide
           </h1>
 
-          <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-salt/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
             {description}
           </p>
 
@@ -85,7 +85,7 @@ export default function SpinningReelGuidePage() {
       <ReelGuideQuadrantPlot />
       <ReelGuideBrandExplorer />
 
-      <p className="text-center text-xs text-[#1D242B]/40 leading-relaxed max-w-2xl mx-auto px-6 mt-16">
+      <p className="text-center text-xs text-abyss/40 leading-relaxed max-w-2xl mx-auto px-6 mt-16">
         Built from manufacturer spec sheets and dealer listings · pricing is approximate USD, service costs in MYR
         and vary by technician · always confirm current pricing with an authorised dealer.
       </p>

@@ -17,8 +17,8 @@ export default function ReaderAnalytics() {
       aria-label="Where our readers are"
       className="pb-20 md:pb-24 px-6 md:px-12 max-w-[1600px] mx-auto"
     >
-      <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10 pt-8 border-t border-[#1D242B]/10">
-        <p className="shrink-0 text-xs font-bold uppercase tracking-widest text-[#1D242B]/50">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10 pt-8 border-t border-abyss/10">
+        <p className="shrink-0 text-xs font-bold uppercase tracking-widest text-abyss/50">
           Read Around The World
         </p>
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -31,9 +31,9 @@ export default function ReaderAnalytics() {
                 width={900}
                 height={600}
                 unoptimized
-                className="block w-7 h-auto shrink-0 ring-1 ring-[#1D242B]/10"
+                className="block w-7 h-auto shrink-0 ring-1 ring-abyss/10"
               />
-              <span className="text-sm font-medium text-[#1D242B]/70">{country.name}</span>
+              <span className="text-sm font-medium text-abyss/70">{country.name}</span>
             </li>
           ))}
         </ul>

@@ -2,12 +2,12 @@ import { BRANDS, BRAND_COLORS } from "@/lib/electricGuideData";
 
 export default function ElectricGuideIntro() {
   return (
-    <section className="py-16 md:py-24 px-6 md:px-16 max-w-7xl mx-auto border-b border-[#1D242B]/10">
-      <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#1D242B] text-center mb-8">
+    <section className="py-16 md:py-24 px-6 md:px-16 max-w-7xl mx-auto border-b border-abyss/10">
+      <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-abyss text-center mb-8">
         Electric Reels &amp; Their Applications
       </h2>
 
-      <div className="max-w-3xl mx-auto space-y-6 text-[#1D242B]/70 font-serif text-lg md:text-xl leading-relaxed">
+      <div className="max-w-3xl mx-auto space-y-6 text-abyss/70 font-serif text-lg md:text-xl leading-relaxed">
         <p>
           Electric reels are mechanical devices that use a motor and rechargeable battery to retrieve fishing
           line automatically, reducing the physical effort required during deep water fishing. They are commonly
@@ -25,15 +25,15 @@ export default function ElectricGuideIntro() {
         </p>
       </div>
 
-      <div className="mt-14 pt-10 border-t border-[#1D242B]/10">
-        <p className="text-center text-[10px] font-black uppercase tracking-widest text-[#1D242B]/40 mb-7">
+      <div className="mt-14 pt-10 border-t border-abyss/10">
+        <p className="text-center text-[10px] font-black uppercase tracking-widest text-abyss/40 mb-7">
           Compared in this guide
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {BRANDS.map((b) => (
             <div key={b.id} className="h-9 md:h-11 flex items-center justify-center">
               <span
-                style={{ color: BRAND_COLORS[b.id] ?? "#1D242B" }}
+                style={{ color: BRAND_COLORS[b.id] ?? "#0E1A1F" }}
                 className="font-serif text-xl md:text-2xl font-bold opacity-50 hover:opacity-100 transition-opacity duration-300"
               >
                 {b.name}

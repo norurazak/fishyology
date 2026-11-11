@@ -262,8 +262,8 @@ export default function Timeline() {
                 onKeyDown={onTabKeyDown}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold tabular-nums transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2 ${
                   isActive
-                    ? "bg-[#1D242B] text-white"
-                    : "bg-white border border-[#1D242B]/10 text-[#1D242B]/60 hover:border-[#1D242B]/30"
+                    ? "bg-abyss text-white"
+                    : "bg-white border border-abyss/10 text-abyss/60 hover:border-abyss/30"
                 }`}
               >
                 {entry.year}
@@ -288,7 +288,7 @@ export default function Timeline() {
             {/* The timeline itself, running the full length of the track */}
             <div
               aria-hidden="true"
-              className="absolute left-0 right-0 top-[4.25rem] h-[2px] bg-[#1D242B]/10"
+              className="absolute left-0 right-0 top-[4.25rem] h-[2px] bg-abyss/10"
             />
 
             <div className="flex gap-6 md:gap-8">
@@ -312,7 +312,7 @@ export default function Timeline() {
                     <div className="h-[5.5rem] flex flex-col justify-center">
                       <span
                         className={`text-2xl font-black tracking-tighter tabular-nums transition-colors ${
-                          isActive ? "text-[#0077C0]" : "text-[#1D242B]/25"
+                          isActive ? "text-[#0077C0]" : "text-abyss/25"
                         }`}
                       >
                         {isFirstOfYear ? milestone.year : ""}
@@ -322,7 +322,7 @@ export default function Timeline() {
                         className={`mt-2 rounded-full transition-all duration-300 ${
                           isActive
                             ? "w-4 h-4 bg-[#0077C0] ring-4 ring-[#0077C0]/20"
-                            : "w-3 h-3 bg-[#1D242B]/20"
+                            : "w-3 h-3 bg-abyss/20"
                         }`}
                       />
                     </div>
@@ -332,10 +332,10 @@ export default function Timeline() {
                       className={`rounded-lg overflow-hidden bg-white border transition-all duration-300 ${
                         isActive
                           ? "border-[#0077C0]/30 shadow-xl"
-                          : "border-[#1D242B]/10 shadow-sm"
+                          : "border-abyss/10 shadow-sm"
                       }`}
                     >
-                      <div className="relative h-44 md:h-52 lg:h-60 bg-[#1D242B]">
+                      <div className="relative h-44 md:h-52 lg:h-60 bg-abyss">
                         <Image
                           src={milestone.img}
                           alt={milestone.title}
@@ -347,13 +347,13 @@ export default function Timeline() {
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-xl md:text-2xl font-serif font-bold text-[#1D242B] leading-tight mb-1.5">
+                        <h3 className="text-xl md:text-2xl font-serif font-bold text-abyss leading-tight mb-1.5">
                           {milestone.title}
                         </h3>
-                        <p className="text-sm font-serif italic text-[#1D242B]/45 mb-3">
+                        <p className="text-sm font-serif italic text-abyss/45 mb-3">
                           {milestone.tagline}
                         </p>
-                        <p className="text-sm text-[#1D242B]/70 leading-relaxed">
+                        <p className="text-sm text-abyss/70 leading-relaxed">
                           {milestone.desc}
                         </p>
                       </div>
@@ -368,13 +368,13 @@ export default function Timeline() {
         {/* Edge fades, retreating at each end */}
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent transition-opacity duration-500 ${
+          className={`pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-salt via-salt/80 to-transparent transition-opacity duration-500 ${
             atStart ? "opacity-0" : "opacity-100"
           }`}
         />
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-28 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent transition-opacity duration-500 ${
+          className={`pointer-events-none absolute inset-y-0 right-0 w-16 md:w-28 bg-gradient-to-l from-salt via-salt/80 to-transparent transition-opacity duration-500 ${
             atEnd ? "opacity-0" : "opacity-100"
           }`}
         />
@@ -387,7 +387,7 @@ export default function Timeline() {
           onClick={() => step(-1)}
           disabled={atStart}
           aria-label="Previous milestone"
-          className="w-11 h-11 rounded-full border border-[#1D242B]/15 flex items-center justify-center text-[#1D242B] hover:border-[#1D242B]/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -396,11 +396,11 @@ export default function Timeline() {
           onClick={() => step(1)}
           disabled={atEnd}
           aria-label="Next milestone"
-          className="w-11 h-11 rounded-full border border-[#1D242B]/15 flex items-center justify-center text-[#1D242B] hover:border-[#1D242B]/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-[#1D242B]/35 ml-2 tabular-nums">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-abyss/35 ml-2 tabular-nums">
           Drag to travel · {String(activeIndex + 1).padStart(2, "0")} /{" "}
           {String(milestones.length).padStart(2, "0")}
         </span>

@@ -40,7 +40,7 @@ const heroSlides = [
 ];
 
 const TITLE_CLASS =
-  "text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl";
+  "text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-salt tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl";
 
 export default function HomeHero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -99,7 +99,7 @@ export default function HomeHero() {
   return (
     <div ref={heroRef}>
       {/* --- CINEMATIC SPLASH SCREEN OVERLAY --- */}
-      <div className="splash-screen fixed inset-0 z-[100] bg-[#1D242B] flex items-center justify-center overflow-hidden">
+      <div className="splash-screen fixed inset-0 z-[100] bg-abyss flex items-center justify-center overflow-hidden">
         {introVideo && (
           <video
             autoPlay
@@ -111,7 +111,7 @@ export default function HomeHero() {
           </video>
         )}
         <div className="absolute inset-0 bg-black/10"></div>
-        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-[#FAFAFA] tracking-wide text-center drop-shadow-2xl">
+        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-salt tracking-wide text-center drop-shadow-2xl">
           WELCOME TO OUR WORLD
         </p>
       </div>
@@ -125,7 +125,7 @@ export default function HomeHero() {
       </svg>
 
       {/* MASSIVE HERO AUTO-SLIDER */}
-      <section className="relative h-[100dvh] w-full bg-[#1D242B] flex items-end pb-24 md:pb-32 overflow-hidden">
+      <section className="relative h-[100dvh] w-full bg-abyss flex items-end pb-24 md:pb-32 overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
@@ -145,8 +145,8 @@ export default function HomeHero() {
               />
             )}
             {/* Lighter opacity overlays so the images pop more */}
-            <div className="absolute inset-0 bg-[#1D242B]/20 mix-blend-multiply"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent"></div>
 
             <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
               <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
@@ -157,7 +157,7 @@ export default function HomeHero() {
               ) : (
                 <h2 className={TITLE_CLASS}>{slide.title}</h2>
               )}
-              <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
+              <p className="text-lg md:text-2xl text-salt/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
                 {slide.text}
               </p>
 
@@ -172,7 +172,7 @@ export default function HomeHero() {
                 {slide.secondaryCtaLink && (
                   <Link
                     href={slide.secondaryCtaLink}
-                    className="inline-flex items-center gap-3 border border-[#FAFAFA]/60 text-[#FAFAFA] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-[#FAFAFA]/10 transition-colors"
+                    className="inline-flex items-center gap-3 border border-salt/60 text-salt px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:bg-salt/10 transition-colors"
                   >
                     {slide.secondaryCtaText}
                   </Link>

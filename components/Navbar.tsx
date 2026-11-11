@@ -28,10 +28,10 @@ export default function Navbar() {
   return (
     <div className="fixed top-6 left-0 w-full z-50 px-4 md:px-8 flex flex-col items-center pointer-events-none">
       <nav 
-        className={`navbar-pill pointer-events-auto flex items-center justify-between text-[#1D242B] px-6 py-3 w-full max-w-6xl transition-all duration-500 relative ${
+        className={`navbar-pill pointer-events-auto flex items-center justify-between text-abyss px-6 py-3 w-full max-w-6xl transition-all duration-500 relative ${
           isScrolled 
-            ? "bg-[#FAFAFA]/70 backdrop-blur-md hover:bg-[#FAFAFA] shadow-lg border border-[#1D242B]/10 rounded-2xl" 
-            : "bg-[#FAFAFA] shadow-sm border border-transparent rounded-2xl"
+            ? "bg-salt/70 backdrop-blur-md hover:bg-salt shadow-lg border border-abyss/10 rounded-2xl" 
+            : "bg-salt shadow-sm border border-transparent rounded-2xl"
         }`}
       >
         {/* Left: Logo & Brand */}
@@ -46,11 +46,11 @@ export default function Navbar() {
         
         {/* Center: Desktop Navigation Links (Hidden on Mobile) */}
         <div className="hidden md:flex items-center gap-4 font-medium text-sm">
-          <Link href="/" className="px-4 py-2 rounded-lg hover:bg-[#1D242B]/5 transition-colors">Home</Link>
+          <Link href="/" className="px-4 py-2 rounded-lg hover:bg-abyss/5 transition-colors">Home</Link>
           <Link href="/trips" className="px-4 py-2 rounded-lg hover:bg-[#408A71]/20 transition-colors">Trips</Link>
           <Link href="/blog" className="px-4 py-2 rounded-lg hover:bg-[#C7EEFF] transition-colors">Journal</Link>
           <Link href="/resources" className="px-4 py-2 rounded-lg hover:bg-[#0077C0]/10 transition-colors">Resources</Link>
-          <Link href="/about" className="px-4 py-2 rounded-lg hover:bg-[#1D242B]/5 transition-colors">About</Link>
+          <Link href="/about" className="px-4 py-2 rounded-lg hover:bg-abyss/5 transition-colors">About</Link>
           {/* NEW: Desktop Game Link */}
           <Link href="/game" className="px-4 py-2 rounded-lg hover:bg-[#4DD0E1]/20 transition-colors">Game</Link>
         </div>
@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-[#1D242B] hover:bg-[#1D242B]/5 rounded-lg transition-colors"
+            className="md:hidden p-2 text-abyss hover:bg-abyss/5 rounded-lg transition-colors"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -72,18 +72,18 @@ export default function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         <div 
-          className={`absolute top-[calc(100%+12px)] left-0 w-full bg-[#FAFAFA] border border-[#1D242B]/10 rounded-2xl shadow-xl p-4 flex flex-col gap-2 transition-all duration-300 origin-top md:hidden ${
+          className={`absolute top-[calc(100%+12px)] left-0 w-full bg-salt border border-abyss/10 rounded-2xl shadow-xl p-4 flex flex-col gap-2 transition-all duration-300 origin-top md:hidden ${
             isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
           }`}
         >
-          <Link href="/" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#1D242B]/5 font-medium transition-colors">Home</Link>
+          <Link href="/" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-abyss/5 font-medium transition-colors">Home</Link>
           <Link href="/trips" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#408A71]/10 font-medium transition-colors">Trips</Link>
           <Link href="/blog" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#C7EEFF] font-medium transition-colors">Journal</Link>
           <Link href="/resources" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#0077C0]/10 font-medium transition-colors">Resources</Link>
-          <Link href="/about" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#1D242B]/5 font-medium transition-colors">About</Link>
+          <Link href="/about" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-abyss/5 font-medium transition-colors">About</Link>
           {/* NEW: Mobile Game Link */}
           <Link href="/game" onClick={closeMenu} className="px-4 py-3 rounded-xl hover:bg-[#4DD0E1]/20 font-medium transition-colors">Game</Link>
-          <hr className="border-[#1D242B]/10 my-2" />
+          <hr className="border-abyss/10 my-2" />
           <Link href="/trips" onClick={closeMenu} className="btn-primary text-center py-3 rounded-xl font-bold">
             Book Now
           </Link>

@@ -83,7 +83,7 @@ const channels = [
     handle: "noru.razak@gmail.com",
     url: "mailto:noru.razak@gmail.com",
     description: "For longer inquiries, partnerships, or press requests.",
-    background: "#1D242B",
+    background: "#0E1A1F",
     iconColor: "#FFFFFF",
     Icon: Mail,
   },
@@ -93,13 +93,13 @@ export default function SocialChannels() {
   return (
     <section className="pt-[10px] pb-24 md:pb-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
       <div className="mb-10 md:mb-14">
-        <span className="text-[#1D242B]/70 font-bold tracking-widest uppercase mb-3 block text-sm">
+        <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
           Stay Connected
         </span>
-        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1D242B] mb-4">
+        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-4">
           Follow The Journey
         </h2>
-        <p className="text-[#1D242B]/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
+        <p className="text-abyss/60 max-w-xl text-sm md:text-base font-medium leading-relaxed">
           Trip dispatches and stories from the water, wherever you already scroll.
         </p>
       </div>
@@ -107,14 +107,14 @@ export default function SocialChannels() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
         {channels.map((channel) => {
           const comingSoon = !channel.url;
-          const cardClassName = `group relative flex flex-col justify-between p-6 md:p-8 rounded-[1.75rem] bg-white border border-[#1D242B]/8 min-h-[220px] overflow-hidden transition-all duration-500 ${
+          const cardClassName = `group relative flex flex-col justify-between p-6 md:p-8 rounded-[1.75rem] bg-white border border-abyss/8 min-h-[220px] overflow-hidden transition-all duration-500 ${
             comingSoon ? "opacity-70" : "shadow-sm hover:shadow-xl hover:-translate-y-1"
           }`;
 
           const cardContent = (
             <>
               {comingSoon && (
-                <span className="absolute top-5 right-5 bg-[#1D242B] text-[#FAFAFA] text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
+                <span className="absolute top-5 right-5 bg-abyss text-salt text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
                   Coming Soon
                 </span>
               )}
@@ -127,18 +127,18 @@ export default function SocialChannels() {
                   <channel.Icon className="w-6 h-6" style={{ color: channel.iconColor }} />
                 </div>
                 {!comingSoon && (
-                  <ArrowUpRight className="w-5 h-5 text-[#1D242B]/20 group-hover:text-[#1D242B] group-hover:rotate-45 transition-all duration-300" />
+                  <ArrowUpRight className="w-5 h-5 text-abyss/20 group-hover:text-abyss group-hover:rotate-45 transition-all duration-300" />
                 )}
               </div>
 
               <div className="mt-8">
-                <h3 className="font-serif italic text-2xl text-[#1D242B] mb-1">
+                <h3 className="font-serif italic text-2xl text-abyss mb-1">
                   {channel.name}
                 </h3>
-                <p className="text-sm text-[#1D242B]/60 font-medium mb-4 leading-relaxed">
+                <p className="text-sm text-abyss/60 font-medium mb-4 leading-relaxed">
                   {channel.description}
                 </p>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#1D242B]/40">
+                <span className="text-xs font-bold uppercase tracking-widest text-abyss/40">
                   {channel.handle}
                 </span>
               </div>

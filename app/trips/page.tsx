@@ -90,7 +90,7 @@ export default async function TripsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-salt">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -104,7 +104,7 @@ export default async function TripsPage() {
         }}
       />
       {/* HERO */}
-      <section className="relative h-[100dvh] min-h-[600px] w-full bg-[#1D242B] overflow-hidden">
+      <section className="relative h-[100dvh] min-h-[600px] w-full bg-abyss overflow-hidden">
         <Image
           src={HERO_IMAGE}
           alt="Fishyology guided fishing charter heading out from Kuala Rompin, Malaysia"
@@ -113,9 +113,9 @@ export default async function TripsPage() {
           sizes="100vw"
           className="object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-[#1D242B]/20 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D242B] via-[#1D242B]/20 to-transparent" />
-        {/* Fades the hero's #1D242B base into the #121212 of the section below,
+        <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/20 to-transparent" />
+        {/* Fades the hero's #0E1A1F base into the #121212 of the section below,
             so the two meet with no visible seam. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[#121212]" />
         <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-[0.03] mix-blend-overlay">
@@ -129,17 +129,17 @@ export default async function TripsPage() {
           <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
             Guided Expeditions
           </span>
-          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FAFAFA] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
+          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-salt tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
             Fishing Trips
           </h1>
-          <p className="text-lg md:text-2xl text-[#FAFAFA]/90 max-w-3xl font-medium mb-8 leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-salt/90 max-w-3xl font-medium mb-8 leading-relaxed drop-shadow-md">
             Guided charters across Malaysia&apos;s saltwater and freshwater grounds — from a full-day
             Rompin run to a multi-day Tioman expedition. Every trip is bookable directly through us.
           </p>
 
           <Link
             href="#trips"
-            className="group relative inline-flex items-center gap-3 bg-[#FAFAFA] text-[#1D242B] px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl mb-10"
+            className="group relative inline-flex items-center gap-3 bg-salt text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl mb-10"
           >
             <span className="relative z-10">See the Trips</span>
             <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -150,8 +150,8 @@ export default async function TripsPage() {
               <div key={label} className="flex items-center gap-3">
                 <Icon className="w-5 h-5 text-[#C7EEFF] flex-shrink-0" strokeWidth={1.75} />
                 <div>
-                  <dd className="text-xl font-black text-[#FAFAFA] leading-none">{value}</dd>
-                  <dt className="text-[11px] font-bold uppercase tracking-widest text-[#FAFAFA]/70 mt-1">
+                  <dd className="text-xl font-black text-salt leading-none">{value}</dd>
+                  <dt className="text-[11px] font-bold uppercase tracking-widest text-salt/70 mt-1">
                     {label}
                   </dt>
                 </div>
@@ -206,7 +206,7 @@ export default async function TripsPage() {
 
       {/* KNOW THE RULES */}
       <section className="max-w-7xl mx-auto px-6 md:px-16 pb-20">
-        <div className="bg-[#1D242B] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 justify-between">
+        <div className="bg-abyss rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 justify-between">
           <div className="flex items-start gap-4">
             <ShieldAlert className="w-8 h-8 text-[#C7EEFF] flex-shrink-0 mt-1" />
             <div>
@@ -220,7 +220,7 @@ export default async function TripsPage() {
           </div>
           <Link
             href="/blog/malaysia-recreational-fishing-license-gap"
-            className="group inline-flex items-center gap-2 bg-[#C7EEFF] text-[#1D242B] text-sm font-bold px-5 py-3 rounded-full whitespace-nowrap hover:bg-white transition-colors"
+            className="group inline-flex items-center gap-2 bg-[#C7EEFF] text-abyss text-sm font-bold px-5 py-3 rounded-full whitespace-nowrap hover:bg-white transition-colors"
           >
             Read the Report
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
