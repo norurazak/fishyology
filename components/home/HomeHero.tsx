@@ -17,8 +17,6 @@ const heroSlides = [
     text: "Fishing stories, science and guided trips from Malaysian waters.",
     ctaText: "Read The Journal",
     ctaLink: "/blog",
-    secondaryCtaText: "See the Trips",
-    secondaryCtaLink: "/trips",
     image: "https://res.cloudinary.com/dub3h3elq/image/upload/v1776575096/IMG_3455_afqsvy.jpg",
   },
   {
