@@ -88,14 +88,14 @@ export default function StandardSection() {
         {standardPillars.map((pillar) => (
           <article
             key={pillar.id}
-            className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-abyss/8 shadow-sm hover:shadow-xl transition-all duration-500"
+            className="group flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-abyss/8 shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1"
           >
             <div className="h-56 md:h-64 overflow-hidden">
               <img
                 {...cloudinaryImage(pillar.image, { sizes: "(max-width: 768px) 100vw, 33vw" })}
                 alt={pillar.title}
                 loading="lazy"
-                className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[8s]"
+                className="w-full h-full object-cover"
               />
             </div>
 

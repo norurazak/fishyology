@@ -82,7 +82,7 @@ export default function VideoEmbed({
   }
 
   return (
-    <div className={frame}>
+    <div className={`${frame} hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1`}>
       <img
         src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
         alt=""

@@ -107,8 +107,8 @@ export default function SocialChannels() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
         {channels.map((channel) => {
           const comingSoon = !channel.url;
-          const cardClassName = `group relative flex flex-col justify-between p-6 md:p-8 rounded-[1.75rem] bg-white border border-abyss/8 min-h-[220px] overflow-hidden transition-all duration-500 ${
-            comingSoon ? "opacity-70" : "shadow-sm hover:shadow-xl hover:-translate-y-1"
+          const cardClassName = `group relative flex flex-col justify-between p-6 md:p-8 rounded-[1.75rem] bg-white border border-abyss/8 min-h-[220px] overflow-hidden transition-[box-shadow,transform] duration-500 ${
+            comingSoon ? "opacity-70" : "shadow-sm hover:shadow-xl motion-safe:hover:-translate-y-1"
           }`;
 
           const cardContent = (

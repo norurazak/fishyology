@@ -32,10 +32,11 @@ const GAME = {
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]";
 
-const TILE = `group relative overflow-hidden rounded-3xl shadow-sm hover:shadow-xl motion-safe:transition-shadow motion-safe:duration-500 ${FOCUS_RING}`;
+/* Same hover as the Follow The Journey cards: a 4px lift and a deeper shadow,
+   with the lift only under no reduced-motion preference. */
+const TILE = `group relative overflow-hidden rounded-3xl shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1 ${FOCUS_RING}`;
 
-const ZOOM =
-  "absolute inset-0 w-full h-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-105";
+const ZOOM = "absolute inset-0 w-full h-full object-cover";
 
 /* Every tile's headline is the link's own text, so the photos are decorative:
    an alt that repeated the title would be read out twice. */
