@@ -95,8 +95,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Palomar, improved clinch, and braid-to-leader knots you'll actually tie on the water.",
     meta: "Coming Soon",
     icon: Spline,
-    iconBg: "#0E1A1F0D",
-    iconColor: "#0E1A1F59",
+    iconBg: "#1212120D",
+    iconColor: "#12121259",
   },
   {
     slug: "rod-and-reel-sizing",
@@ -114,8 +114,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Overhead casting, roll casts, and distance control mechanics.",
     meta: "Coming Soon",
     icon: Hand,
-    iconBg: "#0E1A1F0D",
-    iconColor: "#0E1A1F59",
+    iconBg: "#1212120D",
+    iconColor: "#12121259",
   },
   {
     slug: "live-bait-rigging",
@@ -123,8 +123,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Drop-shot, Carolina rig, slip bobber, and bottom rig setups.",
     meta: "Coming Soon",
     icon: Fish,
-    iconBg: "#0E1A1F0D",
-    iconColor: "#0E1A1F59",
+    iconBg: "#1212120D",
+    iconColor: "#12121259",
   },
   {
     slug: "malaysia-fishing-licenses",
@@ -142,8 +142,8 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Proper fish handling, revival techniques, and de-hooking ethics.",
     meta: "Coming Soon",
     icon: Heart,
-    iconBg: "#0E1A1F0D",
-    iconColor: "#0E1A1F59",
+    iconBg: "#1212120D",
+    iconColor: "#12121259",
   },
 ];
 

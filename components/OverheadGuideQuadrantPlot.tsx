@@ -280,10 +280,10 @@ export default function OverheadGuideQuadrantPlot() {
                     <g key={i}>
                       <line x1={px} y1={PAD_T} x2={px} y2={PAD_T + PH} stroke="rgba(29,36,43,0.06)" />
                       <line x1={PAD_L} y1={py} x2={PAD_L + PW} y2={py} stroke="rgba(29,36,43,0.06)" />
-                      <text x={px} y={PAD_T + PH + 18} fill="#0E1A1F" fillOpacity={0.4} fontSize={10} textAnchor="middle" className="font-mono">
+                      <text x={px} y={PAD_T + PH + 18} fill="#121212" fillOpacity={0.4} fontSize={10} textAnchor="middle" className="font-mono">
                         {ax.fmt(vx)}
                       </text>
-                      <text x={PAD_L - 9} y={py + 3} fill="#0E1A1F" fillOpacity={0.4} fontSize={10} textAnchor="end" className="font-mono">
+                      <text x={PAD_L - 9} y={py + 3} fill="#121212" fillOpacity={0.4} fontSize={10} textAnchor="end" className="font-mono">
                         {ay.fmt(vy)}
                       </text>
                     </g>
@@ -331,7 +331,7 @@ export default function OverheadGuideQuadrantPlot() {
                       r={isPinned ? 8 : 5.5}
                       fill={pp.point.color}
                       fillOpacity={isPinned ? 1 : 0.78}
-                      stroke={isPinned ? "#0E1A1F" : "rgba(255,255,255,0.85)"}
+                      stroke={isPinned ? "#121212" : "rgba(255,255,255,0.85)"}
                       strokeWidth={isPinned ? 2 : 1}
                       tabIndex={0}
                       role="button"
@@ -349,7 +349,7 @@ export default function OverheadGuideQuadrantPlot() {
                       <text
                         x={pp.cx + 9}
                         y={pp.cy + 3.5}
-                        fill={isPinned ? "#0E1A1F" : "rgba(29,36,43,0.55)"}
+                        fill={isPinned ? "#121212" : "rgba(29,36,43,0.55)"}
                         fontSize={9.5}
                         className="font-mono pointer-events-none"
                       >

@@ -83,7 +83,7 @@ const channels = [
     handle: "noru.razak@gmail.com",
     url: "mailto:noru.razak@gmail.com",
     description: "For longer inquiries, partnerships, or press requests.",
-    background: "#0E1A1F",
+    background: "#121212",
     iconColor: "#FFFFFF",
     Icon: Mail,
   },

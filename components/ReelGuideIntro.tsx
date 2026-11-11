@@ -49,7 +49,7 @@ export default function ReelGuideIntro() {
                 />
               ) : (
                 <span
-                  style={{ color: BRAND_WORDMARK_COLORS[b.id] ?? "#0E1A1F" }}
+                  style={{ color: BRAND_WORDMARK_COLORS[b.id] ?? "#121212" }}
                   className="font-serif text-xl md:text-2xl font-bold opacity-50 hover:opacity-100 transition-opacity duration-300"
                 >
                   {b.name}

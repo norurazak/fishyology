@@ -7,7 +7,7 @@ html {
 
 :root {
   --background: #f4f1ea;
-  --foreground: #0e1a1f;
+  --foreground: #121212;
 }
 
 @theme inline {
@@ -16,12 +16,12 @@ html {
 
   /* Palette: two bases set the mood, one accent gives it personality.
      Tuna is a fill only (white text on it is 4.96:1). As text it fails on
-     Abyss (3.57:1) and just misses on Salt (4.40:1), so use the two tuna-*
+     Abyss (3.78:1) and just misses on Salt (4.40:1), so use the two tuna-*
      variants for the rare case where it has to be text. */
-  --color-abyss: #0e1a1f;
+  --color-abyss: #121212;
   --color-salt: #f4f1ea;
   --color-tuna: #d7263d;
-  --color-tuna-on-dark: #f0566a; /* 5.26:1 on abyss */
+  --color-tuna-on-dark: #f0566a; /* 5.57:1 on abyss */
   --color-tuna-on-light: #b81e33; /* 5.69:1 on salt */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -29,7 +29,7 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0e1a1f;
+    --background: #121212;
     --foreground: #f4f1ea;
   }
 }

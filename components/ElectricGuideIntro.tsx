@@ -33,7 +33,7 @@ export default function ElectricGuideIntro() {
           {BRANDS.map((b) => (
             <div key={b.id} className="h-9 md:h-11 flex items-center justify-center">
               <span
-                style={{ color: BRAND_COLORS[b.id] ?? "#0E1A1F" }}
+                style={{ color: BRAND_COLORS[b.id] ?? "#121212" }}
                 className="font-serif text-xl md:text-2xl font-bold opacity-50 hover:opacity-100 transition-opacity duration-300"
               >
                 {b.name}

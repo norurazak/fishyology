@@ -93,13 +93,13 @@ export default function TideCurve({
             y1="0"
             x2={nowX}
             y2={HEIGHT}
-            stroke="#0E1A1F"
+            stroke="#121212"
             strokeWidth="1"
             strokeDasharray="3 3"
             strokeOpacity="0.3"
             vectorEffect="non-scaling-stroke"
           />
-          <circle cx={nowX} cy={nowY} r="4" fill="#0E1A1F" stroke="#F4F1EA" strokeWidth="2" />
+          <circle cx={nowX} cy={nowY} r="4" fill="#121212" stroke="#F4F1EA" strokeWidth="2" />
         </>
       )}
     </svg>
