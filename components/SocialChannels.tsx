@@ -91,7 +91,7 @@ const channels = [
 
 export default function SocialChannels() {
   return (
-    <section className="pt-[10px] pb-24 md:pb-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
+    <section className="pt-[10px] pb-12 md:pb-16 px-6 md:px-12 max-w-[1600px] mx-auto relative">
       <div className="mb-10 md:mb-14">
         <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
           Stay Connected
