@@ -101,9 +101,9 @@ export default function LatestStories({ posts }: { posts: Post[] }) {
   return (
     <section
       aria-labelledby="latest-stories-heading"
-      className="py-20 md:py-28 px-6 md:px-12 max-w-[1600px] mx-auto"
+      className="py-16 md:py-20 px-6 md:px-12 max-w-[1600px] mx-auto"
     >
-      <div className="flex flex-wrap items-end justify-between gap-4 mb-10 md:mb-14">
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
         <div>
           <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
             From The Journal
