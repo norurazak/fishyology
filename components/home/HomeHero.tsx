@@ -85,8 +85,9 @@ export default function HomeHero() {
         },
       });
 
-      tl.to(".welcome-text", { opacity: 1, y: 0, duration: 2, ease: "power2.out" }, 4.5)
-        .to(".splash-screen", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, 7.5)
+      // The opener video carries its own "Welcome to our world" title, so the
+      // only thing left to animate is the fade-out as it ends.
+      tl.to(".splash-screen", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, 7.5)
         .set(".splash-screen", { display: "none" });
     }, heroRef);
 
@@ -121,9 +122,6 @@ export default function HomeHero() {
           </video>
         )}
         <div className="absolute inset-0 bg-black/10"></div>
-        <p className="welcome-text opacity-0 translate-y-8 relative z-10 text-4xl md:text-6xl font-serif text-[#FFFFFF] tracking-wide text-center drop-shadow-2xl">
-          WELCOME TO OUR WORLD
-        </p>
       </div>
 
       {/* GLOBAL NOISE TEXTURE */}
