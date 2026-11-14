@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { cloudinaryImage, HERO_WIDTHS } from "@/lib/cloudinary";
 
 const INTRO_VIDEO_BASE = "https://res.cloudinary.com/dub3h3elq/video/upload";
-const INTRO_VIDEO_FILE = "v1776573413/download_1_edhjld.mp4";
+const INTRO_VIDEO_FILE = "v1794677409/Fishyology-Opener-School-8s_oxlo2q.mp4";
 
 // --- DATA: HOMEPAGE HERO SLIDES ---
 interface HeroSlide {
