@@ -71,8 +71,10 @@ export default function HomeHero() {
 
     sessionStorage.setItem("fishyology_intro_played", "true");
 
-    // Compressed by Cloudinary, with a smaller cut for phones.
-    const transform = window.innerWidth < 768 ? "q_auto:low,c_limit,w_720" : "q_auto,c_limit,w_1280";
+    // Compressed by Cloudinary, sized to the screen. The 1080p source is cropped to
+    // fill the viewport, so a phone needs far more than its narrow width in pixels:
+    // 1920 on desktop (5.7MB) and 1280 on phones (3.5MB). Smaller cuts looked soft.
+    const transform = window.innerWidth < 768 ? "q_auto,c_limit,w_1280" : "q_auto,c_limit,w_1920";
     setIntroVideo(`${INTRO_VIDEO_BASE}/${transform}/${INTRO_VIDEO_FILE}`);
 
     document.body.style.overflow = "hidden";
