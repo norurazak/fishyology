@@ -260,7 +260,7 @@ export default function Timeline() {
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => scrollToMilestone(entry.index)}
                 onKeyDown={onTabKeyDown}
-                className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold tabular-nums transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2 ${
+                className={`shrink-0 min-h-[44px] px-5 py-2 rounded-full text-sm font-bold tabular-nums transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2 ${
                   isActive
                     ? "bg-abyss text-white"
                     : "bg-white border border-abyss/10 text-abyss/60 hover:border-abyss/30"
@@ -312,7 +312,7 @@ export default function Timeline() {
                     <div className="h-[5.5rem] flex flex-col justify-center">
                       <span
                         className={`text-2xl font-black tracking-tighter tabular-nums transition-colors ${
-                          isActive ? "text-[#0077C0]" : "text-abyss/25"
+                          isActive ? "text-tuna-on-light" : "text-abyss/50"
                         }`}
                       >
                         {isFirstOfYear ? milestone.year : ""}
@@ -321,7 +321,7 @@ export default function Timeline() {
                         aria-hidden="true"
                         className={`mt-2 rounded-full transition-all duration-300 ${
                           isActive
-                            ? "w-4 h-4 bg-[#0077C0] ring-4 ring-[#0077C0]/20"
+                            ? "w-4 h-4 bg-tuna ring-4 ring-tuna/20"
                             : "w-3 h-3 bg-abyss/20"
                         }`}
                       />
@@ -331,7 +331,7 @@ export default function Timeline() {
                     <div
                       className={`rounded-lg overflow-hidden bg-white border transition-all duration-300 ${
                         isActive
-                          ? "border-[#0077C0]/30 shadow-xl"
+                          ? "border-tuna/30 shadow-xl"
                           : "border-abyss/10 shadow-sm"
                       }`}
                     >
@@ -381,13 +381,13 @@ export default function Timeline() {
       </div>
 
       {/* CONTROLS */}
-      <div className="px-6 md:px-16 pt-6 pb-10 md:pb-14 flex items-center gap-3">
+      <div className="px-6 md:px-16 pt-6 pb-6 md:pb-8 flex items-center gap-3">
         <button
           type="button"
           onClick={() => step(-1)}
           disabled={atStart}
           aria-label="Previous milestone"
-          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -396,11 +396,11 @@ export default function Timeline() {
           onClick={() => step(1)}
           disabled={atEnd}
           aria-label="Next milestone"
-          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-abyss/35 ml-2 tabular-nums">
+        <span className="text-xs font-bold uppercase tracking-widest text-abyss/70 ml-2 tabular-nums">
           Drag to travel · {String(activeIndex + 1).padStart(2, "0")} /{" "}
           {String(milestones.length).padStart(2, "0")}
         </span>

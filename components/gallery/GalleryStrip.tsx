@@ -138,7 +138,7 @@ export default function GalleryStrip({
       data-gallery-item
       onClick={() => openItem(index)}
       aria-label={`Open ${itemLabel.toLowerCase()} ${index + 1}: ${item.title}`}
-      className={`group shrink-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF] rounded-lg ${
+      className={`group shrink-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF] rounded-lg ${
         ITEM_WIDTHS[index % ITEM_WIDTHS.length]
       }`}
     >
@@ -155,7 +155,7 @@ export default function GalleryStrip({
         />
         <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-abyss/85 to-transparent pointer-events-none" />
         <span className="absolute bottom-3 left-3 right-3 flex items-baseline gap-2">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-[#C7EEFF] tabular-nums">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#FFFFFF]/85 tabular-nums">
             {String(index + 1).padStart(2, "0")}
           </span>
           <span className="text-white font-serif text-sm leading-tight truncate">

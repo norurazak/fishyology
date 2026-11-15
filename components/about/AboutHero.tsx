@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
 const TITLE_CLASS =
-  "text-5xl md:text-8xl lg:text-[7rem] font-black text-[#FFFFFF] tracking-tighter uppercase leading-[0.85] mb-8 drop-shadow-2xl";
+  "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-[#FFFFFF] tracking-tight uppercase leading-[0.95] mb-6 drop-shadow-2xl max-w-5xl text-balance";
 
 const heroSlides = [
   {
@@ -97,11 +97,11 @@ export default function AboutHero() {
             onClick={() => setCurrentSlide(index)}
             aria-label={`Show slide ${index + 1}: ${slide.title}`}
             aria-current={index === currentSlide}
-            className="group relative flex items-center h-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF] rounded-full"
+            className="group relative flex items-center h-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF] rounded-full"
           >
             <div
               className={`h-1 transition-all duration-500 rounded-full ${
-                index === currentSlide ? "w-16 bg-[#C7EEFF]" : "w-8 bg-white/30 group-hover:bg-white/60"
+                index === currentSlide ? "w-16 bg-tuna" : "w-8 bg-white/30 group-hover:bg-white/60"
               }`}
             />
           </button>

@@ -136,7 +136,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
           type="button"
           onClick={onClose}
           aria-label={`Close ${author.name} profile`}
-          className="absolute top-6 right-6 p-2 bg-abyss/5 hover:bg-abyss/10 text-abyss rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0]"
+          className="absolute top-6 right-6 flex h-11 w-11 items-center justify-center bg-abyss/5 hover:bg-abyss/10 text-abyss rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss"
         >
           <X size={20} />
         </button>
@@ -145,14 +145,14 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
           <div className="relative w-full md:w-1/3 aspect-square rounded-lg overflow-hidden shrink-0">
             <Image
               src={author.image}
-              alt={author.name}
+              alt=""
               fill
               sizes="(max-width: 768px) 88vw, 220px"
               className="object-cover"
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-[#0077C0] text-xs font-black uppercase tracking-widest block mb-2">
+            <span className="text-abyss/70 text-xs font-black uppercase tracking-widest block mb-2">
               {author.role}
             </span>
             <h3
@@ -166,7 +166,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
               {author.specialties.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-[#C7EEFF] text-[#0077C0] text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider"
+                  className="bg-abyss/5 text-abyss/80 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider"
                 >
                   {tag}
                 </span>
@@ -207,27 +207,27 @@ export default function AuthorRoster() {
                 ? "Pitch a story to Fishyology"
                 : `Read ${author.name}'s full profile`
             }
-            className="group flex h-full flex-col text-left cursor-pointer bg-white border border-abyss/10 rounded-lg p-5 shadow-sm hover:shadow-xl hover:border-abyss/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077C0] focus-visible:ring-offset-2"
+            className="group flex h-full flex-col text-left cursor-pointer bg-white border border-abyss/10 rounded-lg p-5 shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2"
           >
             <div className="relative aspect-square rounded-lg overflow-hidden mb-5 bg-black/5">
               <Image
                 src={author.image}
-                alt={author.name}
+                alt=""
                 fill
                 sizes="(max-width: 768px) 88vw, (max-width: 1024px) 44vw, 23vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-cover"
               />
             </div>
             {/* Role and name reserve two lines each. Without this a longer role or a name
                 that wraps pushes that card's bio out of step with the rest of the row. */}
             <span
-              className={`text-[10px] font-black uppercase tracking-widest leading-[1.4] block mb-2 min-h-[1.75rem] ${
-                author.isActionCard ? "text-[#408A71]" : "text-[#0077C0]"
+              className={`text-xs font-black uppercase tracking-widest leading-[1.4] block mb-2 min-h-[2.1rem] ${
+                author.isActionCard ? "text-tuna-on-light" : "text-abyss/70"
               }`}
             >
               {author.role}
             </span>
-            <h3 className="text-2xl font-serif font-bold leading-tight text-abyss mb-3 min-h-[3.75rem] group-hover:text-[#408A71] transition-colors">
+            <h3 className="text-2xl font-serif font-bold leading-tight text-abyss mb-3 min-h-[3.75rem] group-hover:underline underline-offset-4">
               {author.name}
             </h3>
             <p className="text-abyss/70 text-sm font-medium leading-relaxed line-clamp-2">{author.shortBio}</p>

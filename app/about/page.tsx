@@ -10,7 +10,7 @@ export default function AboutPage() {
   const plates = getGalleryPlates();
 
   return (
-    <div className="bg-[#FFFFFF] text-abyss min-h-screen">
+    <div className="bg-[#FFFFFF] text-abyss min-h-screen selection:bg-tuna selection:text-white">
       {/* GLOBAL NOISE TEXTURE */}
       <svg className="pointer-events-none fixed inset-0 z-40 h-full w-full opacity-[0.03] mix-blend-overlay">
         <filter id="noise">
@@ -24,9 +24,9 @@ export default function AboutPage() {
 
       {/* 2. THE 10-YEAR JOURNEY — chapter viewer at 80% of the hero's height, kept tight */}
       <section className="relative min-h-[80dvh] flex flex-col border-b border-abyss/10">
-        <div className="px-6 md:px-16 pt-24 md:pt-28 pb-8 md:pb-10">
+        <div className="px-6 md:px-16 pt-14 md:pt-16 pb-6 md:pb-8">
           <div className="max-w-[110rem] mx-auto">
-            <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+            <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
               The Journey
             </span>
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
@@ -43,15 +43,15 @@ export default function AboutPage() {
       {/* 2b. 2026 CLOSING STATEMENT — the timeline's last card is a teaser; this is the
           full write-up, given its own space since it reads as a mission statement rather
           than a milestone blurb. */}
-      <section className="py-24 md:py-28 px-6 md:px-16 border-b border-abyss/10">
+      <section className="py-14 md:py-16 px-6 md:px-16 border-b border-abyss/10">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+          <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
             2026
           </span>
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
             A New Path Forward
           </h2>
-          <p className="text-abyss/50 font-serif italic text-lg md:text-xl mb-10">
+          <p className="text-abyss/70 font-serif italic text-lg md:text-xl mb-10">
             Building the next chapter of Fishyology.
           </p>
           <div className="text-left space-y-6 text-abyss/75 text-base md:text-lg leading-relaxed">
@@ -80,9 +80,9 @@ export default function AboutPage() {
 
       {/* 3. THE PLATES */}
       {plates.length > 0 && (
-        <section className="py-24 md:py-28 border-b border-abyss/10 overflow-hidden">
-          <div className="px-6 md:px-16 max-w-7xl mx-auto mb-12 md:mb-16">
-            <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+        <section className="py-14 md:py-16 border-b border-abyss/10 overflow-hidden">
+          <div className="px-6 md:px-16 max-w-7xl mx-auto mb-8 md:mb-10">
+            <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
               From the Archive
             </span>
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
@@ -100,8 +100,8 @@ export default function AboutPage() {
 
       <PitchProvider>
         {/* 4. THE AUTHORS */}
-        <section className="py-20 md:py-24 px-6 md:px-16 max-w-7xl mx-auto">
-          <div className="text-center mb-10 md:mb-12">
+        <section className="py-12 md:py-14 px-6 md:px-16 max-w-7xl mx-auto">
+          <div className="text-center mb-6 md:mb-8">
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
               The Roster
             </h2>
@@ -113,17 +113,17 @@ export default function AboutPage() {
         </section>
 
         {/* 5. CALL FOR WRITERS CTA */}
-        <section id="pitch-section" className="relative py-20 md:py-24 px-6 overflow-hidden">
+        <section id="pitch-section" className="relative py-14 md:py-16 px-6 overflow-hidden">
           <div className="absolute inset-0 bg-abyss z-0" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] md:w-[600px] md:h-[600px] bg-[#0077C0]/15 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] md:w-[600px] md:h-[600px] bg-tuna/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-            <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-3 block text-sm">
+            <span className="text-[#FFFFFF]/85 font-bold tracking-widest uppercase mb-3 block text-sm">
               Get Hooked With Us
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-[#FFFFFF] uppercase tracking-tight leading-[1.1] mb-4">
               Tell your story. <br />
-              <span className="text-[#408A71] italic font-serif lowercase tracking-normal">
+              <span className="text-tuna-on-dark italic font-serif lowercase tracking-normal">
                 Inspire the next cast.
               </span>
             </h2>
