@@ -67,38 +67,28 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Right: the statement in one readable column; the two short standalone
-                lines take the serif italic voice so they read as beats */}
+            {/* Right: the statement in one readable column, a serif italic beat in the
+                middle, and the closing line under the section's one accent */}
             <div className="lg:col-span-7 max-w-2xl space-y-6 text-[#A3A3A3] text-base md:text-lg leading-relaxed">
               <p>
                 Fishyology enters 2026 with a renewed sense of direction. What began as a fishing
-                blog grew into a guiding operation, evolved through years of exploration and
-                experience, faced an unexpected pause and found its way back to the water.
+                blog grew into a guiding operation, paused, and found its way back to the water.
               </p>
               <p className="font-serif italic text-[#FFFFFF] text-xl md:text-2xl">
                 Now, the focus moves forward.
               </p>
               <p>
-                We are building Fishyology into a stronger and more sustainable venture, bringing
-                together our experience, relationships, fishing knowledge and passion for
-                Malaysia&apos;s waters under one vision.
+                We are building a stronger, more sustainable Fishyology, bringing our experience,
+                relationships and passion for Malaysia&apos;s waters under one vision, with new
+                opportunities for anglers, partners and the wider fishing community.
               </p>
-              <p className="font-serif italic text-[#FFFFFF] text-xl md:text-2xl">
-                This is more than a return. It is a new pathway forward.
-              </p>
-              <p>
-                A new chapter built on everything that came before, with new opportunities ahead
-                for anglers, partners and the wider fishing community.
-              </p>
+              <div className="pt-4">
+                <div aria-hidden="true" className="w-12 h-[3px] bg-tuna mb-5" />
+                <p className="font-serif italic text-[#D4D4D4] text-xl md:text-2xl leading-snug text-balance">
+                  The journey continues, but the destination is bigger than ever.
+                </p>
+              </div>
             </div>
-          </div>
-
-          {/* The closing line as a full-width pull quote under the section's one accent */}
-          <div className="mt-12 md:mt-16 pt-10 md:pt-12 border-t border-white/10">
-            <div aria-hidden="true" className="w-12 h-[3px] bg-tuna mb-6" />
-            <p className="font-serif italic text-[#D4D4D4] text-2xl md:text-4xl leading-snug max-w-4xl text-balance">
-              The journey continues, but the destination is bigger than ever.
-            </p>
           </div>
         </div>
       </section>
