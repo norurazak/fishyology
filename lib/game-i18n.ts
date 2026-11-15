@@ -211,7 +211,7 @@ const ms: Record<GameStringKey, string> = {
   "tut.hintTouch": "Ketik di mana-mana untuk teruskan",
   "tut.hintMouse": "Klik di mana-mana, atau guna ← →",
 
-  "hero.subtitle": "Studio Kreatif Fishyology",
+  "hero.subtitle": "The Fishyology Creative Studio",
   "hero.tagline": "Kuasai lautan. Menangi pertarungan.",
   "playNow": "Main sekarang",
 
