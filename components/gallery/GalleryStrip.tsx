@@ -220,7 +220,7 @@ export default function GalleryStrip({
           onClick={() => step(-1)}
           disabled={atStart}
           aria-label="Scroll left"
-          className="w-10 h-10 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+          className="btn-primary w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-25 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -229,11 +229,11 @@ export default function GalleryStrip({
           onClick={() => step(1)}
           disabled={atEnd}
           aria-label="Scroll right"
-          className="w-10 h-10 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+          className="btn-primary w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-25 disabled:cursor-not-allowed"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
-        <span className="text-[11px] font-bold uppercase tracking-widest text-abyss/50 ml-2">
+        <span className="text-xs font-bold uppercase tracking-widest text-tuna ml-2">
           Drag to explore · {items.length} {itemLabel.toLowerCase()}s
         </span>
       </div>
