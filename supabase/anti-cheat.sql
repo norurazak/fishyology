@@ -158,9 +158,7 @@ alter table public.profiles drop constraint if exists profiles_display_name_ok;
 alter table public.profiles add constraint profiles_display_name_ok
   check (display_name is null or char_length(btrim(display_name)) between 1 and 15) not valid;
 
-alter table public.profiles drop constraint if exists profiles_gender_ok;
-alter table public.profiles add constraint profiles_gender_ok
-  check (gender is null or gender in ('Male', 'Female', 'Prefer not to say')) not valid;
+-- (gender is an enum column, gender_type, so the database already limits its values.)
 
 alter table public.profiles drop constraint if exists profiles_state_ok;
 alter table public.profiles add constraint profiles_state_ok
@@ -204,7 +202,7 @@ commit;
 --   from public.catches c
 --   join public.catch_rules r on r.species = c.species
 --   join public.profiles p on p.id = c.profile_id
---   where c.caught_at >= '2026-11-15 00:00:00+08' and c.caught_at <= '2026-12-31 23:59:59.999+08'
+--   where c.caught_at >= '2026-12-01 00:00:00+08' and c.caught_at <= '2026-12-31 23:59:59.999+08'
 --   order by c.weight_kg desc limit 20;
 --
 -- (b) Players with an unusual number of catches, or an unusually high share near the max.
@@ -215,7 +213,7 @@ commit;
 --   from public.catches c
 --   join public.catch_rules r on r.species = c.species
 --   join public.profiles p on p.id = c.profile_id
---   where c.caught_at >= '2026-11-15 00:00:00+08'
+--   where c.caught_at >= '2026-12-01 00:00:00+08'
 --   group by p.id, p.display_name
 --   order by near_max desc, catches desc limit 20;
 -- ---------------------------------------------------------------------------

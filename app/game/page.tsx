@@ -1593,24 +1593,34 @@ function GamePageContent() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [leaderboardLoading, setLeaderboardLoading] = useState(true);
 
-  // SEASON DATES CONFIGURATION
-  // Season 1, restarted. Times are Malaysia time (UTC+8): it opens at midnight on
-  // 15 November and closes at the last second of 31 December. Catches outside this
-  // window (including the original July–August run) don't appear on the board.
-  const SEASON_START = '2026-11-15T00:00:00.000+08:00'; // Season Start: November 15, 2026
-  const SEASON_END = '2026-12-31T23:59:59.999+08:00';   // Season End: December 31, 2026
+  // SEASON DATES CONFIGURATION (all Malaysia time, UTC+8)
+  // Testing phase: from 15 November to the end of 30 November. Scores are practice
+  // only and the board shows them. Season 1 opens at midnight on 1 December on a fresh
+  // board and closes at the last second of 31 December. Catches before the phase being
+  // shown (including the original July-August run) don't appear.
+  const TEST_START = '2026-11-15T00:00:00.000+08:00';
+  const SEASON_START = '2026-12-01T00:00:00.000+08:00'; // Season 1 opens: December 1, 2026
+  const SEASON_END = '2026-12-31T23:59:59.999+08:00';   // Season 1 closes: December 31, 2026
 
-  // Countdown State
-  const [timeLeft, setTimeLeft] = useState<TimeRemaining>(calculateTimeRemaining(SEASON_END));
+  type Phase = 'test' | 'season';
+  const phaseNow = (): Phase => (Date.now() < Date.parse(SEASON_START) ? 'test' : 'season');
+  const countdownTarget = (p: Phase) => (p === 'test' ? SEASON_START : SEASON_END);
+
+  // Countdown State: to the start of Season 1 while testing, then to the end of the season.
+  const [phase, setPhase] = useState<Phase>(phaseNow);
+  const [timeLeft, setTimeLeft] = useState<TimeRemaining>(() => calculateTimeRemaining(countdownTarget(phaseNow())));
 
   // Live Timer Tick Effect
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeRemaining(SEASON_END));
+      const p = phaseNow();
+      setPhase(p);
+      setTimeLeft(calculateTimeRemaining(countdownTarget(p)));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [SEASON_END]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Fetch dynamic leaderboard from Supabase filtered by Active Season
   const fetchLeaderboard = useCallback(async () => {
@@ -1633,7 +1643,7 @@ function GamePageContent() {
           avatar_url
         )
       `)
-      .gte('caught_at', SEASON_START)
+      .gte('caught_at', phase === 'test' ? TEST_START : SEASON_START)
       .lte('caught_at', SEASON_END)
       .order('weight_kg', { ascending: false })
       .limit(10);
@@ -1648,7 +1658,7 @@ function GamePageContent() {
       setLeaderboard(data as unknown as LeaderboardEntry[]);
     }
     setLeaderboardLoading(false);
-  }, [SEASON_START, SEASON_END]);
+  }, [phase, TEST_START, SEASON_START, SEASON_END]);
 
   useEffect(() => {
     fetchLeaderboard();
@@ -1902,18 +1912,23 @@ function GamePageContent() {
               <div className="flex items-center gap-2">
                 <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#3DDC97] fs-blink"></span>
                 <h2 className="text-sm font-bold text-[#4DD0E1] uppercase tracking-widest">
-                  {t('lb.title')}
+                  {phase === 'test' ? t('lb.titleTest') : t('lb.title')}
                 </h2>
+                {phase === 'test' && (
+                  <span className="border border-[#FFB020] px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#FFB020]">
+                    {t('lb.testChip')}
+                  </span>
+                )}
               </div>
               <p className="text-xs text-[#7C8B9C] uppercase tracking-widest mt-1">
-                {t('lb.dates')}
+                {phase === 'test' ? t('lb.datesTest') : t('lb.dates')}
               </p>
             </div>
 
             {/* Countdown Badge */}
             <div className="bg-[#0D141B] border border-[#1C2733] px-3.5 py-2 rounded flex items-center gap-2 self-start sm:self-auto">
               <span className="text-xs uppercase font-bold text-[#FFB020] tracking-widest">
-                {t('lb.endsIn')}
+                {phase === 'test' ? t('lb.startsIn') : t('lb.endsIn')}
               </span>
               {timeLeft.isEnded ? (
                 <span className="fs-num text-xs font-bold text-[#FF3B47] uppercase tracking-wider">
@@ -1928,7 +1943,7 @@ function GamePageContent() {
           </div>
 
           <p className="px-1 mb-5 text-xs text-[#7C8B9C] leading-relaxed">
-            {t('lb.rules')}
+            {phase === 'test' ? t('lb.rulesTest') : t('lb.rules')}
           </p>
 
           <div className="border border-[#1C2733] bg-[#0A1017] rounded-lg overflow-hidden">
@@ -1938,8 +1953,8 @@ function GamePageContent() {
               <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">{t('lb.loading')}</div>
             ) : leaderboard.length === 0 ? (
               <div className="px-6 py-10 text-center flex flex-col items-center gap-3">
-                <p className="text-sm font-bold uppercase tracking-widest text-[#E6EDF3]">{t('lb.emptyTitle')}</p>
-                <p className="text-sm text-[#7C8B9C] max-w-sm">{t('lb.emptyBody')}</p>
+                <p className="text-sm font-bold uppercase tracking-widest text-[#E6EDF3]">{phase === 'test' ? t('lb.emptyTitleTest') : t('lb.emptyTitle')}</p>
+                <p className="text-sm text-[#7C8B9C] max-w-sm">{phase === 'test' ? t('lb.emptyBodyTest') : t('lb.emptyBody')}</p>
                 <button
                   type="button"
                   onClick={scrollToGame}

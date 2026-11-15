@@ -29,7 +29,7 @@ const legalDocs = [
       Jigging Master is a free game by Fishyology. You can play as a guest. To appear on the leaderboard, sign in with Google and create a profile.
 
       ## 2. Seasons and ranking
-      Each season runs between the start and end dates shown on the game page (Season 1: 15 November to 31 December 2026, Malaysia time). Players are ranked by their single heaviest catch of the season. We may change the dates or rules, and will update this page when we do.
+      Until 30 November 2026 the game is in a testing phase: scores are for practice and do not count towards Season 1 rankings or prizes. Season 1 runs from 1 December to 31 December 2026, Malaysia time, on a fresh leaderboard. Players are ranked by their single heaviest catch of the season. We may change the dates or rules, and will update this page when we do.
 
       ## 3. Fair play
       Do not use bots, scripts, modified code or other tools, or exploit bugs, to post catches, and do not post catches for another player. Catches are checked automatically and may also be reviewed by hand. We may remove catches or profiles and disqualify any player we believe has cheated, and our decision is final.
