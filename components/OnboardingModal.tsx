@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+import { useGameLanguage } from '@/components/game/GameLanguage';
+import type { GameStringKey } from '@/lib/game-i18n';
 
 // --- DATA: MALAYSIAN STATES ---
 const MALAYSIA_STATES = [
@@ -27,6 +29,8 @@ const AVATAR_OPTIONS = [
 
 // Gender is optional: it isn't shown anywhere, so players aren't made to share it.
 const GENDER_OPTIONS = ['Male', 'Female', 'Prefer not to say'];
+// Saved in English so the database is the same in either language; shown translated.
+const GENDER_LABEL: Record<string, GameStringKey> = { 'Male': 'pf.male', 'Female': 'pf.female', 'Prefer not to say': 'pf.na' };
 
 const FOCUSABLE = 'button:not([disabled]), input, select, [tabindex]:not([tabindex="-1"])';
 const FOCUS_RING = 'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B]';
@@ -48,12 +52,13 @@ interface OnboardingModalProps {
   mode?: 'create' | 'edit';
 }
 
-/** "a, b and c" for the save hint. */
-function listWords(words: string[]) {
-  return words.length <= 1 ? words.join('') : `${words.slice(0, -1).join(', ')} and ${words[words.length - 1]}`;
+/** "a, b and c" for the save hint, with the language's own "and". */
+function listWords(words: string[], and: string) {
+  return words.length <= 1 ? words.join('') : `${words.slice(0, -1).join(', ')} ${and} ${words[words.length - 1]}`;
 }
 
 export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'create' }: OnboardingModalProps) {
+  const { t } = useGameLanguage();
   const [displayName, setDisplayName] = useState(initial?.displayName ?? '');
   const [selectedState, setSelectedState] = useState(initial?.state ?? '');
   const [gender, setGender] = useState(initial?.gender ?? '');
@@ -72,9 +77,9 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
 
   // The leaderboard shows name, state and avatar, so those are the required fields.
   const missing = [
-    !displayName.trim() && 'a display name',
-    !selectedState && 'your state',
-    !selectedAvatar && 'an avatar',
+    !displayName.trim() && t('pf.missName'),
+    !selectedState && t('pf.missState'),
+    !selectedAvatar && t('pf.missAvatar'),
   ].filter(Boolean) as string[];
   const isFormValid = missing.length === 0;
 
@@ -125,7 +130,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
     // On success the parent closes the modal; only a failure needs handling here.
     if (!saved) {
       setSaving(false);
-      setSaveError("Couldn't save your profile. Please try again.");
+      setSaveError(t('pf.saveError'));
     }
   };
 
@@ -146,10 +151,10 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
         {/* Header */}
         <div className="border-b border-[#1C2733] px-6 py-4 bg-[#0A1017]">
           <span className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-[#4DD0E1]">
-            {mode === 'edit' ? 'Your Angler Profile' : 'Welcome Angler'}
+            {mode === 'edit' ? t('pf.eyebrowEdit') : t('pf.eyebrowCreate')}
           </span>
           <h2 id="onboarding-title" className="text-2xl font-black uppercase text-[#E6EDF3] tracking-tight mt-1">
-            {mode === 'edit' ? 'Edit Profile' : 'Complete Profile'}
+            {mode === 'edit' ? t('pf.titleEdit') : t('pf.titleCreate')}
           </h2>
         </div>
 
@@ -160,7 +165,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
             {/* Display Name Input */}
             <div className="flex flex-col gap-2">
               <label htmlFor="displayName" className={labelClass}>
-                Display Name
+                {t('pf.displayName')}
               </label>
               <input
                 ref={nameRef}
@@ -170,7 +175,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
                 required
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="e.g., JigMaster99"
+                placeholder={t('pf.placeholder')}
                 className="bg-[#111A22] border border-[#1C2733] text-[#E6EDF3] px-4 py-3 outline-none focus:border-[#4DD0E1] transition-colors placeholder:text-[#4A5A69]"
               />
             </div>
@@ -178,7 +183,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
             {/* Gender Selection (optional) */}
             <div className="flex flex-col gap-2">
               <span id="gender-label" className={labelClass}>
-                Gender <span className="normal-case tracking-normal font-medium">(optional)</span>
+                {t('pf.gender')} <span className="normal-case tracking-normal font-medium">{t('pf.optional')}</span>
               </span>
               <div role="group" aria-labelledby="gender-label" className="grid grid-cols-3 gap-3">
                 {GENDER_OPTIONS.map((g) => (
@@ -193,7 +198,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
                         : 'bg-[#111A22] border-[#1C2733] text-[#7C8B9C] hover:border-[#4A5A69]'
                     }`}
                   >
-                    {g}
+                    {t(GENDER_LABEL[g])}
                   </button>
                 ))}
               </div>
@@ -202,7 +207,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
             {/* State Dropdown */}
             <div className="flex flex-col gap-2">
               <label htmlFor="state" className={labelClass}>
-                Malaysian State
+                {t('pf.state')}
               </label>
               <select
                 id="state"
@@ -211,7 +216,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
                 onChange={(e) => setSelectedState(e.target.value)}
                 className="bg-[#111A22] border border-[#1C2733] text-[#E6EDF3] px-4 py-3 outline-none focus:border-[#4DD0E1] transition-colors appearance-none cursor-pointer"
               >
-                <option value="" disabled>Select your state</option>
+                <option value="" disabled>{t('pf.selectState')}</option>
                 {MALAYSIA_STATES.map((state) => (
                   <option key={state} value={state}>{state}</option>
                 ))}
@@ -221,14 +226,14 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
             {/* Avatar Grid */}
             <div className="flex flex-col gap-2">
               <span id="avatar-label" className={labelClass}>
-                Select Avatar
+                {t('pf.avatar')}
               </span>
               <div role="group" aria-labelledby="avatar-label" className="grid grid-cols-5 gap-3">
                 {AVATAR_OPTIONS.map((avatar, index) => (
                   <button
                     key={avatar.id}
                     type="button"
-                    aria-label={`Avatar ${index + 1}`}
+                    aria-label={t('pf.avatarN', { n: index + 1 })}
                     aria-pressed={selectedAvatar === avatar.url}
                     onClick={() => setSelectedAvatar(avatar.url)}
                     className={`relative aspect-square rounded-full overflow-hidden border-2 transition-all ${FOCUS_RING} ${
@@ -252,7 +257,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
             <p role="alert" className="text-xs font-bold text-[#FF3B47]">{saveError}</p>
           ) : !isFormValid ? (
             <p id="onboarding-hint" className="text-xs text-[#7C8B9C]">
-              Add {listWords(missing)} to save.
+              {t('pf.hint', { missing: listWords(missing, t('pf.and')) })}
             </p>
           ) : null}
 
@@ -263,7 +268,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
                 onClick={onCancel}
                 className={`flex-1 py-4 text-xs font-bold tracking-widest uppercase transition-all duration-300 bg-[#111A22] text-[#7C8B9C] border border-[#1C2733] hover:text-[#E6EDF3] hover:bg-[#1C2733] ${FOCUS_RING}`}
               >
-                Cancel
+                {t('pf.cancel')}
               </button>
             )}
 
@@ -278,7 +283,7 @@ export default function OnboardingModal({ onSubmit, onCancel, initial, mode = 'c
                   : 'bg-[#1C2733] text-[#4A5A69] cursor-not-allowed'
               }`}
             >
-              {saving ? 'Saving…' : mode === 'edit' ? 'Save Changes' : 'Save Profile'}
+              {saving ? t('pf.saving') : mode === 'edit' ? t('pf.saveChanges') : t('pf.saveProfile')}
             </button>
           </div>
         </div>

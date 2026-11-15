@@ -4,6 +4,8 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 import OnboardingModal, { type ProfileFields } from '@/components/OnboardingModal';
+import { GameLanguageProvider, LanguageToggle, useGameLanguage } from '@/components/game/GameLanguage';
+import { translate, TUTORIAL_MS, archetypeLabel, tideName, tideShort, moonLabel, difficultyText, type GameStringKey } from '@/lib/game-i18n';
 
 // --- SUPABASE CLIENT INITIALIZATION ---
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -216,7 +218,6 @@ const ACCENT_HEX: Record<string, string> = {
 const accentOf = (fish: Fish) => ACCENT_HEX[fish.color] || '#4DD0E1';
 
 function rollWeight(fish: Fish): number { return fish.weightMin + (fish.weightMax - fish.weightMin) * Math.pow(Math.random(), 2); }
-function difficultyLabel(stars: number): string { return ['', 'Easy', 'Moderate', 'Tough', 'Hard', 'Brutal'][stars] || ''; }
 
 function computeEncounter(fish: Fish, hookDepth: number, jig: Jig): Encounter {
   const weightKg = rollWeight(fish);
@@ -315,6 +316,10 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
   onProfileRequest: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { lang, t } = useGameLanguage();
+  // The render loop sets some text directly, so it reads the language from a ref.
+  const langRef = useRef(lang);
+  useEffect(() => { langRef.current = lang; }, [lang]);
   const frameRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -338,7 +343,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
   const [localTime, setLocalTime] = useState("");
   const [selectedJig, setSelectedJig] = useState<Jig>(JIGS[1]);
   const [caughtFish, setCaughtFish] = useState<Encounter | null>(null);
-  const [snapReason, setSnapReason] = useState("");
+  const [snapReason, setSnapReason] = useState<{ key: GameStringKey; fish?: string } | null>(null);
   const [hookSets, setHookSets] = useState(0);
   const [encounter, setEncounter] = useState<Encounter | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
@@ -381,6 +386,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
   });
 
   const step = TUTORIAL_STEPS[tutorialStep];
+  const stepText = lang === 'ms' ? TUTORIAL_MS[tutorialStep] : step;
   const demoMode: DemoMode = tutorialOpen ? step.demo : 'idle';
   const demoFight = demoMode === 'fight' || demoMode === 'run';
 
@@ -581,7 +587,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 
     if (Math.random() <= INSTANT_SNAP_CHANCE) {
       buzz(120);
-      setSnapReason(`A monster ${species.name} hit your jig and snapped the leader on impact.`);
+      setSnapReason({ key: 'snap.monster', fish: species.name });
       setGameState('SNAPPED');
       return;
     }
@@ -595,7 +601,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 
     if (gameData.current.lineOut >= MAX_LINE) {
       buzz(120);
-      setSnapReason("A heavy strike, but the spool was already empty. Nothing left to give.");
+      setSnapReason({ key: 'snap.spoolEmpty' });
       setGameState('SNAPPED');
     } else {
       buzz([0, 40, 60, 40]);
@@ -744,12 +750,12 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 
         if (gameData.current.tension >= 100) {
           buzz(150);
-          setSnapReason(running ? `You leaned on it mid-run. The ${fish.name} took the leader with it.` : `Drag redlined. The ${fish.name} shook as you cranked through it.`);
+          setSnapReason({ key: running ? 'snap.midRun' : 'snap.redline', fish: fish.name });
           setGameState('SNAPPED'); return;
         }
         if (gameData.current.lineOut >= MAX_LINE) {
           buzz(150);
-          setSnapReason(`The ${fish.name} spooled you. Four hundred metres, all of it gone.`);
+          setSnapReason({ key: 'snap.spooled', fish: fish.name });
           setGameState('SNAPPED'); return;
         }
         if (gameData.current.tension <= 0 && !isInteracting.current && gameData.current.depth > 10) {
@@ -804,7 +810,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
         const aTier = gap > 0.55 ? 'wide' : gap > 0.25 ? 'off' : 'on';
         if (alignTierRef.current !== aTier && alignTextRef.current) {
           alignTierRef.current = aTier;
-          alignTextRef.current.innerText = aTier === 'wide' ? 'Way off' : aTier === 'off' ? 'Off line' : 'On line';
+          alignTextRef.current.innerText = translate(langRef.current, aTier === 'wide' ? 'align.wide' : aTier === 'off' ? 'align.off' : 'align.on');
           alignTextRef.current.style.color = aTier === 'wide' ? '#FF3B47' : aTier === 'off' ? '#FFB020' : '#3DDC97';
         }
       }
@@ -1072,7 +1078,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 
               <div className="flex items-center justify-between px-3 py-2">
                 <div ref={setSpot('line')} className="flex items-baseline gap-2">
-                  <span className="fs-label">Line</span>
+                  <span className="fs-label">{t('hud.line')}</span>
                   <span className="fs-num text-[15px] font-semibold text-[#E6EDF3]">
                     <span ref={spoolTextRef}>0</span>
                     <span className="text-[#4A5A69]"> / {MAX_LINE} m</span>
@@ -1082,13 +1088,13 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
                 {gameState === 'FIGHTING' && encounter ? (
                   <div className="flex items-center gap-2">
                     <span className="w-[5px] h-[5px] rounded-full bg-[#FF3B47] fs-blink" />
-                    <span className="fs-label !text-[#FF3B47]">Unknown target</span>
+                    <span className="fs-label !text-[#FF3B47]">{t('hud.unknownTarget')}</span>
                   </div>
                 ) : (
                   <div ref={setSpot('tide')} className="flex items-center gap-2">
                     <span className="fs-num text-[11px] text-[#4A5A69]">{localTime}</span>
                     <span className="w-[5px] h-[5px] rounded-full" style={{ backgroundColor: activeCurrent.hex }} />
-                    <span className="fs-label" style={{ color: activeCurrent.hex }}>{activeCurrent.short}</span>
+                    <span className="fs-label" style={{ color: activeCurrent.hex }}>{tideShort(lang, activeCurrent)}</span>
                   </div>
                 )}
               </div>
@@ -1096,7 +1102,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               {showFightGauges && (
                 <div ref={setSpot('tension')} className="px-3 pb-2.5">
                   <div className="flex items-baseline justify-between mb-1.5">
-                    <span className="fs-label">Drag load</span>
+                    <span className="fs-label">{t('hud.dragLoad')}</span>
                     <span ref={tensionTextRef} className="fs-num text-[13px] font-semibold text-[#E6EDF3]">0%</span>
                   </div>
                   <div className="relative h-[14px] bg-[#0A1017] overflow-hidden">
@@ -1110,8 +1116,8 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               {showFightGauges && (
                 <div ref={setSpot('align')} className="px-3 pb-2.5">
                   <div className="flex items-baseline justify-between mb-1.5">
-                    <span className="fs-label">Rod / fish</span>
-                    <span ref={alignTextRef} className="fs-label" style={{ color: '#3DDC97' }}>On line</span>
+                    <span className="fs-label">{t('hud.rodFish')}</span>
+                    <span ref={alignTextRef} className="fs-label" style={{ color: '#3DDC97' }}>{t('align.on')}</span>
                   </div>
                   <div className="relative h-[22px] bg-[#0A1017] border border-[#1C2733] overflow-hidden">
                     <div className="absolute left-1/2 inset-y-0 w-px bg-[#1C2733]" />
@@ -1125,8 +1131,8 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               )}
 
               <div ref={(el) => { runBandRef.current = el; spotEls.current.run = el; }} className="flex items-center justify-between px-3 py-[7px] bg-[#FFB020] opacity-0 transition-opacity duration-150">
-                <span className="fs-label !text-[#0D141B] fs-blink">&#9666;&#9666; Fish running</span>
-                <span className="fs-label !text-[#0D141B]/70">Let go — give line</span>
+                <span className="fs-label !text-[#0D141B] fs-blink">&#9666;&#9666; {t('hud.fishRunning')}</span>
+                <span className="fs-label !text-[#0D141B]/70">{t('hud.letGo')}</span>
               </div>
             </div>
 
@@ -1152,15 +1158,15 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 
             <div ref={spoolWarnRef} className="absolute inset-x-0 top-[46%] opacity-0 transition-opacity duration-300">
               <div className="bg-[#FF3B47]/12 border-y border-[#FF3B47]/50 py-3 px-4 flex items-center justify-between">
-                <span className="fs-label !text-[#FF3B47] fs-blink">Spool empty</span>
-                <span className="fs-label">Jig hanging in the current</span>
+                <span className="fs-label !text-[#FF3B47] fs-blink">{t('hud.spoolEmpty')}</span>
+                <span className="fs-label">{t('hud.jigHanging')}</span>
               </div>
             </div>
 
             {showHookset && (
               <div ref={setSpot('hookset')} className="absolute inset-x-0 top-[40%] flex flex-col items-center">
                 <div className="bg-[#0D141B]/95 border border-[#3DDC97]/40 px-5 py-4 flex flex-col items-center gap-3 shadow-[0_0_40px_rgba(61,220,151,0.15)]">
-                  <span className="fs-label !text-[#3DDC97] fs-blink">Fish on — set the hook</span>
+                  <span className="fs-label !text-[#3DDC97] fs-blink">{t('hud.fishOn')}</span>
                   <div className="flex gap-2.5">
                     {[1, 2, 3].map((n) => (
                       <div key={n} className={`w-7 h-[6px] transition-colors duration-150 ${hookPips >= n ? 'bg-[#3DDC97]' : 'bg-[#1C2733]'}`} />
@@ -1169,20 +1175,20 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
                   <div className="w-[168px] h-[2px] bg-[#111A22]">
                     <div ref={hookTimerBarRef} className="h-full w-full bg-[#3DDC97]" />
                   </div>
-                  <span className="fs-num text-[15px] font-bold text-[#E6EDF3]">TAP 3&#215;</span>
+                  <span className="fs-num text-[15px] font-bold text-[#E6EDF3]">{t('hud.tap3')}</span>
                 </div>
               </div>
             )}
 
             {gameState === 'READY' && !tutorialOpen && (
               <div className="absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-5">
-                <span className="fs-label fs-blink !text-[#E6EDF3]">Tap the water to drop</span>
+                <span className="fs-label fs-blink !text-[#E6EDF3]">{t('ready.tapWater')}</span>
                 <div className="flex items-center gap-2 pointer-events-auto">
                   <button className="min-h-[46px] px-5 bg-[#0D141B] border border-[#1C2733] text-[#7C8B9C] hover:text-[#E6EDF3] active:scale-95 transition" onPointerDown={(e) => { e.stopPropagation(); resetDrop(); }}>
-                    <span className="fs-label">Change jig</span>
+                    <span className="fs-label">{t('ready.changeJig')}</span>
                   </button>
                   <button className="min-h-[46px] px-5 bg-[#0D141B] border border-[#1C2733] text-[#FFB020] active:scale-95 transition" onPointerDown={(e) => { e.stopPropagation(); openTutorial(); }}>
-                    <span className="fs-label !text-[#FFB020]">How to play</span>
+                    <span className="fs-label !text-[#FFB020]">{t('howToPlay')}</span>
                   </button>
                 </div>
               </div>
@@ -1198,14 +1204,14 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               <div ref={setSpot('retrieve')} className={`absolute right-4 bottom-[5%] ${tutorialOpen ? 'pointer-events-none' : 'pointer-events-auto'}`}>
                 <button
                   type="button"
-                  aria-label="Retrieve the jig and reset the drop"
+                  aria-label={t('retrieve.aria')}
                   tabIndex={tutorialOpen ? -1 : undefined}
                   aria-hidden={tutorialOpen || undefined}
                   className="min-h-[46px] px-5 bg-[#0D141B] border border-[#1C2733] text-[#E6EDF3] hover:border-[#4A5A69] active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1]"
                   onPointerDown={(e) => { e.stopPropagation(); if (!tutorialOpen) resetDrop(); }}
                   onClick={() => { if (!tutorialOpen) resetDrop(); }}
                 >
-                  <span className="fs-label !text-[#E6EDF3]">&#8593; Retrieve</span>
+                  <span className="fs-label !text-[#E6EDF3]">&#8593; {t('retrieve.label')}</span>
                 </button>
               </div>
             )}
@@ -1243,7 +1249,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
             </div>
 
             <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6" style={{ paddingBottom: 'max(1.75rem, env(safe-area-inset-bottom))' }}>
-              <span className="fs-up fs-label !text-[#4DD0E1] mb-3" style={{ animationDelay: '.05s' }}>Fishyology presents</span>
+              <span className="fs-up fs-label !text-[#4DD0E1] mb-3" style={{ animationDelay: '.05s' }}>{t('cover.presents')}</span>
 
               <h2 className="fs-up text-center text-[40px] font-black uppercase leading-[0.86] tracking-[-0.02em] text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.8)]" style={{ animationDelay: '.18s' }}>
                 Jigging<br />Master
@@ -1266,14 +1272,14 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 
               <div className="fs-up mt-5 flex w-full max-w-[320px] flex-col gap-2" style={{ animationDelay: '.6s' }}>
                 <button onClick={leaveCover} className="min-h-[54px] w-full bg-[#3DDC97] text-[#05070A] transition-transform active:scale-[0.98]">
-                  <span className="fs-label !text-[11px] !text-[#05070A]">Start the drop</span>
+                  <span className="fs-label !text-[11px] !text-[#05070A]">{t('cover.start')}</span>
                 </button>
                 <button onClick={coverToTutorial} className="min-h-[44px] w-full border border-[#1C2733] bg-[#0D141B]/80 text-[#FFB020] transition active:scale-95">
-                  <span className="fs-label !text-[#FFB020]">How to play</span>
+                  <span className="fs-label !text-[#FFB020]">{t('howToPlay')}</span>
                 </button>
               </div>
 
-              <span className="fs-pulse fs-label mt-4 !text-[8px] !text-[#31414F]">20+ species &middot; 300 m of water &middot; one leader</span>
+              <span className="fs-pulse fs-label mt-4 !text-[8px] !text-[#31414F]">{t('cover.tagline')}</span>
             </div>
           </div>
         )}
@@ -1281,20 +1287,20 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
         {gameState === 'SETUP' && !tutorialOpen && (
           <div className="absolute inset-0 bg-[#05070A]/96 backdrop-blur-md z-20 flex flex-col justify-center px-6 overflow-y-auto" style={{ paddingTop: 'max(1.25rem, env(safe-area-inset-top))', paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
             <div className="w-full max-w-[320px] mx-auto relative">
-              <span className="fs-label !text-[#FFB020]">Jigging Setup</span>
+              <span className="fs-label !text-[#FFB020]">{t('setup.title')}</span>
               <h2 className="fs-num text-[26px] font-bold text-[#E6EDF3] leading-none mt-2 mb-1">{localTime}</h2>
-              <p className="text-[12.5px] text-[#7C8B9C] mb-5">{moonPhase} &middot; {activeCurrent.name}</p>
+              <p className="text-[12.5px] text-[#7C8B9C] mb-5">{moonLabel(lang, moonPhase)} &middot; {tideName(lang, activeCurrent)}</p>
 
               <div className="flex items-center justify-between border-y border-[#1C2733] py-2.5 mb-5">
-                <span className="fs-label">Current</span>
+                <span className="fs-label">{t('setup.current')}</span>
                 <div className="flex items-center gap-2">
                   <span className="w-[5px] h-[5px] rounded-full" style={{ backgroundColor: activeCurrent.hex }} />
-                  <span className="fs-num text-[12.5px]" style={{ color: activeCurrent.hex }}>{activeCurrent.short} tide</span>
+                  <span className="fs-num text-[12.5px]" style={{ color: activeCurrent.hex }}>{t('setup.tideLabel', { tide: tideShort(lang, activeCurrent) })}</span>
                 </div>
               </div>
 
-              <span className="fs-label">Jig weight</span>
-              <p className="text-[11.5px] text-[#4A5A69] leading-relaxed mt-2 mb-3">Heavier sinks faster and cuts the current, so less line goes out for the same depth.</p>
+              <span className="fs-label">{t('setup.jigWeight')}</span>
+              <p className="text-[11.5px] text-[#4A5A69] leading-relaxed mt-2 mb-3">{t('setup.jigHelp')}</p>
               <div className="grid grid-cols-2 gap-px bg-[#1C2733] border border-[#1C2733] mb-5">
                 {JIGS.map((jig) => {
                   const on = selectedJig.weight === jig.weight;
@@ -1308,15 +1314,15 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               </div>
 
               <button onClick={() => setGameState('READY')} className="w-full min-h-[52px] bg-[#3DDC97] text-[#05070A] active:scale-[0.98] transition-transform">
-                <span className="fs-label !text-[#05070A] !text-[11px]">Board the boat</span>
+                <span className="fs-label !text-[#05070A] !text-[11px]">{t('setup.board')}</span>
               </button>
 
               <div className="flex gap-2 mt-2.5">
                 <button onClick={openTutorial} className="flex-1 min-h-[44px] bg-[#0D141B] border border-[#1C2733] text-[#FFB020] active:scale-95 transition">
-                  <span className="fs-label !text-[#FFB020]">How to play</span>
+                  <span className="fs-label !text-[#FFB020]">{t('howToPlay')}</span>
                 </button>
                 <button onClick={toggleFitScreen} className="flex-1 min-h-[44px] bg-[#0D141B] border border-[#1C2733] active:scale-95 transition">
-                  <span className="fs-label">{fitScreen ? 'Exit full screen' : 'Fit to screen'}</span>
+                  <span className="fs-label">{fitScreen ? t('fit.exit') : t('fit.enter')}</span>
                 </button>
               </div>
             </div>
@@ -1326,17 +1332,17 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
         {gameState === 'CAUGHT' && caughtFish && (
           <div className="absolute inset-0 bg-[#05070A]/97 backdrop-blur-md z-20 flex flex-col justify-center px-6 overflow-y-auto" style={{ paddingTop: 'max(1.25rem, env(safe-area-inset-top))', paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
             <div className="w-full max-w-[320px] mx-auto">
-              <span className="fs-label !text-[#3DDC97]">Landed</span>
+              <span className="fs-label !text-[#3DDC97]">{t('result.landed')}</span>
               <h3 className="text-[27px] font-bold leading-[1.05] mt-2" style={{ color: accentOf(caughtFish) }}>{caughtFish.name}</h3>
-              <p className="text-[12.5px] text-[#7C8B9C] mb-5">{caughtFish.archetype}</p>
+              <p className="text-[12.5px] text-[#7C8B9C] mb-5">{archetypeLabel(lang, caughtFish.archetype)}</p>
 
               <div className="grid grid-cols-2 gap-px bg-[#1C2733] border border-[#1C2733] mb-5">
                 <div className="bg-[#0D141B] px-4 py-3">
-                  <span className="fs-label">Weight</span>
+                  <span className="fs-label">{t('result.weight')}</span>
                   <p className="fs-num text-[20px] font-bold text-[#E6EDF3] mt-1.5">{kg3(caughtFish.weightKg)}<span className="text-[12px] text-[#4A5A69]"> kg</span></p>
                 </div>
                 <div className="bg-[#0D141B] px-4 py-3">
-                  <span className="fs-label">Hooked at</span>
+                  <span className="fs-label">{t('result.hookedAt')}</span>
                   <p className="fs-num text-[20px] font-bold text-[#4DD0E1] mt-1.5">{caughtFish.hookDepth.toFixed(0)}<span className="text-[12px] text-[#4A5A69]"> m</span></p>
                 </div>
               </div>
@@ -1349,17 +1355,17 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               </div>
 
               <div className="flex items-center justify-between border-y border-[#1C2733] py-2.5 mb-3.5">
-                <span className="fs-label">{difficultyLabel(caughtFish.stars)}</span>
+                <span className="fs-label">{difficultyText(lang, caughtFish.stars)}</span>
                 <span className="text-[13px]" style={{ color: starHex(caughtFish.stars) }}><Stars n={caughtFish.stars} /></span>
               </div>
 
               {/* Dynamic Leaderboard Status Indicator */}
               <div className="mb-5 py-2 px-3 bg-[#0D141B] border border-[#1C2733] text-center rounded">
-                {saveStatus === 'saving' && <p className="text-[11px] text-[#FFB020] fs-blink uppercase tracking-widest font-bold">Saving catch to leaderboard...</p>}
-                {saveStatus === 'saved' && <p className="text-[11px] text-[#3DDC97] uppercase tracking-widest font-bold">✓ Logged to Leaderboard!</p>}
-                {saveStatus === 'error' && <p className="text-[11px] text-[#FF3B47] uppercase tracking-widest font-bold">Error saving catch record</p>}
+                {saveStatus === 'saving' && <p className="text-[11px] text-[#FFB020] fs-blink uppercase tracking-widest font-bold">{t('save.saving')}</p>}
+                {saveStatus === 'saved' && <p className="text-[11px] text-[#3DDC97] uppercase tracking-widest font-bold">{t('save.saved')}</p>}
+                {saveStatus === 'error' && <p className="text-[11px] text-[#FF3B47] uppercase tracking-widest font-bold">{t('save.error')}</p>}
                 {!SCORES_ONLINE && (
-                  <p className="text-[11px] text-[#7C8B9C] uppercase tracking-widest font-bold">Leaderboard offline — playing as guest</p>
+                  <p className="text-[11px] text-[#7C8B9C] uppercase tracking-widest font-bold">{t('save.offline')}</p>
                 )}
                 {saveStatus === 'idle' && !user && SCORES_ONLINE && (
                   <button
@@ -1376,19 +1382,19 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
                     }}
                     className="text-[11px] text-[#4DD0E1] hover:underline uppercase tracking-widest font-bold"
                   >
-                    Log in with Google to post score
+                    {t('save.login')}
                   </button>
                 )}
                 {/* Signed in without a profile: once it's saved, this catch posts automatically. */}
                 {saveStatus === 'idle' && user && !hasProfile && SCORES_ONLINE && (
                   <button onClick={onProfileRequest} className="text-[11px] text-[#4DD0E1] hover:underline uppercase tracking-widest font-bold">
-                    Complete your profile to post score
+                    {t('save.profile')}
                   </button>
                 )}
               </div>
 
               <button onClick={generateConditions} className="w-full min-h-[52px] bg-[#4DD0E1] text-[#05070A] active:scale-[0.98] transition-transform">
-                <span className="fs-label !text-[#05070A] !text-[11px]">Drop again</span>
+                <span className="fs-label !text-[#05070A] !text-[11px]">{t('result.dropAgain')}</span>
               </button>
             </div>
           </div>
@@ -1397,11 +1403,11 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
         {(gameState === 'SNAPPED' || gameState === 'ESCAPED') && (
           <div className="absolute inset-0 bg-[#05070A]/97 backdrop-blur-md z-20 flex flex-col justify-center px-6">
             <div className="w-full max-w-[320px] mx-auto">
-              <span className="fs-label" style={{ color: gameState === 'SNAPPED' ? '#FF3B47' : '#FFB020' }}>{gameState === 'SNAPPED' ? 'Leader parted' : 'Hook pulled'}</span>
+              <span className="fs-label" style={{ color: gameState === 'SNAPPED' ? '#FF3B47' : '#FFB020' }}>{gameState === 'SNAPPED' ? t('lost.snappedTitle') : t('lost.escapedTitle')}</span>
               <h2 className="fs-num text-[30px] font-bold leading-none mt-3 mb-4" style={{ color: gameState === 'SNAPPED' ? '#FF3B47' : '#FFB020' }}>{gameState === 'SNAPPED' ? 'SNAP' : 'DROPPED'}</h2>
-              <p className="text-[13px] text-[#7C8B9C] leading-relaxed mb-7">{gameState === 'SNAPPED' ? snapReason : 'The line went slack and the hook fell out. Keep some load on it, even while you are giving line.'}</p>
+              <p className="text-[13px] text-[#7C8B9C] leading-relaxed mb-7">{gameState === 'SNAPPED' ? (snapReason ? t(snapReason.key, { fish: snapReason.fish ?? '' }) : '') : t('lost.escapedBody')}</p>
               <button onClick={generateConditions} className="w-full min-h-[52px] border active:scale-[0.98] transition-transform" style={{ backgroundColor: gameState === 'SNAPPED' ? '#FF3B47' : '#FFB020', borderColor: gameState === 'SNAPPED' ? '#FF3B47' : '#FFB020', color: '#05070A' }}>
-                <span className="fs-label !text-[#05070A] !text-[11px]">{gameState === 'SNAPPED' ? 'Rig a new leader' : 'Reel up and retie'}</span>
+                <span className="fs-label !text-[#05070A] !text-[11px]">{gameState === 'SNAPPED' ? t('lost.snappedCta') : t('lost.escapedCta')}</span>
               </button>
             </div>
           </div>
@@ -1415,18 +1421,18 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
             <div className={`absolute inset-x-0 z-40 px-4 ${captionAtBottom ? 'bottom-0' : 'top-0'}`} style={captionAtBottom ? { paddingBottom: 'max(1rem, env(safe-area-inset-bottom))', paddingTop: '1rem' } : { paddingTop: 'max(1rem, env(safe-area-inset-top))', paddingBottom: '1rem' }}>
               <div className="bg-[#0D141B] border border-[#1C2733] p-4">
                 <div className="flex items-center justify-between mb-3.5">
-                  <span className="fs-label !text-[#FFB020]">{step.eyebrow}</span>
+                  <span className="fs-label !text-[#FFB020]">{stepText.eyebrow}</span>
                   <span className="fs-num text-[10px] text-[#4A5A69]">{String(tutorialStep + 1).padStart(2, '0')} / {String(TUTORIAL_STEPS.length).padStart(2, '0')}</span>
                 </div>
-                <h3 className="text-[19px] font-bold text-[#E6EDF3] leading-[1.15] mb-2">{step.title}</h3>
-                <p className="text-[13px] text-[#7C8B9C] leading-relaxed">{step.body}</p>
+                <h3 className="text-[19px] font-bold text-[#E6EDF3] leading-[1.15] mb-2">{stepText.title}</h3>
+                <p className="text-[13px] text-[#7C8B9C] leading-relaxed">{stepText.body}</p>
                 <div className="flex gap-1 my-4">{TUTORIAL_STEPS.map((_, i) => (<div key={i} className={`h-[2px] flex-1 ${i <= tutorialStep ? 'bg-[#FFB020]' : 'bg-[#1C2733]'}`} />))}</div>
                 <div className="flex gap-2">
-                  <button aria-disabled={tutorialStep === 0} className={`min-h-[44px] px-4 bg-[#111A22] border border-[#1C2733] active:scale-95 transition ${tutorialStep === 0 ? 'opacity-30' : ''}`} onPointerDown={(e) => { e.stopPropagation(); prevTutorial(); }}><span className="fs-label">Back</span></button>
-                  <button className="flex-1 min-h-[44px] bg-[#FFB020] text-[#05070A] active:scale-[0.98] transition-transform" onPointerDown={(e) => { e.stopPropagation(); nextTutorial(); }}><span className="fs-label !text-[#05070A]">{tutorialStep === TUTORIAL_STEPS.length - 1 ? 'Start fishing' : 'Next'}</span></button>
-                  <button className="min-h-[44px] px-4 bg-[#111A22] border border-[#1C2733] active:scale-95 transition" onPointerDown={(e) => { e.stopPropagation(); closeTutorial(); }}><span className="fs-label">Skip</span></button>
+                  <button aria-disabled={tutorialStep === 0} className={`min-h-[44px] px-4 bg-[#111A22] border border-[#1C2733] active:scale-95 transition ${tutorialStep === 0 ? 'opacity-30' : ''}`} onPointerDown={(e) => { e.stopPropagation(); prevTutorial(); }}><span className="fs-label">{t('tut.back')}</span></button>
+                  <button className="flex-1 min-h-[44px] bg-[#FFB020] text-[#05070A] active:scale-[0.98] transition-transform" onPointerDown={(e) => { e.stopPropagation(); nextTutorial(); }}><span className="fs-label !text-[#05070A]">{tutorialStep === TUTORIAL_STEPS.length - 1 ? t('tut.start') : t('tut.next')}</span></button>
+                  <button className="min-h-[44px] px-4 bg-[#111A22] border border-[#1C2733] active:scale-95 transition" onPointerDown={(e) => { e.stopPropagation(); closeTutorial(); }}><span className="fs-label">{t('tut.skip')}</span></button>
                 </div>
-                <p className="fs-label !text-[8px] text-center mt-3.5 !text-[#31414F]">{isTouch ? 'Tap anywhere to continue' : 'Click anywhere, or use \u2190 \u2192'}</p>
+                <p className="fs-label !text-[8px] text-center mt-3.5 !text-[#31414F]">{isTouch ? t('tut.hintTouch') : t('tut.hintMouse')}</p>
               </div>
             </div>
           </>
@@ -1456,6 +1462,7 @@ const gameHeroData = {
 
 // --- HORIZONTAL LEADERBOARD CARD ---
 function RankCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) {
+  const { t } = useGameLanguage();
   const medal = rank === 1 ? '#FFB020' : rank === 2 ? '#B8C4D0' : rank === 3 ? '#C2410C' : '#31414F';
   return (
     <article className="flex w-[248px] shrink-0 items-center gap-3 border-r border-[#1C2733] bg-[#0D141B] px-4 py-3">
@@ -1473,7 +1480,7 @@ function RankCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) {
 
       <div className="min-w-0 flex-1">
         <p className="truncate text-[13px] font-semibold leading-tight text-[#E6EDF3]">
-          {entry.profiles?.display_name || 'Unknown Angler'}
+          {entry.profiles?.display_name || t('lb.unknownAngler')}
         </p>
         <p className="truncate text-xs leading-tight text-[#7C8B9C]">
           {entry.species} &middot; {entry.profiles?.state || 'Malaysia'}
@@ -1488,12 +1495,13 @@ function RankCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) {
 
 // --- PODIUM CARD (top three) ---
 function PodiumCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) {
+  const { t } = useGameLanguage();
   const medal = rank === 1 ? '#FFB020' : rank === 2 ? '#B8C4D0' : '#C2410C';
-  const name = entry.profiles?.display_name || 'Unknown Angler';
+  const name = entry.profiles?.display_name || t('lb.unknownAngler');
   return (
     <li className="flex items-center gap-4 bg-[#0D141B] px-5 py-4">
       <span className="fs-num w-8 shrink-0 text-center text-2xl font-bold leading-none" style={{ color: medal }}>
-        <span className="sr-only">Place </span>{rank}
+        <span className="sr-only">{t('lb.place')}</span>{rank}
       </span>
 
       {entry.profiles?.avatar_url ? (
@@ -1518,7 +1526,8 @@ function PodiumCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) 
 }
 
 // --- MAIN EXPORT WITH DYNAMIC LEADERBOARD, SEASONAL CYCLES & SUPABASE AUTH ---
-export default function GamePage() {
+function GamePageContent() {
+  const { t } = useGameLanguage();
   const gameRef = useRef<HTMLDivElement>(null);
   
   // Auth & Profile State
@@ -1526,8 +1535,9 @@ export default function GamePage() {
   const [hasProfile, setHasProfile] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [profile, setProfile] = useState<ProfileFields | null>(null);
-  const [authError, setAuthError] = useState('');
-  const [authNotice, setAuthNotice] = useState('');
+  // Messages are stored as keys so they follow a language switch.
+  const [authError, setAuthError] = useState<GameStringKey | ''>('');
+  const [authNotice, setAuthNotice] = useState<GameStringKey | ''>('');
   const [authLoading, setAuthLoading] = useState(true);
 
   // Leaderboard Data State
@@ -1639,7 +1649,7 @@ export default function GamePage() {
     if (error) {
       // Don't mistake a failed lookup for a missing profile and ask them to make one.
       console.error(`Error loading profile: ${error.message}`, { code: error.code });
-      setAuthError("Couldn't load your profile. Refresh to try again.");
+      setAuthError('err.profileLoad');
       return;
     }
 
@@ -1670,7 +1680,7 @@ export default function GamePage() {
     });
     if (error) {
       console.error(`Error starting Google sign-in: ${error.message}`, { code: error.code });
-      setAuthError("Couldn't start Google sign-in. Please try again.");
+      setAuthError('err.signIn');
     }
   };
 
@@ -1680,7 +1690,7 @@ export default function GamePage() {
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error(`Error signing out: ${error.message}`, { code: error.code });
-      setAuthError("Couldn't log out. Please try again.");
+      setAuthError('err.logout');
       return;
     }
     setUser(null);
@@ -1747,9 +1757,9 @@ export default function GamePage() {
       .then(({ error }) => {
         if (error) {
           console.error(`Error posting held catch: ${error.message}`, { code: error.code });
-          setAuthError("Couldn't post the catch from before you signed in.");
+          setAuthError('err.heldCatch');
         } else {
-          setAuthNotice("Your catch from before you signed in is on the leaderboard.");
+          setAuthNotice('notice.heldCatch');
           fetchLeaderboard();
         }
       });
@@ -1797,21 +1807,22 @@ export default function GamePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#05070A] via-[#05070A]/60 to-transparent"></div>
 
         <div className="relative z-10 max-w-3xl mx-auto px-6 text-center mt-16 flex flex-col items-center">
+          <LanguageToggle className="mb-5" />
           <span className="text-[#4DD0E1] text-sm md:text-base font-bold tracking-widest uppercase mb-3 block drop-shadow-md">
-            {gameHeroData.subtitle}
+            {t('hero.subtitle')}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase text-white drop-shadow-2xl leading-[0.95] text-balance">
             {gameHeroData.title}
           </h1>
           <p className="mt-4 text-sm font-bold uppercase tracking-widest text-[#B8C4D0] drop-shadow-md">
-            {gameHeroData.tagline}
+            {t('hero.tagline')}
           </p>
           <button
             type="button"
             onClick={scrollToGame}
             className="btn-primary group mt-8 inline-flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-bold text-sm tracking-widest uppercase shadow-2xl"
           >
-            <span>Play now</span>
+            <span>{t('playNow')}</span>
             <span aria-hidden="true" className="motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-y-1">↓</span>
           </button>
         </div>
@@ -1838,56 +1849,56 @@ export default function GamePage() {
               <div className="flex items-center gap-2">
                 <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#3DDC97] fs-blink"></span>
                 <h2 className="text-sm font-bold text-[#4DD0E1] uppercase tracking-widest">
-                  Season 1 Leaderboard
+                  {t('lb.title')}
                 </h2>
               </div>
               <p className="text-xs text-[#7C8B9C] uppercase tracking-widest mt-1">
-                November 15, 2026 – December 31, 2026
+                {t('lb.dates')}
               </p>
             </div>
 
             {/* Countdown Badge */}
             <div className="bg-[#0D141B] border border-[#1C2733] px-3.5 py-2 rounded flex items-center gap-2 self-start sm:self-auto">
               <span className="text-xs uppercase font-bold text-[#FFB020] tracking-widest">
-                Ends in
+                {t('lb.endsIn')}
               </span>
               {timeLeft.isEnded ? (
                 <span className="fs-num text-xs font-bold text-[#FF3B47] uppercase tracking-wider">
-                  Season Concluded
+                  {t('lb.concluded')}
                 </span>
               ) : (
                 <span className="fs-num text-sm font-bold text-[#E6EDF3] tracking-tight">
-                  {timeLeft.days}d {String(timeLeft.hours).padStart(2, '0')}h {String(timeLeft.minutes).padStart(2, '0')}m {String(timeLeft.seconds).padStart(2, '0')}s
+                  {t('lb.countdown', { d: timeLeft.days, h: String(timeLeft.hours).padStart(2, '0'), m: String(timeLeft.minutes).padStart(2, '0'), s: String(timeLeft.seconds).padStart(2, '0') })}
                 </span>
               )}
             </div>
           </div>
 
           <p className="px-1 mb-5 text-xs text-[#7C8B9C] leading-relaxed">
-            Ranked by the heaviest catch of the season. Winners are contacted at the Google email they signed in with.
+            {t('lb.rules')}
           </p>
 
           <div className="border border-[#1C2733] bg-[#0A1017] rounded-lg overflow-hidden">
             {!SCORES_ONLINE ? (
-              <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">The leaderboard is offline right now. You can still play as a guest.</div>
+              <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">{t('lb.offline')}</div>
             ) : leaderboardLoading ? (
-              <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">Loading records…</div>
+              <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">{t('lb.loading')}</div>
             ) : leaderboard.length === 0 ? (
               <div className="px-6 py-10 text-center flex flex-col items-center gap-3">
-                <p className="text-sm font-bold uppercase tracking-widest text-[#E6EDF3]">No catches logged for Season 1 yet</p>
-                <p className="text-sm text-[#7C8B9C] max-w-sm">Land the first fish of the season and your name opens the board.</p>
+                <p className="text-sm font-bold uppercase tracking-widest text-[#E6EDF3]">{t('lb.emptyTitle')}</p>
+                <p className="text-sm text-[#7C8B9C] max-w-sm">{t('lb.emptyBody')}</p>
                 <button
                   type="button"
                   onClick={scrollToGame}
                   className="btn-primary mt-2 inline-flex min-h-[44px] items-center gap-2 px-6 rounded font-bold text-xs tracking-widest uppercase"
                 >
-                  Play now <span aria-hidden="true">↑</span>
+                  {t('playNow')} <span aria-hidden="true">↑</span>
                 </button>
               </div>
             ) : (
               <>
                 {/* Podium: the top three at a glance */}
-                <ol aria-label="Top three catches" className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#1C2733]">
+                <ol aria-label={t('lb.top3')} className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#1C2733]">
                   {leaderboard.slice(0, 3).map((entry, i) => (
                     <PodiumCard key={entry.id} entry={entry} rank={i + 1} />
                   ))}
@@ -1915,44 +1926,44 @@ export default function GamePage() {
                   authError ? 'text-[#FF3B47]' : 'text-[#3DDC97]'
                 }`}
               >
-                {authError || authNotice}
+                {authError ? t(authError) : authNotice ? t(authNotice) : ''}
               </p>
             )}
             <div className="px-5 py-4 bg-[#0D141B] border-t border-[#1C2733] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
               {!SCORES_ONLINE ? (
-                <p className="text-[#7C8B9C] text-xs uppercase tracking-widest">Playing as guest — sign-in is unavailable right now</p>
+                <p className="text-[#7C8B9C] text-xs uppercase tracking-widest">{t('auth.guest')}</p>
               ) : authLoading ? (
-                <p className="text-[#7C8B9C] text-xs uppercase tracking-widest">Checking session…</p>
+                <p className="text-[#7C8B9C] text-xs uppercase tracking-widest">{t('auth.checking')}</p>
               ) : user && hasProfile ? (
                 <>
-                  <p className="text-[#3DDC97] text-xs font-bold tracking-widest uppercase">Signed in — your catches will post here</p>
+                  <p className="text-[#3DDC97] text-xs font-bold tracking-widest uppercase">{t('auth.signedIn')}</p>
                   <div className="flex items-center gap-3">
                     <button type="button" onClick={() => setShowOnboarding(true)} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#E6EDF3] hover:bg-[#1C2733]">
-                      Edit Profile
+                      {t('auth.editProfile')}
                     </button>
                     <button type="button" onClick={handleLogout} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#FF3B47] border-[#FF3B47]/30 hover:bg-[#FF3B47]/10">
-                      Log Out
+                      {t('auth.logout')}
                     </button>
                   </div>
                 </>
               ) : user ? (
                 <>
-                  <p className="text-[#FFB020] text-xs font-bold tracking-widest uppercase">Signed in — finish your profile to post catches</p>
+                  <p className="text-[#FFB020] text-xs font-bold tracking-widest uppercase">{t('auth.needProfile')}</p>
                   <div className="flex items-center gap-3">
                     <button type="button" onClick={() => setShowOnboarding(true)} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#E6EDF3] hover:bg-[#1C2733]">
-                      Complete Profile
+                      {t('auth.completeProfile')}
                     </button>
                     <button type="button" onClick={handleLogout} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#FF3B47] border-[#FF3B47]/30 hover:bg-[#FF3B47]/10">
-                      Log Out
+                      {t('auth.logout')}
                     </button>
                   </div>
                 </>
               ) : (
                 <>
-                  <p className="text-[#B8C4D0] text-sm">Want your name on the board?</p>
+                  <p className="text-[#B8C4D0] text-sm">{t('auth.wantName')}</p>
                   <button type="button" onClick={handleGoogleLogin} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#E6EDF3] hover:bg-[#1C2733] px-5">
                     <svg aria-hidden="true" viewBox="0 0 48 48" className="h-4 w-4 shrink-0"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.5z"/></svg>
-                    Log in with Google
+                    {t('auth.google')}
                   </button>
                 </>
               )}
@@ -1966,14 +1977,14 @@ export default function GamePage() {
       <section className="relative bg-[#05070A] py-12 md:py-16 px-6 z-20 border-t border-[#1C2733]">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
           <h2 className="text-xl md:text-2xl font-serif text-white leading-tight mb-8">
-            The ocean rewards skill, patience, and precision.
+            {t('about.title')}
           </h2>
 
           <dl className="grid grid-cols-3 gap-4 w-full max-w-xl mb-8">
             {[
-              { value: '20', label: 'Saltwater species' },
-              { value: '3', label: 'Tide strengths' },
-              { value: 'S1', label: 'Live leaderboard' },
+              { value: '20', label: t('about.species') },
+              { value: '3', label: t('about.tides') },
+              { value: 'S1', label: t('about.live') },
             ].map(({ value, label }) => (
               <div key={label} className="flex flex-col-reverse items-center gap-1 border border-[#1C2733] bg-[#0A1017] rounded-lg px-3 py-4">
                 <dt className="text-xs uppercase tracking-widest text-[#7C8B9C]">{label}</dt>
@@ -1983,18 +1994,25 @@ export default function GamePage() {
           </dl>
 
           <p className="text-[#7C8B9C] text-base font-medium leading-relaxed">
-            Read the tide, choose your jig and work every layer of the water column. Giant Groupers dive for cover,
-            Dogtooth Tuna unleash blistering runs and Sailfish explode across the surface, so every fight asks for a
-            different touch.
+            {t('about.body')}
           </p>
 
           <p className="mt-8 w-full border-t border-[#1C2733] pt-6 text-sm font-bold uppercase leading-relaxed tracking-widest text-[#E6EDF3]">
-            The fish are wild. The ocean is unforgiving.
-            <span className="block text-[#4DD0E1]">Become the Jigging Master.</span>
+            {t('about.closing1')}
+            <span className="block text-[#4DD0E1]">{t('about.closing2')}</span>
           </p>
         </div>
       </section>
       
     </main>
+  );
+}
+
+// The page reads the language through context, so the provider wraps it.
+export default function GamePage() {
+  return (
+    <GameLanguageProvider>
+      <GamePageContent />
+    </GameLanguageProvider>
   );
 }
