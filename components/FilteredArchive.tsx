@@ -164,7 +164,11 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                   
                   {/* Dual Category & Subcategory */}
                   <div className="flex items-center gap-2 mb-3 flex-wrap">
-                    <span className="block text-abyss/70 text-xs font-black uppercase tracking-widest">
+                    <span
+                      className={`block text-xs font-black uppercase tracking-widest ${
+                        isAgentAuthor(post.frontmatter.author) ? "text-nemo-on-light" : "text-tuna"
+                      }`}
+                    >
                       {post.frontmatter.category || "Field Report"}
                     </span>
                     {post.frontmatter.subcategory && (
@@ -177,7 +181,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                     )}
                   </div>
 
-                  <h4 className="text-2xl font-serif text-abyss leading-tight group-hover:underline underline-offset-4 mb-3">
+                  <h4 className="text-2xl font-serif text-abyss leading-tight mb-3">
                     {post.frontmatter.title}
                   </h4>
                   

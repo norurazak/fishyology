@@ -22,6 +22,10 @@ html {
   --color-tuna: #d7263d;
   --color-tuna-on-dark: #f0566a; /* 5.57:1 on the dark base */
   --color-tuna-on-light: #b81e33; /* 6.42:1 on white */
+  /* Nemo's orange marks research digests. The bright #FF9A42 is for dark
+     backgrounds (the Insight band); on white it is only 2.1:1, so labels on
+     the light page use this deeper shade of the same hue. */
+  --color-nemo-on-light: #b85500; /* 4.84:1 on white */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

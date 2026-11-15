@@ -36,7 +36,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
 
         <div className="flex flex-col justify-center p-8 md:p-12">
           <div className="flex items-center gap-2 mb-5 flex-wrap">
-            <span className="inline-block bg-[#FFFFFF] text-abyss text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-widest">
+            <span className="inline-block bg-tuna text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-widest">
               {feature.frontmatter.category || 'Species Profile'}
             </span>
             {feature.frontmatter.subcategory && (
@@ -46,7 +46,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
             )}
           </div>
 
-          <h3 className="text-3xl md:text-4xl xl:text-5xl font-serif text-[#FFFFFF] leading-[1.1] mb-5 group-hover:underline underline-offset-4">
+          <h3 className="text-3xl md:text-4xl xl:text-5xl font-serif text-[#FFFFFF] leading-[1.1] mb-5">
             {feature.frontmatter.title}
           </h3>
 
@@ -88,7 +88,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
 
               <div className="flex flex-col flex-grow">
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
-                  <span className="inline-block bg-abyss/5 text-abyss/80 text-xs font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
+                  <span className="inline-block bg-tuna/10 text-tuna-on-light text-xs font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
                     {post.frontmatter.category || 'Field Report'}
                   </span>
                   {post.frontmatter.subcategory && (
@@ -98,7 +98,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
                   )}
                 </div>
 
-                <h4 className="text-xl font-serif text-abyss leading-snug group-hover:underline underline-offset-4 line-clamp-2 mb-2">
+                <h4 className="text-xl font-serif text-abyss leading-snug line-clamp-2 mb-2">
                   {post.frontmatter.title}
                 </h4>
 
