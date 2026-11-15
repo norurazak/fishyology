@@ -66,7 +66,7 @@ interface Encounter extends Fish {
 }
 
 type GameState = 'COVER' | 'SETUP' | 'READY' | 'DROPPING' | 'BOTTOM' | 'FISH_ON' | 'FIGHTING' | 'CAUGHT' | 'SNAPPED' | 'ESCAPED';
-type SpotKey = 'water' | 'depth' | 'line' | 'tide' | 'hookset' | 'tension' | 'align' | 'run';
+type SpotKey = 'water' | 'depth' | 'line' | 'tide' | 'retrieve' | 'hookset' | 'tension' | 'align' | 'run';
 type DemoMode = 'idle' | 'drop' | 'hookset' | 'fight' | 'run';
 
 interface TutorialStep { eyebrow: string; title: string; body: string; spot: SpotKey; demo: DemoMode; }
@@ -98,6 +98,7 @@ const TUTORIAL_STEPS: TutorialStep[] = [
   { eyebrow: 'Depth', spot: 'depth', demo: 'drop', title: 'The ladder is the water column', body: 'Your jig rides this scale from the surface down to 300 m. Every fish has a band it lives in.' },
   { eyebrow: 'Line', spot: 'line', demo: 'drop', title: 'Line out runs ahead of depth', body: 'Current bows the line, so the spool always gives up more metres than you have gone down.' },
   { eyebrow: 'Conditions', spot: 'tide', demo: 'drop', title: 'The tide sets the tax', body: 'Heavier jigs cut through the current and hold their depth.' },
+  { eyebrow: 'Retrieve', spot: 'retrieve', demo: 'drop', title: 'Reel up in one tap', body: 'Gone too deep or picked the wrong jig? Retrieve brings the jig straight back up so you can choose again. It disappears once a fish is on.' },
   { eyebrow: 'The strike', spot: 'hookset', demo: 'hookset', title: 'Three taps, fast', body: 'When a fish hits you get about two seconds to bury the hook. Three taps starts the fight.' },
   { eyebrow: 'The fight', spot: 'tension', demo: 'fight', title: 'Hold to reel, release to give line', body: 'Holding gains depth but loads the drag. Releasing bleeds load off.' },
   { eyebrow: 'Aim', spot: 'align', demo: 'fight', title: 'Keep the rod on the fish', body: 'Drag left and right to swing the rod tip. Reeling while they are apart spikes load fast.' },
@@ -1191,14 +1192,18 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
                 does what reaching the surface does (resetDrop) straight away. Only while the
                 jig is sinking or on the bottom, never once a fish is on. onPointerDown keeps
                 the tap from also counting as a tap on the water; onClick covers keyboards. */}
-            {(gameState === 'DROPPING' || gameState === 'BOTTOM') && !tutorialOpen && (
-              <div className="absolute right-4 bottom-[5%] pointer-events-auto">
+            {/* The tutorial's Retrieve step shows it too, inert, so the highlight has
+                something to frame without resetting the game mid-tutorial. */}
+            {(((gameState === 'DROPPING' || gameState === 'BOTTOM') && !tutorialOpen) || (tutorialOpen && step.spot === 'retrieve')) && (
+              <div ref={setSpot('retrieve')} className={`absolute right-4 bottom-[5%] ${tutorialOpen ? 'pointer-events-none' : 'pointer-events-auto'}`}>
                 <button
                   type="button"
                   aria-label="Retrieve the jig and reset the drop"
+                  tabIndex={tutorialOpen ? -1 : undefined}
+                  aria-hidden={tutorialOpen || undefined}
                   className="min-h-[46px] px-5 bg-[#0D141B] border border-[#1C2733] text-[#E6EDF3] hover:border-[#4A5A69] active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1]"
-                  onPointerDown={(e) => { e.stopPropagation(); resetDrop(); }}
-                  onClick={resetDrop}
+                  onPointerDown={(e) => { e.stopPropagation(); if (!tutorialOpen) resetDrop(); }}
+                  onClick={() => { if (!tutorialOpen) resetDrop(); }}
                 >
                   <span className="fs-label !text-[#E6EDF3]">&#8593; Retrieve</span>
                 </button>
