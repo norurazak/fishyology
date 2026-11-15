@@ -1481,8 +1481,11 @@ export default function GamePage() {
   const [leaderboardLoading, setLeaderboardLoading] = useState(true);
 
   // SEASON DATES CONFIGURATION
-  const SEASON_START = '2026-07-25T00:00:00.000Z'; // Season Start: July 25, 2026
-  const SEASON_END = '2026-08-31T23:59:59.999Z';   // Season End: August 31, 2026
+  // Season 1, restarted. Times are Malaysia time (UTC+8): it opens at midnight on
+  // 15 November and closes at the last second of 31 December. Catches outside this
+  // window (including the original July–August run) don't appear on the board.
+  const SEASON_START = '2026-11-15T00:00:00.000+08:00'; // Season Start: November 15, 2026
+  const SEASON_END = '2026-12-31T23:59:59.999+08:00';   // Season End: December 31, 2026
 
   // Countdown State
   const [timeLeft, setTimeLeft] = useState<TimeRemaining>(calculateTimeRemaining(SEASON_END));
@@ -1791,7 +1794,7 @@ export default function GamePage() {
                 </h2>
               </div>
               <p className="text-[10px] text-[#7C8B9C] uppercase tracking-widest mt-0.5">
-                July 25, 2026 – August 31, 2026
+                November 15, 2026 – December 31, 2026
               </p>
             </div>
 
