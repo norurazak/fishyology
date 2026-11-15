@@ -70,8 +70,8 @@ export default function TideCurve({
     >
       <defs>
         <linearGradient id="tide-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0077C0" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#0077C0" stopOpacity="0.02" />
+          <stop offset="0%" stopColor="#121212" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="#121212" stopOpacity="0.02" />
         </linearGradient>
       </defs>
 
@@ -79,7 +79,7 @@ export default function TideCurve({
       <path
         d={linePath}
         fill="none"
-        stroke="#0077C0"
+        stroke="#121212"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -99,7 +99,7 @@ export default function TideCurve({
             strokeOpacity="0.3"
             vectorEffect="non-scaling-stroke"
           />
-          <circle cx={nowX} cy={nowY} r="4" fill="#121212" stroke="#FFFFFF" strokeWidth="2" />
+          <circle cx={nowX} cy={nowY} r="4" fill="#D7263D" stroke="#FFFFFF" strokeWidth="2" />
         </>
       )}
     </svg>

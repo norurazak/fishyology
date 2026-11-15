@@ -126,10 +126,10 @@ export default async function TripsPage() {
         </svg>
 
         <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
-          <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
+          <span className="text-[#FFFFFF]/85 font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
             Guided Expeditions
           </span>
-          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FFFFFF] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] font-extrabold text-[#FFFFFF] tracking-tight uppercase mb-5 drop-shadow-2xl max-w-5xl text-balance">
             Fishing Trips
           </h1>
           <p className="text-lg md:text-2xl text-[#FFFFFF]/90 max-w-3xl font-medium mb-8 leading-relaxed drop-shadow-md">
@@ -139,19 +139,19 @@ export default async function TripsPage() {
 
           <Link
             href="#trips"
-            className="group relative inline-flex items-center gap-3 bg-[#FFFFFF] text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl mb-10"
+            className="btn-primary group relative inline-flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] shadow-2xl mb-10"
           >
             <span className="relative z-10">See the Trips</span>
-            <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight aria-hidden="true" className="w-5 h-5 relative z-10 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
           </Link>
 
           <dl className="flex flex-wrap items-center gap-x-8 gap-y-4">
             {heroStats.map(({ icon: Icon, value, label }) => (
               <div key={label} className="flex items-center gap-3">
-                <Icon className="w-5 h-5 text-[#C7EEFF] flex-shrink-0" strokeWidth={1.75} />
+                <Icon aria-hidden="true" className="w-5 h-5 text-[#FFFFFF]/85 flex-shrink-0" strokeWidth={1.75} />
                 <div>
                   <dd className="text-xl font-black text-[#FFFFFF] leading-none">{value}</dd>
-                  <dt className="text-[11px] font-bold uppercase tracking-widest text-[#FFFFFF]/70 mt-1">
+                  <dt className="text-xs font-bold uppercase tracking-widest text-[#FFFFFF]/70 mt-1">
                     {label}
                   </dt>
                 </div>
@@ -200,15 +200,15 @@ export default async function TripsPage() {
       </section>
 
       {/* TRIPS */}
-      <div id="trips" className="max-w-7xl mx-auto px-6 md:px-16 pt-16 md:pt-24 pb-20 scroll-mt-24">
+      <div id="trips" className="max-w-7xl mx-auto px-6 md:px-16 pt-14 md:pt-16 pb-14 md:pb-16 scroll-mt-24">
         <TripsGrid sections={sections} conditionsBySlug={conditionsBySlug} />
       </div>
 
       {/* KNOW THE RULES */}
-      <section className="max-w-7xl mx-auto px-6 md:px-16 pb-20">
+      <section className="max-w-7xl mx-auto px-6 md:px-16 pb-16">
         <div className="bg-abyss rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 justify-between">
           <div className="flex items-start gap-4">
-            <ShieldAlert className="w-8 h-8 text-[#C7EEFF] flex-shrink-0 mt-1" />
+            <ShieldAlert aria-hidden="true" className="w-8 h-8 text-[#FFFFFF]/85 flex-shrink-0 mt-1" />
             <div>
               <h3 className="text-xl font-serif font-bold text-white mb-2">Know the Rules Before You Cast</h3>
               <p className="text-sm text-white/80 leading-relaxed max-w-2xl">
@@ -220,10 +220,10 @@ export default async function TripsPage() {
           </div>
           <Link
             href="/blog/malaysia-recreational-fishing-license-gap"
-            className="group inline-flex items-center gap-2 bg-[#C7EEFF] text-abyss text-sm font-bold px-5 py-3 rounded-full whitespace-nowrap hover:bg-white transition-colors"
+            className="btn-primary group inline-flex items-center gap-2 text-sm font-bold px-5 py-3 rounded-full whitespace-nowrap"
           >
             Read the Report
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight aria-hidden="true" className="w-4 h-4 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
           </Link>
         </div>
       </section>

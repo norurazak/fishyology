@@ -135,13 +135,13 @@ export default function TripDetailPanel({
             type="button"
             onClick={onClose}
             aria-label="Close trip details"
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#FFFFFF]/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7EEFF]"
+            className="absolute top-4 right-4 w-11 h-11 rounded-full bg-[#FFFFFF]/90 text-abyss flex items-center justify-center hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-abyss"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="absolute bottom-0 left-0 w-full p-6">
-            <span className="text-[#C7EEFF] text-[11px] font-extrabold uppercase tracking-widest">
+            <span className="text-[#FFFFFF]/85 text-xs font-extrabold uppercase tracking-widest">
               {trip.category} · {stripParentheticals(trip.tripType)}
             </span>
             <h2
@@ -163,13 +163,13 @@ export default function TripDetailPanel({
           </div>
 
           <div className="bg-white border border-abyss/10 rounded-2xl p-5">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-abyss/50 block mb-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-abyss/70 block mb-2">
               Rate
             </span>
             <div className="flex flex-wrap items-baseline gap-x-2">
               <span className="text-2xl font-black text-abyss">{fromPrice(trip.priceHeadline)}</span>
               {trip.priceUnit && (
-                <span className="text-xs font-bold uppercase tracking-widest text-[#0077C0]">
+                <span className="text-xs font-bold uppercase tracking-widest text-abyss/70">
                   {trip.priceUnit}
                 </span>
               )}
@@ -187,10 +187,10 @@ export default function TripDetailPanel({
           )}
 
           {trip.season && (
-            <div className="flex gap-3 bg-[#408A71]/8 border border-[#408A71]/20 rounded-2xl p-5">
-              <CalendarDays className="w-5 h-5 text-[#408A71] flex-shrink-0 mt-0.5" />
+            <div className="flex gap-3 bg-abyss/5 border border-abyss/10 rounded-2xl p-5">
+              <CalendarDays aria-hidden="true" className="w-5 h-5 text-abyss/70 flex-shrink-0 mt-0.5" />
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-[#408A71] block mb-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-abyss/70 block mb-1">
                   Season
                 </span>
                 <p className="text-sm text-abyss/80 leading-relaxed">{trip.season}</p>
@@ -200,7 +200,7 @@ export default function TripDetailPanel({
 
           {paragraphs.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-widest text-abyss/50 mb-3">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-abyss/70 mb-3">
                 About this trip
               </h3>
               <div className="flex flex-col gap-4">
@@ -215,7 +215,7 @@ export default function TripDetailPanel({
 
           {trip.addOns.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-widest text-abyss/50 mb-3">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-abyss/70 mb-3">
                 Add-ons
               </h3>
               <ul className="flex flex-col gap-2">
@@ -224,7 +224,7 @@ export default function TripDetailPanel({
                     key={addOn}
                     className="flex gap-3 bg-white border border-abyss/10 rounded-xl px-4 py-3"
                   >
-                    <Plus className="w-4 h-4 text-[#0077C0] flex-shrink-0 mt-0.5" />
+                    <Plus aria-hidden="true" className="w-4 h-4 text-abyss/60 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-abyss/80 leading-relaxed">{addOn}</span>
                   </li>
                 ))}
@@ -237,11 +237,11 @@ export default function TripDetailPanel({
         <div className="flex-shrink-0 border-t border-abyss/10 bg-white p-5 flex flex-col gap-3">
           <Link
             href={`/trips/${trip.slug}`}
-            className="group inline-flex items-center justify-center gap-2 border border-abyss/15 text-abyss text-sm font-bold px-4 py-3 rounded-full hover:border-abyss/40 hover:bg-abyss/[0.03] transition-colors"
+            className="group inline-flex items-center justify-center gap-2 border border-abyss/15 text-abyss text-sm font-bold px-4 py-3 rounded-full hover:border-abyss/40 hover:bg-abyss/[0.03] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2"
           >
-            <ImageIcon className="w-4 h-4 text-[#0077C0]" />
+            <ImageIcon aria-hidden="true" className="w-4 h-4 text-abyss/70" />
             View Full Trip &amp; Gallery
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" />
           </Link>
 
           <p className="text-sm text-abyss/60 text-center">

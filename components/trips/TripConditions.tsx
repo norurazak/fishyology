@@ -27,11 +27,13 @@ import TideCurve from "@/components/trips/TideCurve";
 // so we don't send users there.
 const TIDE_TABLE_URL = "https://ehydro.hydro.gov.my/index.php?path=61&route=product/category";
 
-const SCORE_STYLES: Record<string, { bar: string; text: string }> = {
-  Prime: { bar: "bg-[#408A71]", text: "text-[#408A71]" },
-  Good: { bar: "bg-[#0077C0]", text: "text-[#0077C0]" },
-  Fair: { bar: "bg-[#C08A00]", text: "text-[#C08A00]" },
-  Slow: { bar: "bg-abyss/40", text: "text-abyss/60" },
+// One ramp on the dark outlook card: the bar's length shows the score and the word
+// names it, so colour only adds emphasis. Prime is the one rating in Tuna.
+const SCORE_STYLES: Record<string, { bar: string }> = {
+  Prime: { bar: "bg-tuna" },
+  Good: { bar: "bg-white/80" },
+  Fair: { bar: "bg-white/55" },
+  Slow: { bar: "bg-white/30" },
 };
 
 function Metric({
@@ -47,8 +49,8 @@ function Metric({
 }) {
   return (
     <div className="bg-white border border-abyss/10 rounded-xl p-3">
-      <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-abyss/50">
-        <Icon className="w-3.5 h-3.5 text-[#0077C0]" />
+      <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss/70">
+        <Icon aria-hidden="true" className="w-3.5 h-3.5 text-abyss/60" />
         {label}
       </div>
       <div className="text-lg font-black text-abyss tracking-tight mt-1 tabular-nums">
@@ -73,8 +75,8 @@ function TideTurn({
   const away = extreme ? minutesUntil(extreme.time, now) : null;
 
   return (
-    <div className="bg-[#F5F5F0] rounded-xl px-3 py-2">
-      <span className="block text-[11px] font-bold uppercase tracking-widest text-abyss/50">
+    <div className="bg-abyss/5 rounded-xl px-3 py-2">
+      <span className="block text-xs font-bold uppercase tracking-widest text-abyss/70">
         {label}
       </span>
       {extreme ? (
@@ -92,7 +94,7 @@ function TideTurn({
           )}
         </>
       ) : (
-        <span className="block text-sm text-abyss/50 mt-0.5">—</span>
+        <span className="block text-sm text-abyss/70 mt-0.5">—</span>
       )}
     </div>
   );
@@ -123,17 +125,17 @@ export default function TripConditions({
 
   return (
     <div>
-      <h3 className="text-xs font-bold uppercase tracking-widest text-abyss/50 mb-3">
+      <h3 className="text-xs font-bold uppercase tracking-widest text-abyss/70 mb-3">
         Conditions &amp; feeding windows
       </h3>
 
       {/* Activity index */}
       <div className="bg-abyss rounded-2xl p-5 mb-3">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-[#C7EEFF]">
+          <span className="text-xs font-bold uppercase tracking-widest text-white/85">
             Today&apos;s outlook
           </span>
-          <span className="text-[11px] font-bold uppercase tracking-widest text-white/55 tabular-nums">
+          <span className="text-xs font-bold uppercase tracking-widest text-white/70 tabular-nums">
             {activityScore} / 100
           </span>
         </div>
@@ -172,8 +174,8 @@ export default function TripConditions({
           )}
           {weather.pressureHpa != null && (
             <div className="bg-white border border-abyss/10 rounded-xl p-3">
-              <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-abyss/50">
-                <Gauge className="w-3.5 h-3.5 text-[#0077C0]" />
+              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss/70">
+                <Gauge aria-hidden="true" className="w-3.5 h-3.5 text-abyss/60" />
                 Pressure
               </div>
               <div className="text-lg font-black text-abyss tracking-tight mt-1 tabular-nums">
@@ -183,7 +185,7 @@ export default function TripConditions({
                 <div
                   className={`flex items-center gap-1 text-xs mt-0.5 ${
                     weather.pressureTrend === "rising"
-                      ? "text-[#408A71] font-semibold"
+                      ? "text-abyss font-semibold"
                       : "text-abyss/60"
                   }`}
                 >
@@ -223,8 +225,8 @@ export default function TripConditions({
 
       {/* Feeding windows */}
       <div className="bg-white border border-abyss/10 rounded-2xl p-4 mb-3">
-        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-abyss/50 mb-3">
-          <Moon className="w-3.5 h-3.5 text-[#0077C0]" />
+        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss/70 mb-3">
+          <Moon aria-hidden="true" className="w-3.5 h-3.5 text-abyss/60" />
           Peak feeding windows — today
         </div>
 
@@ -240,12 +242,12 @@ export default function TripConditions({
               <li
                 key={`${window.driver}-${window.start}`}
                 className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 ${
-                  active ? "bg-[#408A71]/12 border border-[#408A71]/30" : "bg-[#F5F5F0]"
+                  active ? "bg-tuna/10 border border-tuna/30" : "bg-abyss/5"
                 }`}
               >
                 <span className="flex items-center gap-2 min-w-0">
-                  <Star className="w-3.5 h-3.5 text-[#408A71] flex-shrink-0" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#408A71]">
+                  <Star aria-hidden="true" className="w-3.5 h-3.5 text-tuna-on-light flex-shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-tuna-on-light">
                     Major
                   </span>
                   <span className="text-xs text-abyss/60 truncate">{window.driver}</span>
@@ -262,11 +264,11 @@ export default function TripConditions({
               <li
                 key={`${window.driver}-${window.start}`}
                 className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 ${
-                  active ? "bg-[#0077C0]/10 border border-[#0077C0]/25" : "bg-[#F5F5F0]"
+                  active ? "bg-tuna/10 border border-tuna/30" : "bg-abyss/5"
                 }`}
               >
                 <span className="flex items-center gap-2 min-w-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0077C0] flex-shrink-0" />
+                  <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-abyss/40 flex-shrink-0" />
                   <span className="text-xs font-bold uppercase tracking-widest text-abyss/60">
                     Minor
                   </span>
@@ -283,17 +285,17 @@ export default function TripConditions({
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 pt-3 border-t border-abyss/8 text-xs text-abyss/60">
           {solunar.sunrise && (
             <span className="inline-flex items-center gap-1">
-              <Sunrise className="w-3.5 h-3.5 text-[#0077C0]" />
+              <Sunrise aria-hidden="true" className="w-3.5 h-3.5 text-abyss/60" />
               Sunrise {formatMalaysiaTime(solunar.sunrise)}
             </span>
           )}
           {solunar.sunset && (
             <span className="inline-flex items-center gap-1">
-              <Sunset className="w-3.5 h-3.5 text-[#0077C0]" />
+              <Sunset aria-hidden="true" className="w-3.5 h-3.5 text-abyss/60" />
               Sunset {formatMalaysiaTime(solunar.sunset)}
             </span>
           )}
-          <span className="text-[11px] uppercase tracking-widest">MYT (UTC+8)</span>
+          <span className="text-xs uppercase tracking-widest">MYT (UTC+8)</span>
         </div>
       </div>
 
@@ -301,14 +303,14 @@ export default function TripConditions({
       {isSaltwater && (
         <div className="bg-white border border-abyss/10 rounded-2xl p-4">
           <div className="flex items-center justify-between gap-3 mb-3">
-            <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-abyss/50">
-              <Waves className="w-3.5 h-3.5 text-[#0077C0]" />
+            <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss/70">
+              <Waves aria-hidden="true" className="w-3.5 h-3.5 text-abyss/60" />
               Tide
             </span>
             {tide?.state && (
               <span
                 className={`inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest ${
-                  tide.state === "rising" ? "text-[#408A71]" : "text-[#0077C0]"
+                  tide.state === "rising" ? "text-abyss" : "text-abyss/70"
                 }`}
               >
                 {tide.state === "rising" ? (
@@ -330,7 +332,7 @@ export default function TripConditions({
                 <TideTurn label="Next low" extreme={tide.nextLow} now={now} />
               </div>
 
-              <p className="text-xs text-abyss/50 leading-relaxed mt-3">
+              <p className="text-xs text-abyss/70 leading-relaxed mt-3">
                 {tide.source === "worldtides" ? (
                   <>
                     {tide.stationName
@@ -359,10 +361,10 @@ export default function TripConditions({
             href={TIDE_TABLE_URL}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-1.5 text-xs font-bold text-[#0077C0] hover:text-abyss transition-colors mt-2"
+            className="group inline-flex items-center gap-1.5 text-xs font-bold text-tuna-on-light hover:text-abyss transition-colors mt-2 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2"
           >
             Official NHC tide tables
-            <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+            <ExternalLink aria-hidden="true" className="w-3 h-3 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" />
           </a>
         </div>
       )}
