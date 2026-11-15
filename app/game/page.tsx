@@ -1475,14 +1475,45 @@ function RankCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) {
         <p className="truncate text-[13px] font-semibold leading-tight text-[#E6EDF3]">
           {entry.profiles?.display_name || 'Unknown Angler'}
         </p>
-        <p className="truncate text-[10.5px] leading-tight text-[#7C8B9C]">
+        <p className="truncate text-xs leading-tight text-[#7C8B9C]">
           {entry.species} &middot; {entry.profiles?.state || 'Malaysia'}
         </p>
         <p className="fs-num mt-1 text-[13px] font-bold leading-none text-[#4DD0E1]">
-          {kg3(entry.weight_kg)}<span className="text-[9px] text-[#4A5A69]"> kg</span>
+          {kg3(entry.weight_kg)}<span className="text-xs text-[#7C8B9C]"> kg</span>
         </p>
       </div>
     </article>
+  );
+}
+
+// --- PODIUM CARD (top three) ---
+function PodiumCard({ entry, rank }: { entry: LeaderboardEntry; rank: number }) {
+  const medal = rank === 1 ? '#FFB020' : rank === 2 ? '#B8C4D0' : '#C2410C';
+  const name = entry.profiles?.display_name || 'Unknown Angler';
+  return (
+    <li className="flex items-center gap-4 bg-[#0D141B] px-5 py-4">
+      <span className="fs-num w-8 shrink-0 text-center text-2xl font-bold leading-none" style={{ color: medal }}>
+        <span className="sr-only">Place </span>{rank}
+      </span>
+
+      {entry.profiles?.avatar_url ? (
+        <img src={entry.profiles.avatar_url} alt="" className="h-12 w-12 shrink-0 rounded-full border border-[#1C2733] bg-[#111A22] object-cover" />
+      ) : (
+        <div aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#1C2733] text-base font-bold text-white">
+          {name.charAt(0)}
+        </div>
+      )}
+
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-base font-semibold leading-tight text-[#E6EDF3]">{name}</p>
+        <p className="truncate text-xs leading-tight text-[#7C8B9C] mt-0.5">
+          {entry.species} &middot; {entry.profiles?.state || 'Malaysia'}
+        </p>
+        <p className="fs-num mt-1.5 text-lg font-bold leading-none text-[#4DD0E1]">
+          {kg3(entry.weight_kg)}<span className="text-xs text-[#7C8B9C]"> kg</span>
+        </p>
+      </div>
+    </li>
   );
 }
 
@@ -1728,8 +1759,10 @@ export default function GamePage() {
     gameRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const repeats = leaderboard.length > 0 ? Math.max(1, Math.ceil(6 / leaderboard.length)) : 0;
-  const loop = repeats > 0 ? Array.from({ length: repeats }).flatMap(() => leaderboard) : [];
+  // The podium shows the top three; the scrolling ribbon carries the rest.
+  const rest = leaderboard.slice(3);
+  const repeats = rest.length > 0 ? Math.max(1, Math.ceil(6 / rest.length)) : 0;
+  const loop = repeats > 0 ? Array.from({ length: repeats }).flatMap(() => rest) : [];
   const marqueeSeconds = Math.max(18, loop.length * 4.5);
 
   return (
@@ -1757,182 +1790,30 @@ export default function GamePage() {
         />
       )}
 
-      <nav className="absolute top-0 left-0 w-full p-5 z-50">
-        <Link href="/" className="text-[#E6EDF3] hover:text-[#4DD0E1] transition-colors flex items-center gap-2 group w-max drop-shadow-md">
-          <span className="text-base group-hover:-translate-x-1 transition-transform">←</span>
-          <span className="tracking-widest uppercase text-[10px] font-bold text-white">Back to Main Site</span>
-        </Link>
-      </nav>
-
-      <section className="relative h-[500px] max-h-[70dvh] w-full flex items-center justify-center overflow-hidden">
-        <img src={gameHeroData.image} alt={gameHeroData.title} className="absolute inset-0 w-full h-full object-cover scale-105" />
+      {/* --- HERO --- (the site navigation floats above, so no separate back link) */}
+      <section className="relative h-[540px] max-h-[80dvh] w-full flex items-center justify-center overflow-hidden">
+        <img src={gameHeroData.image} alt="" className="absolute inset-0 w-full h-full object-cover scale-105" />
         <div className="absolute inset-0 bg-[#05070A]/40 mix-blend-multiply"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#05070A] via-[#05070A]/60 to-transparent"></div>
 
-        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center mt-8">
-          <span className="text-[#4DD0E1] text-[16px] font-bold tracking-widest uppercase mb-3 block drop-shadow-md">
+        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center mt-16 flex flex-col items-center">
+          <span className="text-[#4DD0E1] text-sm md:text-base font-bold tracking-widest uppercase mb-3 block drop-shadow-md">
             {gameHeroData.subtitle}
           </span>
-          <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter uppercase text-white drop-shadow-2xl leading-[0.85]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase text-white drop-shadow-2xl leading-[0.95] text-balance">
             {gameHeroData.title}
           </h1>
-          <p className="mt-4 text-[14px] md:text-[14px] font-bold uppercase tracking-widest text-[#B8C4D0] drop-shadow-md">
+          <p className="mt-4 text-sm font-bold uppercase tracking-widest text-[#B8C4D0] drop-shadow-md">
             {gameHeroData.tagline}
           </p>
-        </div>
-      </section>
-
-      <section className="relative bg-[#05070A] pt-9 pb-11 px-6 z-20">
-        <div className="max-w-2xl mx-auto text-center flex flex-col items-center">
-          <h2 className="text-xl md:text-2xl font-serif text-white leading-tight mb-5">
-            The ocean rewards skill, patience, and precision.
-          </h2>
-
-          <div className="space-y-4 text-[#7C8B9C] text-[16px] md:text-[16px] font-medium leading-relaxed">
-            <p>
-              In Jigging Master, every decision shapes the outcome. Read the tide, understand the current, choose the right jig, and work every layer of the water column to tempt predators from the deep.
-            </p>
-            <p>
-              Face more than 20 legendary saltwater species, each with unique behavior and relentless power. Giant Groupers dive for cover. Dogtooth Tuna unleash blistering runs. Sailfish explode across the surface. Every encounter demands focus, timing, and complete control.
-            </p>
-            <p>
-              Changing tides transform every trip. Gentle currents give you confidence, while powerful flows challenge your tackle and your technique. Learn to adapt, refine your approach, and turn every strike into a trophy catch.
-            </p>
-          </div>
-
-          <p className="mt-7 w-full border-t border-[#1C2733] pt-6 text-[13px] md:text-[14px] font-bold uppercase leading-relaxed tracking-widest text-[#E6EDF3]">
-            The fish are wild. The ocean is unforgiving.
-            <span className="block text-[#4DD0E1]">Become the Jigging Master.</span>
-          </p>
-
-          <button onClick={scrollToGame} className="group mt-7 inline-flex items-center gap-3 bg-[#4DD0E1] text-[#05070A] px-8 py-4 font-bold text-[11px] tracking-widest uppercase hover:bg-[#3DDC97] transition-colors duration-300 shadow-[0_0_30px_rgba(77,208,225,0.15)]">
+          <button
+            type="button"
+            onClick={scrollToGame}
+            className="btn-primary group mt-8 inline-flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-bold text-sm tracking-widest uppercase shadow-2xl"
+          >
             <span>Play now</span>
-            <span className="group-hover:translate-y-1 transition-transform duration-300">↓</span>
+            <span aria-hidden="true" className="motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-y-1">↓</span>
           </button>
-        </div>
-      </section>
-
-      {/* --- 3. DYNAMIC LEADERBOARD WITH SEASONAL TIMER --- */}
-      <section className="relative bg-[#05070A] py-10 px-4 md:px-6 z-20 border-t border-[#1C2733]">
-        <div className="max-w-5xl mx-auto">
-          
-          {/* Header Row: Title & Countdown */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 px-1">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#3DDC97] fs-blink"></span>
-                <h2 className="text-[12px] font-bold text-[#4DD0E1] uppercase tracking-widest">
-                  Season 1 Leaderboard
-                </h2>
-              </div>
-              <p className="text-[10px] text-[#7C8B9C] uppercase tracking-widest mt-0.5">
-                November 15, 2026 – December 31, 2026
-              </p>
-            </div>
-
-            {/* Countdown Badge */}
-            <div className="bg-[#0D141B] border border-[#1C2733] px-3.5 py-1.5 rounded flex items-center gap-2 self-start sm:self-auto">
-              <span className="text-[9px] uppercase font-bold text-[#FFB020] tracking-widest">
-                Ends In:
-              </span>
-              {timeLeft.isEnded ? (
-                <span className="fs-num text-[11px] font-bold text-[#FF3B47] uppercase tracking-wider">
-                  Season Concluded
-                </span>
-              ) : (
-                <span className="fs-num text-[12px] font-bold text-[#E6EDF3] tracking-tight">
-                  {timeLeft.days}d {String(timeLeft.hours).padStart(2, '0')}h {String(timeLeft.minutes).padStart(2, '0')}m {String(timeLeft.seconds).padStart(2, '0')}s
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="border border-[#1C2733] bg-[#0A1017] rounded-lg overflow-hidden">
-            {!SCORES_ONLINE ? (
-              <div className="p-6 text-center text-[#7C8B9C] text-[11px] font-bold uppercase tracking-widest">The leaderboard is offline right now. You can still play as a guest.</div>
-            ) : leaderboardLoading ? (
-              <div className="p-6 text-center text-[#7C8B9C] text-[11px] font-bold uppercase tracking-widest">Loading records…</div>
-            ) : leaderboard.length === 0 ? (
-              <div className="p-6 text-center text-[#7C8B9C] text-[11px] font-bold uppercase tracking-widest">No catches logged for Season 1 yet. Be the first!</div>
-            ) : (
-              <div className="fs-marquee relative overflow-hidden">
-                <div className="fs-marquee-track" style={{ animationDuration: `${marqueeSeconds}s` }}>
-                  {[...loop, ...loop].map((entry, i) => (
-                    <RankCard
-                      key={`${entry.id}-${i}`}
-                      entry={entry}
-                      rank={(i % leaderboard.length) + 1}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {(authError || authNotice) && (
-              <p
-                role="status"
-                className={`px-5 py-2 border-t border-[#1C2733] text-[11px] font-bold uppercase tracking-widest text-center sm:text-left ${
-                  authError ? 'text-[#FF3B47]' : 'text-[#3DDC97]'
-                }`}
-              >
-                {authError || authNotice}
-              </p>
-            )}
-            <div className="px-5 py-4 bg-[#0D141B] border-t border-[#1C2733] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-              {!SCORES_ONLINE ? (
-                <p className="text-[#7C8B9C] text-[11px] uppercase tracking-widest">Playing as guest — sign-in is unavailable right now</p>
-              ) : authLoading ? (
-                <p className="text-[#7C8B9C] text-[11px] uppercase tracking-widest">Checking session…</p>
-              ) : user && hasProfile ? (
-                <>
-                  <p className="text-[#3DDC97] text-[11px] font-bold tracking-widest uppercase">Signed in — your catches will post here</p>
-                  <div className="flex items-center gap-3">
-                    <button 
-                      onClick={() => setShowOnboarding(true)}
-                      className="text-[#E6EDF3] border border-[#1C2733] bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#1C2733] transition-colors"
-                    >
-                      Edit Profile
-                    </button>
-                    <button 
-                      onClick={handleLogout}
-                      className="text-[#FF3B47] border border-[#FF3B47]/30 bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#FF3B47]/10 transition-colors"
-                    >
-                      Log Out
-                    </button>
-                  </div>
-                </>
-              ) : user ? (
-                <>
-                  <p className="text-[#FFB020] text-[11px] font-bold tracking-widest uppercase">Signed in — finish your profile to post catches</p>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => setShowOnboarding(true)}
-                      className="text-[#E6EDF3] border border-[#1C2733] bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#1C2733] transition-colors"
-                    >
-                      Complete Profile
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="text-[#FF3B47] border border-[#FF3B47]/30 bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#FF3B47]/10 transition-colors"
-                    >
-                      Log Out
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className="text-[#7C8B9C] text-[12px]">Want your name on the board?</p>
-                  <button 
-                    onClick={handleGoogleLogin}
-                    className="text-[#E6EDF3] border border-[#1C2733] bg-[#111A22] px-5 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#1C2733] transition-colors"
-                  >
-                    Log in with Google
-                  </button>
-                </>
-              )}
-            </div>
-
-          </div>
         </div>
       </section>
 
@@ -1945,6 +1826,173 @@ export default function GamePage() {
           onLoginRequest={handleGoogleLogin}
           onProfileRequest={() => setShowOnboarding(true)}
         />
+      </section>
+
+      {/* --- LEADERBOARD WITH SEASONAL TIMER (below the game, so players start sooner) --- */}
+      <section className="relative bg-[#05070A] py-10 md:py-12 px-4 md:px-6 z-20 border-t border-[#1C2733]">
+        <div className="max-w-5xl mx-auto">
+
+          {/* Header Row: Title & Countdown */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 px-1">
+            <div>
+              <div className="flex items-center gap-2">
+                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#3DDC97] fs-blink"></span>
+                <h2 className="text-sm font-bold text-[#4DD0E1] uppercase tracking-widest">
+                  Season 1 Leaderboard
+                </h2>
+              </div>
+              <p className="text-xs text-[#7C8B9C] uppercase tracking-widest mt-1">
+                November 15, 2026 – December 31, 2026
+              </p>
+            </div>
+
+            {/* Countdown Badge */}
+            <div className="bg-[#0D141B] border border-[#1C2733] px-3.5 py-2 rounded flex items-center gap-2 self-start sm:self-auto">
+              <span className="text-xs uppercase font-bold text-[#FFB020] tracking-widest">
+                Ends in
+              </span>
+              {timeLeft.isEnded ? (
+                <span className="fs-num text-xs font-bold text-[#FF3B47] uppercase tracking-wider">
+                  Season Concluded
+                </span>
+              ) : (
+                <span className="fs-num text-sm font-bold text-[#E6EDF3] tracking-tight">
+                  {timeLeft.days}d {String(timeLeft.hours).padStart(2, '0')}h {String(timeLeft.minutes).padStart(2, '0')}m {String(timeLeft.seconds).padStart(2, '0')}s
+                </span>
+              )}
+            </div>
+          </div>
+
+          <p className="px-1 mb-5 text-xs text-[#7C8B9C] leading-relaxed">
+            Ranked by the heaviest catch of the season. Winners are contacted at the Google email they signed in with.
+          </p>
+
+          <div className="border border-[#1C2733] bg-[#0A1017] rounded-lg overflow-hidden">
+            {!SCORES_ONLINE ? (
+              <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">The leaderboard is offline right now. You can still play as a guest.</div>
+            ) : leaderboardLoading ? (
+              <div className="p-6 text-center text-[#7C8B9C] text-xs font-bold uppercase tracking-widest">Loading records…</div>
+            ) : leaderboard.length === 0 ? (
+              <div className="px-6 py-10 text-center flex flex-col items-center gap-3">
+                <p className="text-sm font-bold uppercase tracking-widest text-[#E6EDF3]">No catches logged for Season 1 yet</p>
+                <p className="text-sm text-[#7C8B9C] max-w-sm">Land the first fish of the season and your name opens the board.</p>
+                <button
+                  type="button"
+                  onClick={scrollToGame}
+                  className="btn-primary mt-2 inline-flex min-h-[44px] items-center gap-2 px-6 rounded font-bold text-xs tracking-widest uppercase"
+                >
+                  Play now <span aria-hidden="true">↑</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Podium: the top three at a glance */}
+                <ol aria-label="Top three catches" className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#1C2733]">
+                  {leaderboard.slice(0, 3).map((entry, i) => (
+                    <PodiumCard key={entry.id} entry={entry} rank={i + 1} />
+                  ))}
+                </ol>
+                {rest.length > 0 && (
+                  <div className="fs-marquee relative overflow-hidden border-t border-[#1C2733]">
+                    <div className="fs-marquee-track" style={{ animationDuration: `${marqueeSeconds}s` }}>
+                      {[...loop, ...loop].map((entry, i) => (
+                        <RankCard
+                          key={`${entry.id}-${i}`}
+                          entry={entry}
+                          rank={(i % rest.length) + 4}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {(authError || authNotice) && (
+              <p
+                role="status"
+                className={`px-5 py-2 border-t border-[#1C2733] text-xs font-bold uppercase tracking-widest text-center sm:text-left ${
+                  authError ? 'text-[#FF3B47]' : 'text-[#3DDC97]'
+                }`}
+              >
+                {authError || authNotice}
+              </p>
+            )}
+            <div className="px-5 py-4 bg-[#0D141B] border-t border-[#1C2733] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+              {!SCORES_ONLINE ? (
+                <p className="text-[#7C8B9C] text-xs uppercase tracking-widest">Playing as guest — sign-in is unavailable right now</p>
+              ) : authLoading ? (
+                <p className="text-[#7C8B9C] text-xs uppercase tracking-widest">Checking session…</p>
+              ) : user && hasProfile ? (
+                <>
+                  <p className="text-[#3DDC97] text-xs font-bold tracking-widest uppercase">Signed in — your catches will post here</p>
+                  <div className="flex items-center gap-3">
+                    <button type="button" onClick={() => setShowOnboarding(true)} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#E6EDF3] hover:bg-[#1C2733]">
+                      Edit Profile
+                    </button>
+                    <button type="button" onClick={handleLogout} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#FF3B47] border-[#FF3B47]/30 hover:bg-[#FF3B47]/10">
+                      Log Out
+                    </button>
+                  </div>
+                </>
+              ) : user ? (
+                <>
+                  <p className="text-[#FFB020] text-xs font-bold tracking-widest uppercase">Signed in — finish your profile to post catches</p>
+                  <div className="flex items-center gap-3">
+                    <button type="button" onClick={() => setShowOnboarding(true)} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#E6EDF3] hover:bg-[#1C2733]">
+                      Complete Profile
+                    </button>
+                    <button type="button" onClick={handleLogout} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#FF3B47] border-[#FF3B47]/30 hover:bg-[#FF3B47]/10">
+                      Log Out
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="text-[#B8C4D0] text-sm">Want your name on the board?</p>
+                  <button type="button" onClick={handleGoogleLogin} className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#1C2733] bg-[#111A22] px-4 rounded text-xs tracking-widest uppercase font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D141B] text-[#E6EDF3] hover:bg-[#1C2733] px-5">
+                    <svg aria-hidden="true" viewBox="0 0 48 48" className="h-4 w-4 shrink-0"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.5z"/></svg>
+                    Log in with Google
+                  </button>
+                </>
+              )}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* --- ABOUT THE GAME --- */}
+      <section className="relative bg-[#05070A] py-12 md:py-16 px-6 z-20 border-t border-[#1C2733]">
+        <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
+          <h2 className="text-xl md:text-2xl font-serif text-white leading-tight mb-8">
+            The ocean rewards skill, patience, and precision.
+          </h2>
+
+          <dl className="grid grid-cols-3 gap-4 w-full max-w-xl mb-8">
+            {[
+              { value: '20', label: 'Saltwater species' },
+              { value: '3', label: 'Tide strengths' },
+              { value: 'S1', label: 'Live leaderboard' },
+            ].map(({ value, label }) => (
+              <div key={label} className="flex flex-col-reverse items-center gap-1 border border-[#1C2733] bg-[#0A1017] rounded-lg px-3 py-4">
+                <dt className="text-xs uppercase tracking-widest text-[#7C8B9C]">{label}</dt>
+                <dd className="fs-num text-2xl md:text-3xl font-bold text-[#E6EDF3]">{value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <p className="text-[#7C8B9C] text-base font-medium leading-relaxed">
+            Read the tide, choose your jig and work every layer of the water column. Giant Groupers dive for cover,
+            Dogtooth Tuna unleash blistering runs and Sailfish explode across the surface, so every fight asks for a
+            different touch.
+          </p>
+
+          <p className="mt-8 w-full border-t border-[#1C2733] pt-6 text-sm font-bold uppercase leading-relaxed tracking-widest text-[#E6EDF3]">
+            The fish are wild. The ocean is unforgiving.
+            <span className="block text-[#4DD0E1]">Become the Jigging Master.</span>
+          </p>
+        </div>
       </section>
       
     </main>
