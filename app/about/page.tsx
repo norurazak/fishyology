@@ -43,18 +43,27 @@ export default function AboutPage() {
       {/* 2b. 2026 CLOSING STATEMENT — the timeline's last card is a teaser; this is the
           full write-up, given its own space since it reads as a mission statement rather
           than a milestone blurb. */}
-      <section className="py-14 md:py-16 px-6 md:px-16 border-b border-abyss/10">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
+      {/* Styled after the site footer: the same dark base and soft greys, a serif
+          italic voice for the lines around the statement, a hairline glass panel, and
+          the footer's oversized gradient lettering as a faded "2026" behind the heading. */}
+      <section className="relative overflow-hidden bg-[#121212] text-[#E5E5E5] py-16 md:py-20 px-6 md:px-16">
+        <p
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-4 md:top-6 text-center text-[clamp(6rem,22vw,18rem)] leading-[0.8] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] via-[#2E2E2E] to-[#1A1A1A] select-none"
+        >
+          2026
+        </p>
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <span className="text-[#A3A3A3] font-bold tracking-widest uppercase mb-3 block text-sm">
             2026
           </span>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-[#FFFFFF] mb-4">
             A New Path Forward
           </h2>
-          <p className="text-abyss/70 font-serif italic text-lg md:text-xl mb-10">
+          <p className="text-[#D4D4D4] font-serif italic text-lg md:text-xl mb-10">
             Building the next chapter of Fishyology.
           </p>
-          <div className="text-left space-y-6 text-abyss/75 text-base md:text-lg leading-relaxed">
+          <div className="text-left space-y-6 text-[#A3A3A3] text-base md:text-lg leading-relaxed bg-white/[0.03] border border-white/10 rounded-2xl p-6 md:p-10">
             <p>
               Fishyology enters 2026 with a renewed sense of direction. What began as a fishing
               blog grew into a guiding operation, evolved through years of exploration and
@@ -71,7 +80,7 @@ export default function AboutPage() {
               A new chapter built on everything that came before, with new opportunities ahead
               for anglers, partners and the wider fishing community.
             </p>
-            <p className="font-serif italic text-abyss text-center pt-2">
+            <p className="font-serif italic text-[#D4D4D4] text-lg md:text-xl text-center pt-2">
               The journey continues, but the destination is bigger than ever.
             </p>
           </div>
