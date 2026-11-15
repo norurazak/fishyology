@@ -1980,13 +1980,13 @@ function GamePageContent() {
             {t('about.title')}
           </h2>
 
-          <dl className="grid grid-cols-3 gap-4 w-full max-w-xl mb-8">
+          <dl className="grid grid-cols-3 gap-3 sm:gap-4 w-full mb-8">
             {[
               { value: '20', label: t('about.species') },
               { value: '3', label: t('about.tides') },
               { value: 'S1', label: t('about.live') },
             ].map(({ value, label }) => (
-              <div key={label} className="flex flex-col-reverse items-center gap-1 border border-[#1C2733] bg-[#0A1017] rounded-lg px-3 py-4">
+              <div key={label} className="flex flex-col-reverse items-center justify-end gap-1.5 border border-[#1C2733] bg-[#0A1017] rounded-lg px-3 py-5 text-center">
                 <dt className="text-xs uppercase tracking-widest text-[#7C8B9C]">{label}</dt>
                 <dd className="fs-num text-2xl md:text-3xl font-bold text-[#E6EDF3]">{value}</dd>
               </div>
