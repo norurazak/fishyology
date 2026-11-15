@@ -1186,6 +1186,24 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
                 </div>
               </div>
             )}
+
+            {/* Retrieve: reeling all the way up from a deep drop takes a long hold, so this
+                does what reaching the surface does (resetDrop) straight away. Only while the
+                jig is sinking or on the bottom, never once a fish is on. onPointerDown keeps
+                the tap from also counting as a tap on the water; onClick covers keyboards. */}
+            {(gameState === 'DROPPING' || gameState === 'BOTTOM') && !tutorialOpen && (
+              <div className="absolute right-4 bottom-[5%] pointer-events-auto">
+                <button
+                  type="button"
+                  aria-label="Retrieve the jig and reset the drop"
+                  className="min-h-[46px] px-5 bg-[#0D141B] border border-[#1C2733] text-[#E6EDF3] hover:border-[#4A5A69] active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1]"
+                  onPointerDown={(e) => { e.stopPropagation(); resetDrop(); }}
+                  onClick={resetDrop}
+                >
+                  <span className="fs-label !text-[#E6EDF3]">&#8593; Retrieve</span>
+                </button>
+              </div>
+            )}
           </div>
         )}
 
