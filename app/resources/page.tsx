@@ -104,7 +104,7 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "Spinning, baitcasting, overhead, and electric — sizing your first setup starts below.",
     meta: "Scroll to Guides",
     icon: Ruler,
-    iconBg: "#0077C0",
+    iconBg: "#121212",
     iconColor: "#FFFFFF",
     href: "#rod-reel-sizing",
   },
@@ -132,7 +132,7 @@ const gettingStarted: GettingStartedEntry[] = [
     summary: "No license, no bag limit, no closed season — the regulatory landscape as it stands.",
     meta: "Field Report",
     icon: IdCard,
-    iconBg: "#408A71",
+    iconBg: "#121212",
     iconColor: "#FFFFFF",
     href: "/blog/malaysia-recreational-fishing-license-gap",
   },
@@ -152,12 +152,12 @@ const HERO_IMAGE =
 
 export default function ResourcesPage() {
   return (
-    <div className="min-h-screen bg-[#FFFFFF]">
+    <div className="min-h-screen bg-[#FFFFFF] selection:bg-tuna selection:text-white">
       {/* HERO */}
       <section className="relative h-[100dvh] min-h-[600px] w-full bg-abyss overflow-hidden">
         <img
           {...cloudinaryImage(HERO_IMAGE, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })}
-          alt="Fishyology Resources"
+          alt=""
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />
         <div className="absolute inset-0 bg-abyss/20 mix-blend-multiply" />
@@ -170,10 +170,10 @@ export default function ResourcesPage() {
         </svg>
 
         <div className="absolute bottom-24 md:bottom-32 left-0 w-full px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-start">
-          <span className="text-[#C7EEFF] font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
+          <span className="text-[#FFFFFF]/85 font-bold tracking-widest uppercase mb-4 text-sm md:text-base drop-shadow-md">
             Field Reference
           </span>
-          <h1 className="text-5xl md:text-8xl lg:text-[9rem] leading-[0.85] font-black text-[#FFFFFF] tracking-tighter uppercase mb-6 drop-shadow-2xl max-w-6xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] font-extrabold text-[#FFFFFF] tracking-tight uppercase mb-5 drop-shadow-2xl max-w-5xl text-balance">
             Resources
           </h1>
           <p className="text-lg md:text-2xl text-[#FFFFFF]/90 max-w-3xl font-medium mb-10 leading-relaxed drop-shadow-md">
@@ -182,20 +182,20 @@ export default function ResourcesPage() {
           </p>
           <Link
             href="#rod-reel-sizing"
-            className="group relative inline-flex items-center gap-3 bg-[#FFFFFF] text-abyss px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shadow-2xl"
+            className="btn-primary group relative inline-flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-bold text-lg hover:scale-[1.03] shadow-2xl"
           >
             <span className="relative z-10">Explore the Guides</span>
-            <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight aria-hidden="true" className="w-5 h-5 relative z-10 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-16 pt-20 md:pt-28 pb-32">
+      <div className="max-w-7xl mx-auto px-6 md:px-16 pt-14 md:pt-16 pb-16 md:pb-20">
 
         {/* GETTING STARTED — beginner icon/box grid */}
-        <div className="mb-20 scroll-mt-32" id="getting-started">
-          <div className="mb-10 md:mb-14">
-            <span className="text-[#0077C0] font-bold tracking-widest uppercase mb-3 block text-sm">
+        <div className="mb-14 scroll-mt-32" id="getting-started">
+          <div className="mb-6 md:mb-8">
+            <span className="text-abyss/70 font-bold tracking-widest uppercase mb-3 block text-sm">
               Getting Started
             </span>
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-abyss mb-4">
@@ -207,8 +207,8 @@ export default function ResourcesPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {gettingStarted.map((item) => {
-              const cardClassName = `group bg-white border border-abyss/10 rounded-xl shadow-sm p-6 flex items-start gap-4 transition-all duration-300 ${
-                item.href ? "hover:shadow-md" : "opacity-70"
+              const cardClassName = `group bg-white border border-abyss/10 rounded-xl p-6 flex items-start gap-4 ${
+                item.href ? `shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]` : "shadow-sm"
               }`;
 
               const cardInner = (
@@ -217,24 +217,24 @@ export default function ResourcesPage() {
                     className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: item.iconBg }}
                   >
-                    <item.icon className="w-6 h-6" style={{ color: item.iconColor }} />
+                    <item.icon aria-hidden="true" className="w-6 h-6" style={{ color: item.iconColor }} />
                   </div>
                   <div>
                     <h3
                       className={`font-serif italic text-lg text-abyss font-bold ${
-                        item.href ? "group-hover:text-[#0077C0] transition-colors" : ""
+                        item.href ? "group-hover:underline underline-offset-4" : ""
                       }`}
                     >
                       {item.title}
                     </h3>
                     <p className="text-sm text-abyss/60 mt-1 leading-relaxed">{item.summary}</p>
                     {item.href ? (
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#0077C0] mt-2 inline-block">
+                      <span className="text-xs font-bold uppercase tracking-widest text-tuna-on-light mt-2 inline-block">
                         {item.meta}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-abyss/40 mt-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-abyss/40 animate-pulse"></span>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss/60 mt-2">
+                        <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-abyss/40 motion-safe:animate-pulse"></span>
                         {item.meta}
                       </span>
                     )}
@@ -263,7 +263,7 @@ export default function ResourcesPage() {
           <div
             key={category}
             id={category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
-            className="mb-16 scroll-mt-32"
+            className="mb-12 last:mb-0 scroll-mt-32"
           >
             <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-abyss mb-6">{category}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -273,33 +273,33 @@ export default function ResourcesPage() {
                   <Link
                     key={r.slug}
                     href={r.href}
-                    className="group flex flex-col bg-white border border-abyss/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                    className="group flex flex-col bg-white border border-abyss/10 rounded-xl shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]"
                   >
                     <div className="relative aspect-[4/3] bg-abyss flex items-center justify-center overflow-hidden">
                       {r.image ? (
                         <img
                           {...cloudinaryImage(r.image, { sizes: "(max-width: 768px) 100vw, 33vw", quality: "auto:best" })}
-                          alt={r.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover"
                         />
                       ) : (
                         <>
-                          <div className="absolute top-0 right-0 w-40 h-40 bg-[#0077C0]/25 rounded-full blur-[60px] -translate-y-1/3 translate-x-1/4" />
-                          <Wrench className="w-12 h-12 text-[#C7EEFF] relative z-10" strokeWidth={1.5} />
+                          <div className="absolute top-0 right-0 w-40 h-40 bg-tuna/20 rounded-full blur-[60px] -translate-y-1/3 translate-x-1/4" />
+                          <Wrench aria-hidden="true" className="w-12 h-12 text-[#FFFFFF]/70 relative z-10" strokeWidth={1.5} />
                         </>
                       )}
                     </div>
                     <div className="flex flex-col flex-1 p-6">
-                      <span className="inline-block self-start bg-[#C7EEFF]/50 text-[#0077C0] text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md mb-3">
+                      <span className="inline-block self-start bg-abyss/5 text-abyss/80 text-xs font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md mb-3">
                         {r.tag}
                       </span>
-                      <h3 className="text-xl font-serif font-bold text-abyss leading-tight group-hover:text-[#0077C0] transition-colors mb-2">
+                      <h3 className="text-xl font-serif font-bold text-abyss leading-tight group-hover:underline underline-offset-4 mb-2">
                         {r.title}
                       </h3>
                       <p className="text-sm text-abyss/60 leading-relaxed line-clamp-3 flex-1">{r.summary}</p>
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss mt-4">
                         Read the guide
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
                       </span>
                     </div>
                   </Link>
