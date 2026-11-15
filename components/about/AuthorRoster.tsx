@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { usePitch } from "@/components/about/PitchContext";
+import PitchForm from "@/components/about/PitchForm";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -66,7 +66,20 @@ const authorsData: Author[] = [
   },
 ];
 
-function AuthorModal({ author, onClose }: { author: Author; onClose: () => void }) {
+/** Accessible modal shell shared by the profiles and the pitch form: focus moves to
+ *  the close button, Tab is trapped inside, Escape closes, and focus returns to the
+ *  card that opened it. */
+function ModalShell({
+  titleId,
+  closeLabel,
+  onClose,
+  children,
+}: {
+  titleId: string;
+  closeLabel: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -123,7 +136,7 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="author-modal-title"
+        aria-labelledby={titleId}
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -135,60 +148,94 @@ function AuthorModal({ author, onClose }: { author: Author; onClose: () => void 
           ref={closeButtonRef}
           type="button"
           onClick={onClose}
-          aria-label={`Close ${author.name} profile`}
+          aria-label={closeLabel}
           className="absolute top-6 right-6 flex h-11 w-11 items-center justify-center bg-abyss/5 hover:bg-abyss/10 text-abyss rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss"
         >
           <X size={20} />
         </button>
 
-        <div className="flex flex-col md:flex-row gap-8 items-start">
-          <div className="relative w-full md:w-1/3 aspect-square rounded-lg overflow-hidden shrink-0">
-            <Image
-              src={author.image}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 88vw, 220px"
-              className="object-cover"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-abyss/70 text-xs font-black uppercase tracking-widest block mb-2">
-              {author.role}
-            </span>
-            <h3
-              id="author-modal-title"
-              className="text-4xl font-serif font-bold text-abyss mb-6 leading-tight"
-            >
-              {author.name}
-            </h3>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {author.specialties.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-abyss/5 text-abyss/80 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <p className="text-abyss/80 leading-relaxed font-medium">{author.fullBio}</p>
-          </div>
-        </div>
+        {children}
       </motion.div>
     </motion.div>
   );
 }
 
+function AuthorModal({ author, onClose }: { author: Author; onClose: () => void }) {
+  return (
+    <ModalShell titleId="author-modal-title" closeLabel={`Close ${author.name} profile`} onClose={onClose}>
+      <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div className="relative w-full md:w-1/3 aspect-square rounded-lg overflow-hidden shrink-0">
+          <Image
+            src={author.image}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 88vw, 220px"
+            className="object-cover"
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-abyss/70 text-xs font-black uppercase tracking-widest block mb-2">
+            {author.role}
+          </span>
+          <h3
+            id="author-modal-title"
+            className="text-4xl font-serif font-bold text-abyss mb-6 leading-tight"
+          >
+            {author.name}
+          </h3>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {author.specialties.map((tag) => (
+              <span
+                key={tag}
+                className="bg-abyss/5 text-abyss/80 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <p className="text-abyss/80 leading-relaxed font-medium">{author.fullBio}</p>
+        </div>
+      </div>
+    </ModalShell>
+  );
+}
+
+/** The call for contributors, opened from the "Future Contributor" card. It carries
+ *  the copy and form that used to live in their own section further down the page. */
+function PitchModal({ onClose }: { onClose: () => void }) {
+  return (
+    <ModalShell titleId="pitch-modal-title" closeLabel="Close the pitch form" onClose={onClose}>
+      <span className="text-abyss/70 text-xs font-black uppercase tracking-widest block mb-2">
+        Get Hooked With Us
+      </span>
+      <h3 id="pitch-modal-title" className="text-3xl md:text-4xl font-serif font-bold text-abyss leading-tight mb-4 pr-12">
+        Tell your story.
+        <span className="block italic font-normal text-tuna-on-light">Inspire the next cast.</span>
+      </h3>
+      <p className="text-abyss/80 leading-relaxed font-medium mb-6">
+        Passionate anglers, conservationists, and storytellers — if you have a trip report or
+        strategy worth sharing, we want to publish it in the Fishyology Journal.
+      </p>
+      <PitchForm />
+    </ModalShell>
+  );
+}
+
 export default function AuthorRoster() {
   const [selectedAuthor, setSelectedAuthor] = useState<Author | null>(null);
-  const { open: openPitch } = usePitch();
+  const [pitchOpen, setPitchOpen] = useState(false);
+
+  // The home page's "Pitch your story" links to /about#pitch-section, which lands on
+  // this roster; open the form straight away so the link does what it says.
+  useEffect(() => {
+    if (window.location.hash === "#pitch-section") setPitchOpen(true);
+  }, []);
 
   const handleCardClick = (author: Author) => {
     if (author.isActionCard) {
-      openPitch();
-      document.getElementById("pitch-section")?.scrollIntoView({ behavior: "smooth" });
+      setPitchOpen(true);
       return;
     }
     setSelectedAuthor(author);
@@ -237,8 +284,9 @@ export default function AuthorRoster() {
 
       <AnimatePresence>
         {selectedAuthor && (
-          <AuthorModal author={selectedAuthor} onClose={() => setSelectedAuthor(null)} />
+          <AuthorModal key="author" author={selectedAuthor} onClose={() => setSelectedAuthor(null)} />
         )}
+        {pitchOpen && <PitchModal key="pitch" onClose={() => setPitchOpen(false)} />}
       </AnimatePresence>
     </>
   );

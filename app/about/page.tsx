@@ -3,8 +3,6 @@ import AboutHero from "@/components/about/AboutHero";
 import Timeline from "@/components/about/Timeline";
 import PlateGallery from "@/components/about/PlateGallery";
 import AuthorRoster from "@/components/about/AuthorRoster";
-import PitchSection from "@/components/about/PitchSection";
-import { PitchProvider } from "@/components/about/PitchContext";
 
 export default function AboutPage() {
   const plates = getGalleryPlates();
@@ -113,44 +111,20 @@ export default function AboutPage() {
         </section>
       )}
 
-      <PitchProvider>
-        {/* 4. THE AUTHORS */}
-        <section className="py-12 md:py-14 px-6 md:px-16 max-w-7xl mx-auto">
-          <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
-              The Roster
-            </h2>
-            <p className="text-abyss/60 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-              Meet the anglers and writers documenting the Malaysian waters.
-            </p>
-          </div>
-          <AuthorRoster />
-        </section>
-
-        {/* 5. CALL FOR WRITERS CTA */}
-        <section id="pitch-section" className="relative py-14 md:py-16 px-6 overflow-hidden">
-          <div className="absolute inset-0 bg-abyss z-0" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] md:w-[600px] md:h-[600px] bg-tuna/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-
-          <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-            <span className="text-[#FFFFFF]/85 font-bold tracking-widest uppercase mb-3 block text-sm">
-              Get Hooked With Us
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-[#FFFFFF] uppercase tracking-tight leading-[1.1] mb-4">
-              Tell your story. <br />
-              <span className="text-tuna-on-dark italic font-serif lowercase tracking-normal">
-                Inspire the next cast.
-              </span>
-            </h2>
-            <p className="text-[#FFFFFF]/70 text-lg md:text-xl font-medium max-w-2xl mb-8">
-              Passionate anglers, conservationists, and storytellers — if you have a trip report
-              or strategy worth sharing, we want to publish it in the Fishyology Journal.
-            </p>
-
-            <PitchSection />
-          </div>
-        </section>
-      </PitchProvider>
+      {/* 4. THE AUTHORS. The "Future Contributor" card opens the pitch form in a modal,
+          which replaced the separate call-for-writers section. The id keeps the home
+          page's /about#pitch-section link landing here (and opening the form). */}
+      <section id="pitch-section" className="scroll-mt-28 py-12 md:py-14 px-6 md:px-16 max-w-7xl mx-auto">
+        <div className="text-center mb-6 md:mb-8">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-abyss mb-4">
+            The Roster
+          </h2>
+          <p className="text-abyss/60 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+            Meet the anglers and writers documenting the Malaysian waters.
+          </p>
+        </div>
+        <AuthorRoster />
+      </section>
     </div>
   );
 }
