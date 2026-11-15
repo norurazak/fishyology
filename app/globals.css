@@ -152,3 +152,39 @@ html {
     animation-delay: 0.32s;
   }
 }
+
+/* Catch card: entrance, a static gloss, and the moving shine on Trophy and Legendary. */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes card-shine {
+  to { transform: translateX(100%); }
+}
+@keyframes card-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px #121212, 0 0 22px var(--tier-glow); }
+  50% { box-shadow: 0 0 0 2px #121212, 0 0 46px var(--tier-glow); }
+}
+/* A fixed diagonal reflection across the top-left, like light on a foil card. */
+.card-gloss::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.07) 26%, transparent 44%);
+  pointer-events: none;
+  z-index: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card-shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.32) 50%, transparent 62%);
+    transform: translateX(-100%);
+    animation: card-shine 3.6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .card-shine-fast::after { animation-duration: 2.2s; }
+  .card-pulse { animation: card-in 0.5s ease-out, card-pulse 2.4s ease-in-out 0.5s infinite; }
+}
