@@ -1808,7 +1808,7 @@ function GamePageContent() {
 
         <div className="relative z-10 max-w-3xl mx-auto px-6 text-center mt-16 flex flex-col items-center">
           <LanguageToggle className="mb-5" />
-          <span className="text-[#4DD0E1] text-sm md:text-base font-bold tracking-widest uppercase mb-3 block drop-shadow-md">
+          <span className="mb-4 inline-flex items-center rounded-full border border-tuna/70 bg-[#05070A]/85 px-4 py-1.5 text-sm md:text-base font-bold tracking-widest uppercase text-tuna-on-dark shadow-lg backdrop-blur-md">
             {t('hero.subtitle')}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase text-white drop-shadow-2xl leading-[0.95] text-balance">
