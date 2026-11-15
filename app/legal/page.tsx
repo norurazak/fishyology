@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShieldCheck, Scale, Lock, ArrowLeft } from "lucide-react";
 
@@ -21,6 +21,30 @@ const legalDocs = [
     `
   },
   {
+    id: "game-rules",
+    title: "Game Rules",
+    icon: <ShieldCheck className="w-5 h-5" />,
+    content: `
+      ## 1. Playing the game
+      Jigging Master is a free game by Fishyology. You can play as a guest. To appear on the leaderboard, sign in with Google and create a profile.
+
+      ## 2. Seasons and ranking
+      Each season runs between the start and end dates shown on the game page (Season 1: 15 November to 31 December 2026, Malaysia time). Players are ranked by their single heaviest catch of the season. We may change the dates or rules, and will update this page when we do.
+
+      ## 3. Fair play
+      Do not use bots, scripts, modified code or other tools, or exploit bugs, to post catches, and do not post catches for another player. Catches are checked automatically and may also be reviewed by hand. We may remove catches or profiles and disqualify any player we believe has cheated, and our decision is final.
+
+      ## 4. Prizes
+      Any prize, and how winners are chosen and contacted, will be announced by Fishyology. Winners are contacted at the Google email they signed in with and must reply within the time given, or the prize may go to the next player. Prizes are not transferable and have no cash alternative unless we say so.
+
+      ## 5. Our property
+      The game, its code, artwork, text and design belong to Fishyology and are protected by copyright. You may play it, but you may not copy it, redistribute it, scrape it, reverse engineer it, build a competing game from it or use it commercially without our written permission.
+
+      ## 6. Your profile
+      Your display name, state, avatar and catches are shown publicly on the leaderboard. Your Google email is not shown. See our Privacy Policy.
+    `
+  },
+  {
     id: "privacy",
     title: "Privacy Policy",
     icon: <Lock className="w-5 h-5" />,
@@ -33,6 +57,12 @@ const legalDocs = [
 
       ## 3. Cookies
       We use basic analytical cookies (Google Analytics) to understand site traffic. These do not track personal identifying information.
+
+      ## 4. Jigging Master accounts
+      If you sign in to Jigging Master with Google, we use your Google account only to log you in. Your email is kept privately with the login service and is never shown on the leaderboard; we use it only to contact prize winners. The display name, state, avatar and catch records you create are public on the leaderboard.
+
+      ## 5. Spam protection
+      Our forms may use Cloudflare Turnstile to block spam. It may process technical information from your browser to tell people from bots.
     `
   }
 ];
@@ -40,17 +70,23 @@ const legalDocs = [
 export default function LegalPage() {
   const [activeDoc, setActiveDoc] = useState(0);
 
+  // /legal#game-rules (or #terms, #privacy) opens that document.
+  useEffect(() => {
+    const index = legalDocs.findIndex((doc) => doc.id === window.location.hash.slice(1));
+    if (index >= 0) setActiveDoc(index);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-abyss pt-40 pb-20 selection:bg-[#0077C0] selection:text-white">
+    <div className="min-h-screen bg-[#FFFFFF] text-abyss pt-40 pb-20 selection:bg-tuna selection:text-white">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Navigation / Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-abyss/40 hover:text-[#0077C0] transition-colors mb-4">
+            <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-abyss/70 hover:text-tuna-on-light transition-colors mb-4">
               <ArrowLeft className="w-4 h-4" /> Return to Port
             </Link>
-            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">Legal <br/><span className="text-[#0077C0]">& Compliance.</span></h1>
+            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">Legal <br/><span className="text-tuna">& Compliance.</span></h1>
           </div>
           <div className="flex gap-2">
             {legalDocs.map((doc, index) => (
@@ -60,7 +96,7 @@ export default function LegalPage() {
                 className={`px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-widest transition-all ${
                   activeDoc === index 
                     ? "bg-abyss text-white shadow-lg" 
-                    : "bg-white border border-abyss/10 text-abyss/50 hover:border-abyss/30"
+                    : "bg-white border border-abyss/10 text-abyss/70 hover:border-abyss/30"
                 }`}
               >
                 {doc.title}
@@ -71,7 +107,7 @@ export default function LegalPage() {
 
         {/* Content Area */}
         <div className="bg-white border border-abyss/5 rounded-[2.5rem] p-8 md:p-16 shadow-xl">
-          <div className="flex items-center gap-3 mb-8 text-[#408A71]">
+          <div className="flex items-center gap-3 mb-8 text-abyss/70">
             <ShieldCheck className="w-6 h-6" />
             <span className="font-black uppercase tracking-widest text-sm">Official Fishyology Documentation</span>
           </div>
@@ -92,8 +128,8 @@ export default function LegalPage() {
           </div>
         </div>
 
-        <div className="mt-12 text-center text-abyss/40 text-xs font-bold uppercase tracking-[0.2em]">
-          Last Updated: April 2026
+        <div className="mt-12 text-center text-abyss/70 text-xs font-bold uppercase tracking-[0.2em]">
+          Last Updated: November 2026
         </div>
       </div>
     </div>

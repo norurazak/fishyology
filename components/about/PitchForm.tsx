@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import TurnstileField, { TURNSTILE_ENABLED } from "@/components/TurnstileField";
 
 const INPUT =
   "w-full bg-white border border-abyss/15 rounded-lg px-4 py-3 text-abyss placeholder:text-abyss/60 focus:outline-none focus:border-abyss focus:ring-2 focus:ring-abyss/15 transition-colors";
@@ -12,15 +13,23 @@ const INPUT =
 export default function PitchForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState("");
+  const [resetKey, setResetKey] = useState(0);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (TURNSTILE_ENABLED && !token) {
+      setStatus("error");
+      setMessage("Please complete the security check.");
+      return;
+    }
     setStatus("loading");
     setMessage("");
 
     const formData = new FormData(e.currentTarget);
     formData.append("access_key", "1b489a29-4789-4f82-ae2b-77ff5829c0d8");
     formData.append("subject", "New Story Pitch from Fishyology!");
+    if (TURNSTILE_ENABLED) formData.append("cf-turnstile-response", token);
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -40,6 +49,11 @@ export default function PitchForm() {
     } catch {
       setStatus("error");
       setMessage("Check your internet connection and try again.");
+    }
+    // A Turnstile token works once, so a failed attempt needs a fresh check.
+    if (TURNSTILE_ENABLED) {
+      setToken("");
+      setResetKey((k) => k + 1);
     }
   }
 
@@ -79,6 +93,7 @@ export default function PitchForm() {
           className={`${INPUT} resize-none`}
         />
       </div>
+      <TurnstileField onToken={setToken} resetKey={resetKey} theme="light" />
       <button
         type="submit"
         disabled={status === "loading"}

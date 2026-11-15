@@ -2,19 +2,29 @@
 
 import { useState } from "react";
 import { ArrowRight, Loader2 } from "lucide-react";
+import Link from "next/link";
+import TurnstileField, { TURNSTILE_ENABLED } from "@/components/TurnstileField";
 
 export default function SiteFooter() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState("");
+  const [resetKey, setResetKey] = useState(0);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (TURNSTILE_ENABLED && !token) {
+      setStatus("error");
+      setMessage("Please complete the security check.");
+      return;
+    }
     setStatus("loading");
     setMessage("");
 
     const formData = new FormData(e.currentTarget);
     formData.append("access_key", "1b489a29-4789-4f82-ae2b-77ff5829c0d8");
     formData.append("subject", "New Fishyology Subscriber!");
+    if (TURNSTILE_ENABLED) formData.append("cf-turnstile-response", token);
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -34,6 +44,11 @@ export default function SiteFooter() {
     } catch (error) {
       setStatus("error");
       setMessage("Check your internet connection.");
+    }
+    // A Turnstile token works once, so a failed attempt needs a fresh check.
+    if (TURNSTILE_ENABLED) {
+      setToken("");
+      setResetKey((k) => k + 1);
     }
   }
 
@@ -81,6 +96,7 @@ export default function SiteFooter() {
                 )}
               </button>
             </form>
+            <TurnstileField onToken={setToken} resetKey={resetKey} theme="dark" />
             {status === "error" && (
               <p className="text-red-500/80 text-xs font-medium text-left pl-4">{message}</p>
             )}
@@ -102,6 +118,8 @@ export default function SiteFooter() {
       {/* 3. Copyright Bar */}
       <div className="mt-20 text-white/20 text-[10px] font-bold tracking-[0.2em] uppercase z-10 w-full text-center px-6">
         &copy; {new Date().getFullYear()} Fishyology Malaysia. All Rights Reserved.
+        <span aria-hidden="true"> · </span>
+        <Link href="/legal" className="text-white/60 hover:text-white transition-colors">Terms &amp; Privacy</Link>
       </div>
 
     </footer>
