@@ -31,29 +31,54 @@ create table if not exists public.catch_rules (
 alter table public.catch_rules enable row level security;
 
 insert into public.catch_rules (species, min_weight, max_weight, min_depth, max_depth) values
-  ('Kembong', 0.1, 0.8, 0, 40),
-  ('Queenfish', 1.0, 8.0, 0, 50),
-  ('Mahi-Mahi', 2.0, 18.0, 0, 60),
-  ('Barracuda', 2.0, 15.0, 5, 70),
-  ('Tenggiri', 3.0, 25.0, 10, 80),
-  ('Rainbow Runner', 1.0, 9.0, 15, 90),
-  ('Golden Trevally', 4.0, 22.0, 30, 110),
-  ('Cobia', 6.0, 35.0, 20, 120),
-  ('Coral Trout', 2.0, 14.0, 40, 140),
-  ('Giant Trevally', 8.0, 45.0, 40, 160),
-  ('Sailfish', 15.0, 60.0, 30, 150),
-  ('Green Jobfish', 3.0, 16.0, 100, 200),
-  ('Dogtooth Tuna', 10.0, 60.0, 60, 180),
-  ('Amberjack', 8.0, 40.0, 80, 200),
-  ('Ruby Snapper', 4.0, 25.0, 150, 280),
-  ('Rosy Jobfish', 3.0, 18.0, 160, 290),
-  ('Barramundi Cod', 8.0, 45.0, 150, 260),
-  ('Deepwater Amberjack', 12.0, 55.0, 180, 300),
-  ('Oilfish', 10.0, 50.0, 200, 300),
-  ('Giant Grouper', 20.0, 120.0, 180, 300)
+  ('Kembong', 0.1, 0.8, 0, 90),
+  ('Queenfish', 1, 16, 0, 50),
+  ('Mahi-Mahi', 2, 40, 0, 85),
+  ('Barracuda', 2, 50, 0, 100),
+  ('Tenggiri', 3, 70, 10, 70),
+  ('Rainbow Runner', 1, 46, 0, 150),
+  ('Golden Trevally', 4, 15, 0, 80),
+  ('Cobia', 6, 68, 0, 70),
+  ('Coral Trout', 2, 24, 3, 100),
+  ('Giant Trevally', 8, 80, 10, 188),
+  ('Sailfish', 15, 100, 0, 200),
+  ('Green Jobfish', 3, 15.4, 3, 180),
+  ('Dogtooth Tuna', 10, 131, 10, 200),
+  ('Amberjack', 8, 80, 1, 300),
+  ('Ruby Snapper', 4, 25, 90, 300),
+  ('Rosy Jobfish', 3, 8.2, 40, 300),
+  ('Eightbar Grouper', 8, 80, 150, 300),
+  ('Almaco Jack', 12, 60, 5, 160),
+  ('Oilfish', 10, 63.5, 100, 300),
+  ('Giant Grouper', 20, 400, 180, 300)
 on conflict (species) do update set
   min_weight = excluded.min_weight, max_weight = excluded.max_weight,
   min_depth  = excluded.min_depth,  max_depth  = excluded.max_depth;
+
+-- Species that were removed or renamed in the game stop being accepted. (Catches already
+-- saved under an old name stay as they are; only new ones are checked.)
+delete from public.catch_rules where species not in (
+  'Kembong',
+  'Queenfish',
+  'Mahi-Mahi',
+  'Barracuda',
+  'Tenggiri',
+  'Rainbow Runner',
+  'Golden Trevally',
+  'Cobia',
+  'Coral Trout',
+  'Giant Trevally',
+  'Sailfish',
+  'Green Jobfish',
+  'Dogtooth Tuna',
+  'Amberjack',
+  'Ruby Snapper',
+  'Rosy Jobfish',
+  'Eightbar Grouper',
+  'Almaco Jack',
+  'Oilfish',
+  'Giant Grouper'
+);
 
 -- 2. Check every new catch before it is stored.
 create or replace function public.validate_catch()

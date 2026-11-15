@@ -110,26 +110,26 @@ const TUTORIAL_STEPS: TutorialStep[] = [
 
 // --- FISH DATABASE ---
 const FISH_SPECIES: Fish[] = [
-  { name: "Kembong", archetype: "Panfish", tip: "Light and jittery — just keep steady tension.", minDepth: 0, maxDepth: 40, pullStr: 0.020, erratic: 0.16, aggression: 0.12, stamina: 0.12, runFrames: 40, weightMin: 0.1, weightMax: 0.8, color: "text-slate-300" },
-  { name: "Queenfish", archetype: "Speedster", tip: "Fast, flashy runs — yield and let it tire.", minDepth: 0, maxDepth: 50, pullStr: 0.030, erratic: 0.15, aggression: 0.45, stamina: 0.35, runFrames: 80, weightMin: 1, weightMax: 8, color: "text-cyan-300" },
-  { name: "Mahi-Mahi", archetype: "Acrobat", tip: "Jumpy sprinter. Expect several short runs.", minDepth: 0, maxDepth: 60, pullStr: 0.035, erratic: 0.13, aggression: 0.55, stamina: 0.40, runFrames: 80, weightMin: 2, weightMax: 18, color: "text-green-400" },
-  { name: "Barracuda", archetype: "Ambusher", tip: "Violent first burst, then fades quickly.", minDepth: 5, maxDepth: 70, pullStr: 0.045, erratic: 0.11, aggression: 0.50, stamina: 0.30, runFrames: 70, weightMin: 2, weightMax: 15, color: "text-teal-300" },
-  { name: "Tenggiri", archetype: "Screamer", tip: "Blistering initial run — do NOT reel into it.", minDepth: 10, maxDepth: 80, pullStr: 0.040, erratic: 0.12, aggression: 0.70, stamina: 0.45, runFrames: 100, weightMin: 3, weightMax: 25, color: "text-sky-400" },
-  { name: "Rainbow Runner", archetype: "Speedster", tip: "Quick and light — smooth pressure wins.", minDepth: 15, maxDepth: 90, pullStr: 0.035, erratic: 0.14, aggression: 0.50, stamina: 0.35, runFrames: 80, weightMin: 1, weightMax: 9, color: "text-lime-300" },
-  { name: "Golden Trevally", archetype: "Bulldog", tip: "Strong and steady. Reel between head-shakes.", minDepth: 30, maxDepth: 110, pullStr: 0.055, erratic: 0.07, aggression: 0.45, stamina: 0.55, runFrames: 110, weightMin: 4, weightMax: 22, color: "text-yellow-400" },
-  { name: "Cobia", archetype: "Grinder", tip: "Dogged, tireless pull. A patience fight.", minDepth: 20, maxDepth: 120, pullStr: 0.060, erratic: 0.06, aggression: 0.40, stamina: 0.60, runFrames: 120, weightMin: 6, weightMax: 35, color: "text-stone-300" },
-  { name: "Coral Trout", archetype: "Reef Diver", tip: "Bolts for structure — turn its head fast.", minDepth: 40, maxDepth: 140, pullStr: 0.070, erratic: 0.05, aggression: 0.40, stamina: 0.40, runFrames: 60, weightMin: 2, weightMax: 14, color: "text-orange-400" },
-  { name: "Giant Trevally", archetype: "Brute", tip: "Relentless bulldog. Multiple heavy runs.", minDepth: 40, maxDepth: 160, pullStr: 0.078, erratic: 0.06, aggression: 0.65, stamina: 0.75, runFrames: 160, weightMin: 8, weightMax: 45, color: "text-slate-200" },
-  { name: "Sailfish", archetype: "Marathoner", tip: "Long screaming runs. Give line, stay patient.", minDepth: 30, maxDepth: 150, pullStr: 0.050, erratic: 0.10, aggression: 0.80, stamina: 0.85, runFrames: 200, weightMin: 15, weightMax: 60, color: "text-indigo-300" },
-  { name: "Green Jobfish", archetype: "Speedster", tip: "Fast for its depth — react to sudden darts.", minDepth: 100, maxDepth: 200, pullStr: 0.050, erratic: 0.09, aggression: 0.50, stamina: 0.50, runFrames: 90, weightMin: 3, weightMax: 16, color: "text-emerald-400" },
-  { name: "Dogtooth Tuna", archetype: "Reef Cutter", tip: "Explosive first run that cuts you off. Yield!", minDepth: 60, maxDepth: 180, pullStr: 0.088, erratic: 0.07, aggression: 0.85, stamina: 0.70, runFrames: 150, weightMin: 10, weightMax: 60, color: "text-blue-400" },
-  { name: "Amberjack", archetype: "Grinder", tip: "Dives hard for the bottom. Endurance battle.", minDepth: 80, maxDepth: 200, pullStr: 0.070, erratic: 0.05, aggression: 0.55, stamina: 0.80, runFrames: 150, weightMin: 8, weightMax: 40, color: "text-amber-400" },
-  { name: "Ruby Snapper", archetype: "Deep Steady", tip: "Slow, heavy, honest pull. Grind it up.", minDepth: 150, maxDepth: 280, pullStr: 0.052, erratic: 0.04, aggression: 0.35, stamina: 0.50, runFrames: 90, weightMin: 4, weightMax: 25, color: "text-rose-400" },
-  { name: "Rosy Jobfish", archetype: "Deep Steady", tip: "Deep and dogged, but predictable.", minDepth: 160, maxDepth: 290, pullStr: 0.055, erratic: 0.05, aggression: 0.40, stamina: 0.55, runFrames: 100, weightMin: 3, weightMax: 18, color: "text-pink-300" },
-  { name: "Barramundi Cod", archetype: "Reef Diver", tip: "Immense structure diver. Never give slack.", minDepth: 150, maxDepth: 260, pullStr: 0.082, erratic: 0.03, aggression: 0.40, stamina: 0.50, runFrames: 70, weightMin: 8, weightMax: 45, color: "text-orange-300" },
-  { name: "Deepwater Amberjack", archetype: "Brute", tip: "Deep, huge, tireless. One of the hardest.", minDepth: 180, maxDepth: 300, pullStr: 0.076, erratic: 0.04, aggression: 0.60, stamina: 0.85, runFrames: 170, weightMin: 12, weightMax: 55, color: "text-amber-500" },
-  { name: "Oilfish", archetype: "Dead Weight", tip: "Sluggish but crushing. Pure winch war.", minDepth: 200, maxDepth: 300, pullStr: 0.070, erratic: 0.03, aggression: 0.35, stamina: 0.70, runFrames: 120, weightMin: 10, weightMax: 50, color: "text-neutral-300" },
-  { name: "Giant Grouper", archetype: "Reef Titan", tip: "The boss. It will try to rock you. Max drag.", minDepth: 180, maxDepth: 300, pullStr: 0.082, erratic: 0.02, aggression: 0.50, stamina: 0.60, runFrames: 90, weightMin: 20, weightMax: 120, color: "text-orange-700" },
+  { name: "Kembong", archetype: "Panfish", tip: "Light and jittery — just keep steady tension.", minDepth: 0, maxDepth: 90, pullStr: 0.020, erratic: 0.16, aggression: 0.12, stamina: 0.12, runFrames: 40, weightMin: 0.1, weightMax: 0.8, color: "text-slate-300" },
+  { name: "Queenfish", archetype: "Speedster", tip: "Fast, flashy runs — yield and let it tire.", minDepth: 0, maxDepth: 50, pullStr: 0.030, erratic: 0.15, aggression: 0.45, stamina: 0.35, runFrames: 80, weightMin: 1, weightMax: 16, color: "text-cyan-300" },
+  { name: "Mahi-Mahi", archetype: "Acrobat", tip: "Jumpy sprinter. Expect several short runs.", minDepth: 0, maxDepth: 85, pullStr: 0.035, erratic: 0.13, aggression: 0.55, stamina: 0.40, runFrames: 80, weightMin: 2, weightMax: 40, color: "text-green-400" },
+  { name: "Barracuda", archetype: "Ambusher", tip: "Violent first burst, then fades quickly.", minDepth: 0, maxDepth: 100, pullStr: 0.045, erratic: 0.11, aggression: 0.50, stamina: 0.30, runFrames: 70, weightMin: 2, weightMax: 50, color: "text-teal-300" },
+  { name: "Tenggiri", archetype: "Screamer", tip: "Blistering initial run — do NOT reel into it.", minDepth: 10, maxDepth: 70, pullStr: 0.040, erratic: 0.12, aggression: 0.70, stamina: 0.45, runFrames: 100, weightMin: 3, weightMax: 70, color: "text-sky-400" },
+  { name: "Rainbow Runner", archetype: "Speedster", tip: "Quick and light — smooth pressure wins.", minDepth: 0, maxDepth: 150, pullStr: 0.035, erratic: 0.14, aggression: 0.50, stamina: 0.35, runFrames: 80, weightMin: 1, weightMax: 46, color: "text-lime-300" },
+  { name: "Golden Trevally", archetype: "Bulldog", tip: "Strong and steady. Reel between head-shakes.", minDepth: 0, maxDepth: 80, pullStr: 0.055, erratic: 0.07, aggression: 0.45, stamina: 0.55, runFrames: 110, weightMin: 4, weightMax: 15, color: "text-yellow-400" },
+  { name: "Cobia", archetype: "Grinder", tip: "Dogged, tireless pull. A patience fight.", minDepth: 0, maxDepth: 70, pullStr: 0.060, erratic: 0.06, aggression: 0.40, stamina: 0.60, runFrames: 120, weightMin: 6, weightMax: 68, color: "text-stone-300" },
+  { name: "Coral Trout", archetype: "Reef Diver", tip: "Bolts for structure — turn its head fast.", minDepth: 3, maxDepth: 100, pullStr: 0.070, erratic: 0.05, aggression: 0.40, stamina: 0.40, runFrames: 60, weightMin: 2, weightMax: 24, color: "text-orange-400" },
+  { name: "Giant Trevally", archetype: "Brute", tip: "Relentless bulldog. Multiple heavy runs.", minDepth: 10, maxDepth: 188, pullStr: 0.078, erratic: 0.06, aggression: 0.65, stamina: 0.75, runFrames: 160, weightMin: 8, weightMax: 80, color: "text-slate-200" },
+  { name: "Sailfish", archetype: "Marathoner", tip: "Long screaming runs. Give line, stay patient.", minDepth: 0, maxDepth: 200, pullStr: 0.050, erratic: 0.10, aggression: 0.80, stamina: 0.85, runFrames: 200, weightMin: 15, weightMax: 100, color: "text-indigo-300" },
+  { name: "Green Jobfish", archetype: "Speedster", tip: "Fast for its depth — react to sudden darts.", minDepth: 3, maxDepth: 180, pullStr: 0.050, erratic: 0.09, aggression: 0.50, stamina: 0.50, runFrames: 90, weightMin: 3, weightMax: 15.4, color: "text-emerald-400" },
+  { name: "Dogtooth Tuna", archetype: "Reef Cutter", tip: "Explosive first run that cuts you off. Yield!", minDepth: 10, maxDepth: 200, pullStr: 0.088, erratic: 0.07, aggression: 0.85, stamina: 0.70, runFrames: 150, weightMin: 10, weightMax: 131, color: "text-blue-400" },
+  { name: "Amberjack", archetype: "Grinder", tip: "Dives hard for the bottom. Endurance battle.", minDepth: 1, maxDepth: 300, pullStr: 0.070, erratic: 0.05, aggression: 0.55, stamina: 0.80, runFrames: 150, weightMin: 8, weightMax: 80, color: "text-amber-400" },
+  { name: "Ruby Snapper", archetype: "Deep Steady", tip: "Slow, heavy, honest pull. Grind it up.", minDepth: 90, maxDepth: 300, pullStr: 0.052, erratic: 0.04, aggression: 0.35, stamina: 0.50, runFrames: 90, weightMin: 4, weightMax: 25, color: "text-rose-400" },
+  { name: "Rosy Jobfish", archetype: "Deep Steady", tip: "Deep and dogged, but predictable.", minDepth: 40, maxDepth: 300, pullStr: 0.055, erratic: 0.05, aggression: 0.40, stamina: 0.55, runFrames: 100, weightMin: 3, weightMax: 8.2, color: "text-pink-300" },
+  { name: "Eightbar Grouper", archetype: "Reef Diver", tip: "Immense structure diver. Never give slack.", minDepth: 150, maxDepth: 300, pullStr: 0.082, erratic: 0.03, aggression: 0.40, stamina: 0.50, runFrames: 70, weightMin: 8, weightMax: 80, color: "text-orange-300" },
+  { name: "Almaco Jack", archetype: "Brute", tip: "Huge, tireless. One of the hardest.", minDepth: 5, maxDepth: 160, pullStr: 0.076, erratic: 0.04, aggression: 0.60, stamina: 0.85, runFrames: 170, weightMin: 12, weightMax: 60, color: "text-amber-500" },
+  { name: "Oilfish", archetype: "Dead Weight", tip: "Sluggish but crushing. Pure winch war.", minDepth: 100, maxDepth: 300, pullStr: 0.070, erratic: 0.03, aggression: 0.35, stamina: 0.70, runFrames: 120, weightMin: 10, weightMax: 63.5, color: "text-neutral-300" },
+  { name: "Giant Grouper", archetype: "Reef Titan", tip: "The boss. It will try to rock you. Max drag.", minDepth: 180, maxDepth: 300, pullStr: 0.082, erratic: 0.02, aggression: 0.50, stamina: 0.60, runFrames: 90, weightMin: 20, weightMax: 400, color: "text-orange-700" },
 ];
 
 const COVER_BUBBLES = [
@@ -143,7 +143,7 @@ const COVER_BUBBLES = [
   { left: '91%', size: 5, delay: 5.0, dur: 11.5 },
 ];
 
-const COVER_MARQUEE = ['Giant Grouper', 'Dogtooth Tuna', 'Sailfish', 'Giant Trevally', 'Amberjack', 'Tenggiri', 'Ruby Snapper', 'Barramundi Cod'];
+const COVER_MARQUEE = ['Giant Grouper', 'Dogtooth Tuna', 'Sailfish', 'Giant Trevally', 'Amberjack', 'Tenggiri', 'Ruby Snapper', 'Eightbar Grouper'];
 
 // --- HELPERS ---
 const FRAME_MS = 1000 / 60;
