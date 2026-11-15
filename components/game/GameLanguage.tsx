@@ -72,12 +72,12 @@ export function useGameLanguage() {
   return useContext(GameLanguageContext);
 }
 
-/** BM / BI switch. Each option names its language in full for screen readers. */
+/** Bahasa / English switch. Each option names its language in full for screen readers. */
 export function LanguageToggle({ className = "" }: { className?: string }) {
   const { lang, setLang, t } = useGameLanguage();
   const options: { code: GameLang; short: string; full: string }[] = [
-    { code: "ms", short: "BM", full: "Bahasa Melayu" },
-    { code: "en", short: "BI", full: "English" },
+    { code: "ms", short: "Bahasa", full: "Bahasa Melayu" },
+    { code: "en", short: "English", full: "English" },
   ];
 
   return (
