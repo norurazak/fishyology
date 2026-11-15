@@ -1256,7 +1256,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
               </h2>
 
               <p className="fs-up mt-3 text-center text-[18px] font-semibold uppercase leading-relaxed tracking-[0.24em] text-[#B8C4D0]" style={{ animationDelay: '.32s' }}>
-                Master the water.<br />Conquer the fight.
+                {t('cover.line1')}<br />{t('cover.line2')}
               </p>
 
               <div
@@ -1456,7 +1456,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
 const gameHeroData = {
   title: "Jigging Master",
   subtitle: "The Fishyology Creative Studio",
-  tagline: "Master the water. Conquer the fight.",
+  tagline: "Master the Ocean. Conquer the Fight.",
   image: "https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg", 
 };
 

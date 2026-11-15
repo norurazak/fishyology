@@ -6,13 +6,13 @@ import { cloudinaryShareImage } from '@/lib/cloudinary';
 // This object tells search engines and social media platforms what your page is about.
 export const metadata: Metadata = {
   title: 'Jigging Master | The Fishyology Creative Studio',
-  description: 'Master the water. Conquer the fight. Play Jigging Master and face 20 legendary saltwater species in this interactive fishing simulator.',
+  description: 'Master the Ocean. Conquer the Fight. Play Jigging Master and face 20 legendary saltwater species in this interactive fishing simulator.',
   alternates: {
     canonical: '/game',
   },
   openGraph: {
     title: 'Jigging Master | The Fishyology Creative Studio',
-    description: 'Master the water. Conquer the fight. Play Jigging Master and face 20 legendary saltwater species in this interactive fishing simulator.',
+    description: 'Master the Ocean. Conquer the Fight. Play Jigging Master and face 20 legendary saltwater species in this interactive fishing simulator.',
     url: 'https://www.fishyology.org/game',
     siteName: 'Fishyology',
     images: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Jigging Master | The Fishyology Creative Studio',
-    description: 'Master the water. Conquer the fight. Play Jigging Master today!',
+    description: 'Master the Ocean. Conquer the Fight. Play Jigging Master today!',
     images: [cloudinaryShareImage('https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg')],
   },
 };

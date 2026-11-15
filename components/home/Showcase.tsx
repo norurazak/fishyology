@@ -24,7 +24,7 @@ const GAME = {
     "https://res.cloudinary.com/dub3h3elq/image/upload/v1783502920/IMG_5329-EDIT_xh673d.jpg",
   eyebrow: "Game",
   title: "Jigging Master",
-  summary: "Master the water. Conquer the fight.",
+  summary: "Master the Ocean. Conquer the Fight.",
 };
 
 /* Shared keyboard focus ring for the tile links. The ring sits outside the box

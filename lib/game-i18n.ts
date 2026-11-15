@@ -35,6 +35,8 @@ const en = {
   "cover.presents": "Fishyology presents",
   "cover.start": "Start the drop",
   "cover.tagline": "20 species · 300 m of water · one leader",
+  "cover.line1": "Master the Ocean.",
+  "cover.line2": "Conquer the Fight.",
   "setup.title": "Jigging Setup",
   "setup.current": "Current",
   "setup.tideLabel": "{tide} tide",
@@ -76,7 +78,7 @@ const en = {
 
   // Page: hero
   "hero.subtitle": "The Fishyology Creative Studio",
-  "hero.tagline": "Master the water. Conquer the fight.",
+  "hero.tagline": "Master the Ocean. Conquer the Fight.",
   "playNow": "Play now",
 
   // Page: leaderboard
@@ -174,6 +176,8 @@ const ms: Record<GameStringKey, string> = {
   "cover.presents": "Fishyology mempersembahkan",
   "cover.start": "Mula melabuh",
   "cover.tagline": "20 spesies · 300 m air · seorang juara",
+  "cover.line1": "Kuasai lautan.",
+  "cover.line2": "Menangi pertarungan.",
   "setup.title": "Persediaan Jigging",
   "setup.current": "Arus",
   "setup.tideLabel": "{tide}",
