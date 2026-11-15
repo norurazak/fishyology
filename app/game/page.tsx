@@ -8,7 +8,11 @@ import OnboardingModal from '@/components/OnboardingModal';
 // --- SUPABASE CLIENT INITIALIZATION ---
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Without the keys (a local checkout, a preview build) the game still runs in guest
+// mode: no sign-in, no saved catches, and the leaderboard says it's offline.
+// createClient throws on an empty URL, so it is only called when both are set.
+const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+const SCORES_ONLINE = supabase !== null;
 
 // --- GAME CONSTANTS ---
 const MAX_LINE = 400;
@@ -466,6 +470,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest }: {
   useEffect(() => {
     if (gameState === 'CAUGHT' && caughtFish && user && hasProfile && saveStatus === 'idle') {
       const recordCatch = async () => {
+        if (!supabase) return;
         setSaveStatus('saving');
         const { error } = await supabase.from('catches').insert([
           {
@@ -1325,7 +1330,10 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest }: {
                 {saveStatus === 'saving' && <p className="text-[11px] text-[#FFB020] fs-blink uppercase tracking-widest font-bold">Saving catch to leaderboard...</p>}
                 {saveStatus === 'saved' && <p className="text-[11px] text-[#3DDC97] uppercase tracking-widest font-bold">✓ Logged to Leaderboard!</p>}
                 {saveStatus === 'error' && <p className="text-[11px] text-[#FF3B47] uppercase tracking-widest font-bold">Error saving catch record</p>}
-                {saveStatus === 'idle' && !user && (
+                {!SCORES_ONLINE && (
+                  <p className="text-[11px] text-[#7C8B9C] uppercase tracking-widest font-bold">Leaderboard offline — playing as guest</p>
+                )}
+                {saveStatus === 'idle' && !user && SCORES_ONLINE && (
                   <button onClick={onLoginRequest} className="text-[11px] text-[#4DD0E1] hover:underline uppercase tracking-widest font-bold">
                     Log in with Google to post score
                   </button>
@@ -1463,6 +1471,10 @@ export default function GamePage() {
 
   // Fetch dynamic leaderboard from Supabase filtered by Active Season
   const fetchLeaderboard = useCallback(async () => {
+    if (!supabase) {
+      setLeaderboardLoading(false);
+      return;
+    }
     setLeaderboardLoading(true);
     const { data, error } = await supabase
       .from('catches')
@@ -1501,6 +1513,11 @@ export default function GamePage() {
 
   // Check initial auth session
   useEffect(() => {
+    if (!supabase) {
+      setAuthLoading(false);
+      return;
+    }
+
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user || null);
@@ -1526,6 +1543,7 @@ export default function GamePage() {
   }, []);
 
   const checkProfile = async (userId: string) => {
+    if (!supabase) return;
     const { data } = await supabase
       .from('profiles')
       .select('*')
@@ -1542,6 +1560,7 @@ export default function GamePage() {
   };
 
   const handleGoogleLogin = async () => {
+    if (!supabase) return;
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -1551,13 +1570,14 @@ export default function GamePage() {
   };
 
   const handleLogout = async () => {
+    if (!supabase) return;
     await supabase.auth.signOut();
     setUser(null);
     setHasProfile(false);
   };
 
   const handleCompleteProfile = async (profileData: { displayName: string; state: string; gender: string; avatarUrl: string }) => {
-    if (!user) return;
+    if (!user || !supabase) return;
     
     const { error } = await supabase.from('profiles').upsert([
       {
@@ -1701,7 +1721,9 @@ export default function GamePage() {
           </div>
 
           <div className="border border-[#1C2733] bg-[#0A1017] rounded-lg overflow-hidden">
-            {leaderboardLoading ? (
+            {!SCORES_ONLINE ? (
+              <div className="p-6 text-center text-[#7C8B9C] text-[11px] font-bold uppercase tracking-widest">The leaderboard is offline right now. You can still play as a guest.</div>
+            ) : leaderboardLoading ? (
               <div className="p-6 text-center text-[#7C8B9C] text-[11px] font-bold uppercase tracking-widest">Loading records…</div>
             ) : leaderboard.length === 0 ? (
               <div className="p-6 text-center text-[#7C8B9C] text-[11px] font-bold uppercase tracking-widest">No catches logged for Season 1 yet. Be the first!</div>
@@ -1720,7 +1742,9 @@ export default function GamePage() {
             )}
 
             <div className="px-5 py-4 bg-[#0D141B] border-t border-[#1C2733] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-              {authLoading ? (
+              {!SCORES_ONLINE ? (
+                <p className="text-[#7C8B9C] text-[11px] uppercase tracking-widest">Playing as guest — sign-in is unavailable right now</p>
+              ) : authLoading ? (
                 <p className="text-[#7C8B9C] text-[11px] uppercase tracking-widest">Checking session…</p>
               ) : user && hasProfile ? (
                 <>
