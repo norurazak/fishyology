@@ -53,7 +53,7 @@ export default function AboutPage() {
         >
           2026
         </p>
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
           <span className="text-[#A3A3A3] font-bold tracking-widest uppercase mb-3 block text-sm">
             2026
           </span>
@@ -63,7 +63,7 @@ export default function AboutPage() {
           <p className="text-[#D4D4D4] font-serif italic text-lg md:text-xl mb-10">
             Building the next chapter of Fishyology.
           </p>
-          <div className="text-left space-y-6 text-[#A3A3A3] text-base md:text-lg leading-relaxed bg-white/[0.03] border border-white/10 rounded-2xl p-6 md:p-10">
+          <div className="text-left text-[#A3A3A3] text-base md:text-lg leading-relaxed bg-white/[0.03] border border-white/10 rounded-2xl p-6 md:p-10 lg:columns-2 lg:gap-x-12 [&>p]:mb-6 [&>p]:break-inside-avoid [&>p:last-child]:mb-0">
             <p>
               Fishyology enters 2026 with a renewed sense of direction. What began as a fishing
               blog grew into a guiding operation, evolved through years of exploration and
@@ -80,7 +80,7 @@ export default function AboutPage() {
               A new chapter built on everything that came before, with new opportunities ahead
               for anglers, partners and the wider fishing community.
             </p>
-            <p className="font-serif italic text-[#D4D4D4] text-lg md:text-xl text-center pt-2">
+            <p className="font-serif italic text-[#D4D4D4] text-lg md:text-xl text-center pt-2 [column-span:all]">
               The journey continues, but the destination is bigger than ever.
             </p>
           </div>
