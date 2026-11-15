@@ -247,7 +247,7 @@ const ms: Record<GameStringKey, string> = {
   "about.title": "Lautan memberi ganjaran kepada kemahiran, kesabaran dan ketepatan.",
   "about.species": "Spesies air masin",
   "about.tides": "Kekuatan air pasang",
-  "about.live": "Papan kedudukan langsung",
+  "about.live": "Carta Kedudukan Terkini",
   "about.body": "Baca air pasang, pilih jig anda dan kerjakan setiap lapisan turus air. Giant Grouper menyelam ke tempat persembunyian, Dogtooth Tuna meluncur laju dan Sailfish melompat di permukaan, jadi setiap pertarungan memerlukan sentuhan yang berbeza.",
   "about.closing1": "Ikannya liar. Lautannya tidak berbelas kasihan.",
   "about.closing2": "Jadilah Jigging Master.",
