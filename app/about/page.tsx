@@ -42,45 +42,61 @@ export default function AboutPage() {
 
       {/* 2b. 2026 CLOSING STATEMENT — the timeline's last card is a teaser; this is the
           full write-up, given its own space since it reads as a mission statement rather
-          than a milestone blurb. */}
-      {/* Styled after the site footer: the same dark base and soft greys, a serif
-          italic voice for the lines around the statement, a hairline glass panel, and
-          the footer's oversized gradient lettering as a faded "2026" behind the heading. */}
-      <section className="relative overflow-hidden bg-[#121212] text-[#E5E5E5] py-16 md:py-20 px-6 md:px-16">
-        <p
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-4 md:top-6 text-center text-[clamp(6rem,22vw,18rem)] leading-[0.8] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] via-[#2E2E2E] to-[#1A1A1A] select-none"
-        >
-          2026
-        </p>
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <span className="text-[#A3A3A3] font-bold tracking-widest uppercase mb-3 block text-sm">
-            2026
-          </span>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-[#FFFFFF] mb-4">
-            A New Path Forward
-          </h2>
-          <p className="text-[#D4D4D4] font-serif italic text-lg md:text-xl mb-10">
-            Building the next chapter of Fishyology.
-          </p>
-          <div className="text-left text-[#A3A3A3] text-base md:text-lg leading-relaxed bg-white/[0.03] border border-white/10 rounded-2xl p-6 md:p-10 lg:columns-2 lg:gap-x-12 [&>p]:mb-6 [&>p]:break-inside-avoid [&>p:last-child]:mb-0">
-            <p>
-              Fishyology enters 2026 with a renewed sense of direction. What began as a fishing
-              blog grew into a guiding operation, evolved through years of exploration and
-              experience, faced an unexpected pause and found its way back to the water.
-            </p>
-            <p>Now, the focus moves forward.</p>
-            <p>
-              We are building Fishyology into a stronger and more sustainable venture, bringing
-              together our experience, relationships, fishing knowledge and passion for
-              Malaysia&apos;s waters under one vision.
-            </p>
-            <p>This is more than a return. It is a new pathway forward.</p>
-            <p>
-              A new chapter built on everything that came before, with new opportunities ahead
-              for anglers, partners and the wider fishing community.
-            </p>
-            <p className="font-serif italic text-[#D4D4D4] text-lg md:text-xl text-center pt-2 [column-span:all]">
+          than a milestone blurb. Styled after the site footer: its dark base and soft
+          greys, its serif italic voice, and its oversized gradient lettering, here as the
+          "2026" numeral anchoring the left column. */}
+      <section className="bg-[#121212] text-[#E5E5E5] py-16 md:py-24 px-6 md:px-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+            {/* Left: the heading and the year as a visual anchor */}
+            <div className="lg:col-span-5">
+              <span className="text-[#A3A3A3] font-bold tracking-widest uppercase mb-3 block text-sm">
+                2026
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-[#FFFFFF] mb-4 text-balance">
+                A New Path Forward
+              </h2>
+              <p className="text-[#D4D4D4] font-serif italic text-lg md:text-xl">
+                Building the next chapter of Fishyology.
+              </p>
+              <p
+                aria-hidden="true"
+                className="mt-8 md:mt-12 text-[clamp(5.5rem,14vw,11rem)] leading-[0.8] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#262626] via-[#4A4A4A] to-[#262626] select-none"
+              >
+                2026
+              </p>
+            </div>
+
+            {/* Right: the statement in one readable column; the two short standalone
+                lines take the serif italic voice so they read as beats */}
+            <div className="lg:col-span-7 max-w-2xl space-y-6 text-[#A3A3A3] text-base md:text-lg leading-relaxed">
+              <p>
+                Fishyology enters 2026 with a renewed sense of direction. What began as a fishing
+                blog grew into a guiding operation, evolved through years of exploration and
+                experience, faced an unexpected pause and found its way back to the water.
+              </p>
+              <p className="font-serif italic text-[#FFFFFF] text-xl md:text-2xl">
+                Now, the focus moves forward.
+              </p>
+              <p>
+                We are building Fishyology into a stronger and more sustainable venture, bringing
+                together our experience, relationships, fishing knowledge and passion for
+                Malaysia&apos;s waters under one vision.
+              </p>
+              <p className="font-serif italic text-[#FFFFFF] text-xl md:text-2xl">
+                This is more than a return. It is a new pathway forward.
+              </p>
+              <p>
+                A new chapter built on everything that came before, with new opportunities ahead
+                for anglers, partners and the wider fishing community.
+              </p>
+            </div>
+          </div>
+
+          {/* The closing line as a full-width pull quote under the section's one accent */}
+          <div className="mt-12 md:mt-16 pt-10 md:pt-12 border-t border-white/10">
+            <div aria-hidden="true" className="w-12 h-[3px] bg-tuna mb-6" />
+            <p className="font-serif italic text-[#D4D4D4] text-2xl md:text-4xl leading-snug max-w-4xl text-balance">
               The journey continues, but the destination is bigger than ever.
             </p>
           </div>
