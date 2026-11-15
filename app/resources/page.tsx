@@ -297,7 +297,7 @@ export default function ResourcesPage() {
                         {r.title}
                       </h3>
                       <p className="text-sm text-abyss/60 leading-relaxed line-clamp-3 flex-1">{r.summary}</p>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-abyss mt-4">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-tuna mt-4">
                         Read the guide
                         <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
                       </span>
