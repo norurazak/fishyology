@@ -254,7 +254,13 @@ export default function AuthorRoster() {
                 ? "Pitch a story to Fishyology"
                 : `Read ${author.name}'s full profile`
             }
-            className="group flex h-full flex-col text-left cursor-pointer bg-white border border-abyss/10 rounded-lg p-5 shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2"
+            className={`group flex h-full flex-col text-left cursor-pointer border rounded-lg p-5 shadow-sm hover:shadow-xl transition-[box-shadow,transform,background-color] duration-500 motion-safe:hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2 ${
+              // The Future Contributor card is the roster's call to action, so it takes the
+              // Tuna fill with white text (4.96:1) and deepens on hover like the buttons.
+              author.isActionCard
+                ? "bg-tuna border-tuna hover:bg-tuna-on-light hover:border-tuna-on-light"
+                : "bg-white border-abyss/10"
+            }`}
           >
             <div className="relative aspect-square rounded-lg overflow-hidden mb-5 bg-black/5">
               <Image
@@ -269,15 +275,25 @@ export default function AuthorRoster() {
                 that wraps pushes that card's bio out of step with the rest of the row. */}
             <span
               className={`text-xs font-black uppercase tracking-widest leading-[1.4] block mb-2 min-h-[2.1rem] ${
-                author.isActionCard ? "text-tuna-on-light" : "text-abyss/70"
+                author.isActionCard ? "text-white" : "text-abyss/70"
               }`}
             >
               {author.role}
             </span>
-            <h3 className="text-2xl font-serif font-bold leading-tight text-abyss mb-3 min-h-[3.75rem] group-hover:underline underline-offset-4">
+            <h3
+              className={`text-2xl font-serif font-bold leading-tight mb-3 min-h-[3.75rem] group-hover:underline underline-offset-4 ${
+                author.isActionCard ? "text-white" : "text-abyss"
+              }`}
+            >
               {author.name}
             </h3>
-            <p className="text-abyss/70 text-sm font-medium leading-relaxed line-clamp-2">{author.shortBio}</p>
+            <p
+              className={`text-sm font-medium leading-relaxed line-clamp-2 ${
+                author.isActionCard ? "text-white" : "text-abyss/70"
+              }`}
+            >
+              {author.shortBio}
+            </p>
           </button>
         ))}
       </div>
