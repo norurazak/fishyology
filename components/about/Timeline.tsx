@@ -387,7 +387,7 @@ export default function Timeline() {
           onClick={() => step(-1)}
           disabled={atStart}
           aria-label="Previous milestone"
-          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss"
+          className="btn-primary w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-25 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -396,11 +396,11 @@ export default function Timeline() {
           onClick={() => step(1)}
           disabled={atEnd}
           aria-label="Next milestone"
-          className="w-11 h-11 rounded-full border border-abyss/15 flex items-center justify-center text-abyss hover:border-abyss/40 disabled:opacity-25 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss"
+          className="btn-primary w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-25 disabled:cursor-not-allowed"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
-        <span className="text-xs font-bold uppercase tracking-widest text-abyss/70 ml-2 tabular-nums">
+        <span className="text-xs font-bold uppercase tracking-widest text-tuna ml-2 tabular-nums">
           Drag to travel · {String(activeIndex + 1).padStart(2, "0")} /{" "}
           {String(milestones.length).padStart(2, "0")}
         </span>
