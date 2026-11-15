@@ -488,7 +488,7 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
         ]);
 
         if (error) {
-          console.error("Error saving catch:", error);
+          console.error(`Error saving catch: ${error.message}`, { code: error.code });
           setSaveStatus('error');
         } else {
           setSaveStatus('saved');
@@ -1607,7 +1607,7 @@ export default function GamePage() {
 
     if (error) {
       // Don't mistake a failed lookup for a missing profile and ask them to make one.
-      console.error("Error loading profile:", error);
+      console.error(`Error loading profile: ${error.message}`, { code: error.code });
       setAuthError("Couldn't load your profile. Refresh to try again.");
       return;
     }
@@ -1638,7 +1638,7 @@ export default function GamePage() {
       }
     });
     if (error) {
-      console.error("Error starting Google sign-in:", error);
+      console.error(`Error starting Google sign-in: ${error.message}`, { code: error.code });
       setAuthError("Couldn't start Google sign-in. Please try again.");
     }
   };
@@ -1648,7 +1648,7 @@ export default function GamePage() {
     setAuthError('');
     const { error } = await supabase.auth.signOut();
     if (error) {
-      console.error("Error signing out:", error);
+      console.error(`Error signing out: ${error.message}`, { code: error.code });
       setAuthError("Couldn't log out. Please try again.");
       return;
     }
@@ -1664,18 +1664,27 @@ export default function GamePage() {
     // The email is deliberately not stored here: profiles are publicly readable for
     // the leaderboard, and Supabase already keeps each player's email privately with
     // their login. Gender is optional.
-    const { error } = await supabase.from('profiles').upsert([
-      {
-        id: user.id,
-        display_name: profileData.displayName,
-        state: profileData.state,
-        gender: profileData.gender || 'Prefer not to say',
-        avatar_url: profileData.avatarUrl,
-      }
-    ]);
+    const fields = {
+      display_name: profileData.displayName,
+      state: profileData.state,
+      gender: profileData.gender || 'Prefer not to say',
+      avatar_url: profileData.avatarUrl,
+    };
+
+    // Editing updates the existing row. An upsert is an insert underneath, so it is
+    // checked against insert-only rules (such as a required email) even when the
+    // profile already exists; an update only touches the fields that changed.
+    const { error } = hasProfile
+      ? await supabase.from('profiles').update(fields).eq('id', user.id)
+      : await supabase.from('profiles').insert([{ id: user.id, ...fields }]);
 
     if (error) {
-      console.error("Error saving profile:", error);
+      // Supabase's error object logs as {} on its own, so spell out the useful parts.
+      console.error(`Error saving profile: ${error.message}`, {
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      });
       return false;
     }
 
@@ -1706,7 +1715,7 @@ export default function GamePage() {
       .insert([{ profile_id: user.id, species: pending.species, weight_kg: pending.weight_kg, depth_m: pending.depth_m }])
       .then(({ error }) => {
         if (error) {
-          console.error("Error posting held catch:", error);
+          console.error(`Error posting held catch: ${error.message}`, { code: error.code });
           setAuthError("Couldn't post the catch from before you signed in.");
         } else {
           setAuthNotice("Your catch from before you signed in is on the leaderboard.");
