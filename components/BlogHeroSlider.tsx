@@ -28,7 +28,7 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
   }, [currentSlide, slides.length]);
 
   return (
-    <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 mb-20 group">
+    <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 mb-14 group">
       <div className="relative h-[68vh] md:h-[78vh] rounded-[1.25rem] overflow-hidden shadow-2xl bg-abyss">
         
         {slides.map((slide, index) => (
@@ -41,9 +41,9 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
             {/* Background Image with slight slow zoom effect */}
             <img 
               {...cloudinaryImage(slide.image, { sizes: "100vw", widths: HERO_WIDTHS, quality: "auto:best" })} 
-              alt={slide.title}
+              alt=""
               className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-linear ${
-                index === currentSlide ? "scale-110" : "scale-100"
+                index === currentSlide ? "motion-safe:scale-110" : "scale-100"
               }`}
             />
             {/* Gradient Overlays for perfect text readability */}
@@ -55,17 +55,17 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
               <span className="inline-block bg-[#FFFFFF] text-abyss text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg">
                 {slide.category}
               </span>
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-[#FFFFFF] leading-[0.9] tracking-tighter mb-8 max-w-4xl drop-shadow-xl uppercase">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-[#FFFFFF] leading-[0.95] tracking-tight mb-8 max-w-4xl drop-shadow-xl uppercase text-balance">
                 {slide.title}
               </h2>
               
               {/* CTA Button linking to the specific story */}
               <Link 
                 href={slide.link}
-                className="group/btn inline-flex items-center gap-3 bg-[#0077C0] text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base hover:bg-[#FFFFFF] hover:text-abyss transition-colors duration-300 shadow-xl"
+                className="btn-primary group/btn inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-sm md:text-base shadow-xl"
               >
                 Read Story
-                <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                <ArrowRight aria-hidden="true" className="w-5 h-5 motion-safe:transition-transform motion-safe:group-hover/btn:translate-x-1" />
               </Link>
             </div>
           </div>
@@ -77,11 +77,16 @@ export default function BlogHeroSlider({ slides }: { slides: Slide[] }) {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                index === currentSlide ? "bg-[#C7EEFF] scale-125 shadow-[0_0_10px_rgba(199,238,255,0.8)]" : "bg-white/40 hover:bg-white/70"
-              }`}
               aria-label={`Go to slide ${index + 1}`}
-            />
+              aria-current={index === currentSlide}
+              className="group/dot flex h-6 w-6 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]"
+            >
+              <span
+                className={`w-3 h-3 rounded-full transition-all duration-500 ${
+                  index === currentSlide ? "bg-tuna scale-125" : "bg-white/40 group-hover/dot:bg-white/70"
+                }`}
+              />
+            </button>
           ))}
         </div>
 

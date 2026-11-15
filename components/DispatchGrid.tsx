@@ -15,20 +15,20 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
 
   return (
     <div className="max-w-[1600px] mx-auto px-6 md:px-12">
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">Latest Dispatches</h2>
       </div>
 
       {/* Feature card: landscape, image beside text rather than text over a tall image */}
       <Link
         href={`/blog/${feature.slug}`}
-        className="group grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] rounded-[1rem] overflow-hidden border border-abyss/10 shadow-lg bg-abyss mb-12"
+        className={`group grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] rounded-[1rem] overflow-hidden border border-abyss/10 bg-abyss mb-12 shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]`}
       >
         <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[440px] overflow-hidden">
           <img
             {...cloudinaryImage(feature.frontmatter.image || 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&q=80&w=1200', { sizes: "(max-width: 1024px) 100vw, 55vw" })}
-            alt={feature.frontmatter.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
           />
           {/* feathers the image into the text panel on wide screens only */}
           <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-r from-transparent to-abyss"></div>
@@ -46,7 +46,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
             )}
           </div>
 
-          <h3 className="text-3xl md:text-4xl xl:text-5xl font-serif text-[#FFFFFF] leading-[1.1] mb-5 group-hover:text-[#C7EEFF] transition-colors">
+          <h3 className="text-3xl md:text-4xl xl:text-5xl font-serif text-[#FFFFFF] leading-[1.1] mb-5 group-hover:underline underline-offset-4">
             {feature.frontmatter.title}
           </h3>
 
@@ -76,29 +76,29 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
         {standard.map((post) => {
           const author = resolveAuthor(post.frontmatter.author);
           return (
-            <Link href={`/blog/${post.slug}`} key={post.slug} className="group flex flex-col h-full">
-              <div className="relative aspect-[4/3] rounded-[0.875rem] overflow-hidden mb-5 bg-abyss/5 border border-abyss/5 group-hover:shadow-lg transition-all duration-500 group-hover:-translate-y-1">
+            <Link href={`/blog/${post.slug}`} key={post.slug} className={`group flex flex-col h-full rounded-[0.875rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]`}>
+              <div className="relative aspect-[4/3] rounded-[0.875rem] overflow-hidden mb-5 bg-abyss/5 border border-abyss/5 shadow-sm group-hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:group-hover:-translate-y-1">
                 <img
                   {...cloudinaryImage(post.frontmatter.image || 'https://images.unsplash.com/photo-1501785888041-af3ef285b4b0?auto=format&fit=crop&q=80&w=800', { sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" })}
-                  alt={post.frontmatter.title}
+                  alt=""
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
 
               <div className="flex flex-col flex-grow">
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
-                  <span className="inline-block bg-[#C7EEFF] text-[#0077C0] text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
+                  <span className="inline-block bg-abyss/5 text-abyss/80 text-xs font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
                     {post.frontmatter.category || 'Field Report'}
                   </span>
                   {post.frontmatter.subcategory && (
-                    <span className="inline-block bg-abyss/5 text-abyss/60 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
+                    <span className="inline-block bg-abyss/5 text-abyss/70 text-xs font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
                       {post.frontmatter.subcategory}
                     </span>
                   )}
                 </div>
 
-                <h4 className="text-xl font-serif text-abyss leading-snug group-hover:text-[#0077C0] transition-colors line-clamp-2 mb-2">
+                <h4 className="text-xl font-serif text-abyss leading-snug group-hover:underline underline-offset-4 line-clamp-2 mb-2">
                   {post.frontmatter.title}
                 </h4>
 
@@ -118,7 +118,7 @@ export default function DispatchGrid({ posts }: { posts: Post[] }) {
                   />
                   <div className="min-w-0">
                     <p className="text-xs font-bold text-abyss truncate">{author.name}</p>
-                    <p className="text-[11px] font-medium text-abyss/50">{post.frontmatter.date}</p>
+                    <p className="text-xs font-medium text-abyss/70">{post.frontmatter.date}</p>
                   </div>
                 </div>
               </div>

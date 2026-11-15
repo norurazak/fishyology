@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Post } from '@/lib/mdx';
 import { isAgentAuthor } from '@/lib/authors';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 // 1. Added the Search icon from lucide-react
 import { Search } from 'lucide-react';
 
@@ -55,17 +55,17 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
   });
 
   return (
-    <section id="archive" className="max-w-[1600px] mx-auto px-6 md:px-12 py-24 border-t border-abyss/10 mt-12 scroll-mt-24">
+    <section id="archive" className="max-w-[1600px] mx-auto px-6 md:px-12 py-14 md:py-16 border-t border-abyss/10 scroll-mt-24">
       
       {/* HEADER & FILTERS */}
-      <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div>
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-abyss mb-2">The Archive</h2>
           <p className="text-abyss/60 font-medium text-lg">
             Explore our entire history of expeditions and guides
             {years.length > 1 ? `, ${years[years.length - 1]}–${years[0]}` : ""}.
           </p>
-          <p className="text-abyss/40 text-xs font-bold uppercase tracking-widest mt-3">
+          <p className="text-abyss/70 text-xs font-bold uppercase tracking-widest mt-3">
             {filteredPosts.length} {filteredPosts.length === 1 ? "entry" : "entries"}
           </p>
         </div>
@@ -73,13 +73,14 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
         <div className="flex flex-col items-start md:items-end gap-6">
           {/* 4. The New Search Bar */}
           <div className="relative w-full md:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-abyss/40" />
+            <Search aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-abyss/60" />
             <input
               type="text"
+              aria-label="Search dispatches"
               placeholder="Search dispatches..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-abyss/10 rounded-full pl-11 pr-4 py-3 text-sm text-abyss focus:outline-none focus:border-[#0077C0] focus:ring-1 focus:ring-[#0077C0] transition-all shadow-sm"
+              className="w-full bg-white border border-abyss/10 rounded-full pl-11 pr-4 py-3 text-sm text-abyss placeholder:text-abyss/60 focus:outline-none focus:border-abyss focus:ring-2 focus:ring-abyss/15 transition-all shadow-sm"
             />
           </div>
 
@@ -90,10 +91,10 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                 key={year}
                 onClick={() => setActiveYear(year)}
                 aria-pressed={activeYear === year}
-                className={`px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-colors duration-300 ${
+                className={`px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2 ${
                   activeYear === year
-                    ? "bg-[#0077C0] text-white shadow-md"
-                    : "bg-white border border-abyss/10 text-abyss/60 hover:border-[#0077C0]/40 hover:text-[#0077C0]"
+                    ? "bg-abyss text-white shadow-md"
+                    : "bg-white border border-abyss/10 text-abyss/70 hover:border-abyss/30 hover:text-abyss"
                 }`}
               >
                 {year === "All" ? "ALL YEARS" : year}
@@ -105,15 +106,16 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
           </div>
 
           {/* Dynamic Category Pills */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
             {categories.map(cat => (
               <button
                 key={cat as string}
                 onClick={() => setActiveCategory(cat as string)}
-                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
+                aria-pressed={activeCategory === cat}
+                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-2 ${
                   activeCategory === cat
                     ? "bg-abyss text-white shadow-md"
-                    : "bg-white border border-abyss/10 text-abyss/60 hover:border-abyss/30 hover:text-abyss"
+                    : "bg-white border border-abyss/10 text-abyss/70 hover:border-abyss/30 hover:text-abyss"
                 }`}
               >
                 {cat as string}
@@ -124,6 +126,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
       </div>
 
       {/* THE GRID */}
+      <MotionConfig reducedMotion="user">
       <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
         <AnimatePresence mode="popLayout">
           {filteredPosts.map((post) => (
@@ -137,19 +140,19 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
               key={post.slug} 
               className="h-full"
             >
-              <Link href={`/blog/${post.slug}`} className="group flex flex-col h-full">
+              <Link href={`/blog/${post.slug}`} className={`group flex flex-col h-full rounded-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abyss focus-visible:ring-offset-4 focus-visible:ring-offset-[#FFFFFF]`}>
                 
                 {/* THE IMAGE BLOCK */}
-                <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-abyss/5 border border-abyss/5 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1">
+                <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-abyss/5 border border-abyss/5 shadow-sm group-hover:shadow-xl transition-[box-shadow,transform] duration-500 motion-safe:group-hover:-translate-y-1">
                   <img
                     {...cloudinaryImage(post.frontmatter.image || "https://images.unsplash.com/photo-1582236371719-216960d70b77?auto=format&fit=crop&q=80&w=800", { sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" })}
-                    alt={post.frontmatter.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                   {/* The archive is the one place agent and human pieces sit side by side,
                       so the byline type has to be readable without opening the post. */}
                   {isAgentAuthor(post.frontmatter.author) && (
-                    <span className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-[#12161A]/90 backdrop-blur-sm px-3 py-1.5 text-[9px] font-black uppercase tracking-widest text-[#FF9A42] border border-[#FF9A42]/30">
+                    <span className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-[#12161A]/90 backdrop-blur-sm px-3 py-1.5 text-xs font-black uppercase tracking-widest text-[#FF9A42] border border-[#FF9A42]/30">
                       <img src="/nemo-avatar.svg" alt="" aria-hidden="true" className="w-3.5 h-3.5 rounded-full" />
                       Research Digest
                     </span>
@@ -161,20 +164,20 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                   
                   {/* Dual Category & Subcategory */}
                   <div className="flex items-center gap-2 mb-3 flex-wrap">
-                    <span className="block text-[#408A71] text-[10px] font-black uppercase tracking-widest">
+                    <span className="block text-abyss/70 text-xs font-black uppercase tracking-widest">
                       {post.frontmatter.category || "Field Report"}
                     </span>
                     {post.frontmatter.subcategory && (
                       <>
-                        <span className="text-abyss/30 text-[10px] font-black">•</span>
-                        <span className="block text-[#0077C0] text-[10px] font-black uppercase tracking-widest">
+                        <span aria-hidden="true" className="text-abyss/40 text-xs font-black">•</span>
+                        <span className="block text-abyss/70 text-xs font-black uppercase tracking-widest">
                           {post.frontmatter.subcategory}
                         </span>
                       </>
                     )}
                   </div>
 
-                  <h4 className="text-2xl font-serif text-abyss leading-tight group-hover:text-[#0077C0] transition-colors mb-3">
+                  <h4 className="text-2xl font-serif text-abyss leading-tight group-hover:underline underline-offset-4 mb-3">
                     {post.frontmatter.title}
                   </h4>
                   
@@ -185,7 +188,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
                     </p>
                   )}
 
-                  <p className="text-xs font-bold text-abyss/40 mt-auto uppercase tracking-wider">{post.frontmatter.date}</p>
+                  <p className="text-xs font-bold text-abyss/70 mt-auto uppercase tracking-wider">{post.frontmatter.date}</p>
                 </div>
                 
               </Link>
@@ -193,6 +196,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
           ))}
         </AnimatePresence>
       </motion.div>
+      </MotionConfig>
 
       {/* EMPTY STATE */}
       <AnimatePresence>
@@ -203,7 +207,7 @@ export default function FilteredArchive({ posts }: { posts: Post[] }) {
             exit={{ opacity: 0 }}
             className="text-center py-20 bg-white rounded-[2rem] border border-abyss/10 mt-8"
           >
-            <p className="text-abyss/50 font-serif italic text-xl">No dispatches match your search.</p>
+            <p className="text-abyss/70 font-serif italic text-xl">No dispatches match your search.</p>
           </motion.div>
         )}
       </AnimatePresence>
