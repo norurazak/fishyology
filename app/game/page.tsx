@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 import OnboardingModal, { type ProfileFields } from '@/components/OnboardingModal';
 import { GameLanguageProvider, LanguageToggle, useGameLanguage } from '@/components/game/GameLanguage';
+import CatchCardDialog from '@/components/game/CatchCardDialog';
+import FishLog from '@/components/game/FishLog';
+import { ribbonFor } from '@/components/game/CatchCard';
+import { addGuestCatch, fetchCatchStats, type CatchStats } from '@/lib/fish-log';
 import { translate, TUTORIAL_MS, archetypeLabel, tideName, tideShort, moonLabel, difficultyText, type GameStringKey } from '@/lib/game-i18n';
 
 // --- SUPABASE CLIENT INITIALIZATION ---
@@ -308,9 +312,10 @@ function StatRow({ label, value, color }: { label: string; value: number; color:
 }
 
 // --- INTERNAL SIMULATOR COMPONENT ---
-function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onProfileRequest }: { 
+function FishingSimulator({ user, hasProfile, playerName, onCatchSaved, onLoginRequest, onProfileRequest }: { 
   user: any; 
   hasProfile: boolean; 
+  playerName: string;
   onCatchSaved: () => void;
   onLoginRequest: () => void;
   onProfileRequest: () => void;
@@ -347,6 +352,11 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
   const [hookSets, setHookSets] = useState(0);
   const [encounter, setEncounter] = useState<Encounter | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  // Catch card: the player's tally for the species just landed, and whether the card is open.
+  const [catchStats, setCatchStats] = useState<CatchStats | null>(null);
+  const [cardOpen, setCardOpen] = useState(false);
+  const caughtAtRef = useRef<Date>(new Date());
+  const loggedRef = useRef<unknown>(null);
 
   const [fitScreen, setFitScreen] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
@@ -461,6 +471,8 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
     setEncounter(null);
     setHookSets(0);
     setSaveStatus('idle');
+    setCatchStats(null);
+    setCardOpen(false);
     setGameState(coverSeen.current ? 'SETUP' : 'COVER');
   }, []);
 
@@ -499,11 +511,24 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
         } else {
           setSaveStatus('saved');
           onCatchSaved(); // Refresh global leaderboard
+          // Count and record for the card, read after the insert so they include this fish.
+          fetchCatchStats(supabase, user.id, caughtFish.name).then(setCatchStats).catch(() => { /* the card just omits the tally */ });
         }
       };
       recordCatch();
     }
   }, [gameState, caughtFish, user, hasProfile, saveStatus, onCatchSaved]);
+
+  useEffect(() => { if (caughtFish) caughtAtRef.current = new Date(); }, [caughtFish]);
+
+  // Not saving to the database (guest, or no profile yet): keep the tally on this device.
+  useEffect(() => {
+    if (gameState !== 'CAUGHT' || !caughtFish) return;
+    if (SCORES_ONLINE && user && hasProfile) return;
+    if (loggedRef.current === caughtFish) return;
+    loggedRef.current = caughtFish;
+    setCatchStats(addGuestCatch(caughtFish.name, caughtFish.weightKg, caughtFish.hookDepth));
+  }, [gameState, caughtFish, user, hasProfile]);
 
   const openTutorial = useCallback(() => { setTutorialStep(0); setTutorialOpen(true); }, []);
   const closeTutorial = useCallback(() => {
@@ -1393,11 +1418,35 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onPr
                 )}
               </div>
 
+              <button
+                type="button"
+                onClick={() => setCardOpen(true)}
+                disabled={saveStatus === 'saving'}
+                className="w-full min-h-[48px] mb-2.5 border border-[#4DD0E1] text-[#4DD0E1] hover:bg-[#4DD0E1]/10 disabled:opacity-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4DD0E1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05070A]"
+              >
+                <span className="fs-label !text-[#4DD0E1] !text-[11px]">{t('card.view')}</span>
+              </button>
+
               <button onClick={generateConditions} className="w-full min-h-[52px] bg-[#4DD0E1] text-[#05070A] active:scale-[0.98] transition-transform">
                 <span className="fs-label !text-[#05070A] !text-[11px]">{t('result.dropAgain')}</span>
               </button>
             </div>
           </div>
+        )}
+
+        {cardOpen && gameState === 'CAUGHT' && caughtFish && (
+          <CatchCardDialog
+            onClose={() => setCardOpen(false)}
+            card={{
+              species: { ...caughtFish, no: FISH_SPECIES.findIndex(f => f.name === caughtFish.name) + 1 },
+              weightKg: caughtFish.weightKg,
+              depthM: caughtFish.hookDepth,
+              angler: playerName || t('card.guest'),
+              caughtAt: caughtAtRef.current,
+              stats: catchStats,
+              ribbon: ribbonFor(caughtFish.weightKg, catchStats),
+            }}
+          />
         )}
 
         {(gameState === 'SNAPPED' || gameState === 'ESCAPED') && (
@@ -1833,10 +1882,14 @@ function GamePageContent() {
         <FishingSimulator
           user={user}
           hasProfile={hasProfile}
+          playerName={profile?.displayName ?? ''}
           onCatchSaved={fetchLeaderboard}
           onLoginRequest={handleGoogleLogin}
           onProfileRequest={() => setShowOnboarding(true)}
         />
+        <div className="mt-4 flex justify-center">
+          <FishLog supabase={supabase} user={user} hasProfile={hasProfile} playerName={profile?.displayName ?? ''} species={FISH_SPECIES} />
+        </div>
       </section>
 
       {/* --- LEADERBOARD WITH SEASONAL TIMER (below the game, so players start sooner) --- */}
