@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
-import OnboardingModal from '@/components/OnboardingModal';
+import OnboardingModal, { type ProfileFields } from '@/components/OnboardingModal';
 
 // --- SUPABASE CLIENT INITIALIZATION ---
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -13,6 +13,10 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 // createClient throws on an empty URL, so it is only called when both are set.
 const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 const SCORES_ONLINE = supabase !== null;
+
+// A catch landed before signing in, held across the Google redirect (which reloads
+// the page) so it can still be posted once the player is signed in with a profile.
+const PENDING_CATCH_KEY = 'fishyology_pending_catch';
 
 // --- GAME CONSTANTS ---
 const MAX_LINE = 400;
@@ -302,11 +306,12 @@ function StatRow({ label, value, color }: { label: string; value: number; color:
 }
 
 // --- INTERNAL SIMULATOR COMPONENT ---
-function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest }: { 
+function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest, onProfileRequest }: { 
   user: any; 
   hasProfile: boolean; 
   onCatchSaved: () => void;
   onLoginRequest: () => void;
+  onProfileRequest: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -1334,8 +1339,27 @@ function FishingSimulator({ user, hasProfile, onCatchSaved, onLoginRequest }: {
                   <p className="text-[11px] text-[#7C8B9C] uppercase tracking-widest font-bold">Leaderboard offline — playing as guest</p>
                 )}
                 {saveStatus === 'idle' && !user && SCORES_ONLINE && (
-                  <button onClick={onLoginRequest} className="text-[11px] text-[#4DD0E1] hover:underline uppercase tracking-widest font-bold">
+                  <button
+                    onClick={() => {
+                      // The Google redirect reloads the page, so hold this catch to post afterwards.
+                      try {
+                        sessionStorage.setItem(PENDING_CATCH_KEY, JSON.stringify({
+                          species: caughtFish.name,
+                          weight_kg: Number(caughtFish.weightKg.toFixed(3)),
+                          depth_m: caughtFish.hookDepth,
+                        }));
+                      } catch { /* storage unavailable: the catch just isn't carried over */ }
+                      onLoginRequest();
+                    }}
+                    className="text-[11px] text-[#4DD0E1] hover:underline uppercase tracking-widest font-bold"
+                  >
                     Log in with Google to post score
+                  </button>
+                )}
+                {/* Signed in without a profile: once it's saved, this catch posts automatically. */}
+                {saveStatus === 'idle' && user && !hasProfile && SCORES_ONLINE && (
+                  <button onClick={onProfileRequest} className="text-[11px] text-[#4DD0E1] hover:underline uppercase tracking-widest font-bold">
+                    Complete your profile to post score
                   </button>
                 )}
               </div>
@@ -1447,6 +1471,9 @@ export default function GamePage() {
   const [user, setUser] = useState<any>(null);
   const [hasProfile, setHasProfile] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [profile, setProfile] = useState<ProfileFields | null>(null);
+  const [authError, setAuthError] = useState('');
+  const [authNotice, setAuthNotice] = useState('');
   const [authLoading, setAuthLoading] = useState(true);
 
   // Leaderboard Data State
@@ -1511,32 +1538,33 @@ export default function GamePage() {
     fetchLeaderboard();
   }, [fetchLeaderboard]);
 
-  // Check initial auth session
+  // Supabase reports the starting session (INITIAL_SESSION) and every sign-in or
+  // sign-out after it through this one listener, so there is no separate getSession
+  // call. Its docs warn against awaiting other Supabase calls inside the callback (it
+  // can deadlock the auth client and leave the page on "Checking session…"), so the
+  // profile check runs just after it instead.
   useEffect(() => {
     if (!supabase) {
       setAuthLoading(false);
       return;
     }
 
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user || null);
-      if (session?.user) {
-        await checkProfile(session.user.id);
-      }
-      setAuthLoading(false);
-    };
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'TOKEN_REFRESHED') return;
+      const nextUser = session?.user ?? null;
+      setUser(nextUser);
 
-    checkSession();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user || null);
-      if (session?.user) {
-        await checkProfile(session.user.id);
-      } else {
+      if (!nextUser) {
         setHasProfile(false);
+        setProfile(null);
         setShowOnboarding(false);
+        setAuthLoading(false);
+        return;
       }
+
+      setTimeout(() => {
+        checkProfile(nextUser.id).finally(() => setAuthLoading(false));
+      }, 0);
     });
 
     return () => { authListener.subscription.unsubscribe(); };
@@ -1544,16 +1572,31 @@ export default function GamePage() {
 
   const checkProfile = async (userId: string) => {
     if (!supabase) return;
-    const { data } = await supabase
+    // Only the fields the game uses; profiles are publicly readable for the leaderboard.
+    const { data, error } = await supabase
       .from('profiles')
-      .select('*')
+      .select('display_name, state, gender, avatar_url')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
+
+    if (error) {
+      // Don't mistake a failed lookup for a missing profile and ask them to make one.
+      console.error("Error loading profile:", error);
+      setAuthError("Couldn't load your profile. Refresh to try again.");
+      return;
+    }
 
     if (data) {
+      setProfile({
+        displayName: data.display_name ?? '',
+        state: data.state ?? '',
+        gender: data.gender ?? '',
+        avatarUrl: data.avatar_url ?? '',
+      });
       setHasProfile(true);
       setShowOnboarding(false);
     } else {
+      setProfile(null);
       setHasProfile(false);
       setShowOnboarding(true);
     }
@@ -1561,43 +1604,90 @@ export default function GamePage() {
 
   const handleGoogleLogin = async () => {
     if (!supabase) return;
-    await supabase.auth.signInWithOAuth({
+    setAuthError('');
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/game`, 
+        redirectTo: `${window.location.origin}/game`,
       }
     });
+    if (error) {
+      console.error("Error starting Google sign-in:", error);
+      setAuthError("Couldn't start Google sign-in. Please try again.");
+    }
   };
 
   const handleLogout = async () => {
     if (!supabase) return;
-    await supabase.auth.signOut();
+    setAuthError('');
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Error signing out:", error);
+      setAuthError("Couldn't log out. Please try again.");
+      return;
+    }
     setUser(null);
     setHasProfile(false);
+    setProfile(null);
   };
 
-  const handleCompleteProfile = async (profileData: { displayName: string; state: string; gender: string; avatarUrl: string }) => {
-    if (!user || !supabase) return;
-    
+  // Resolves false on failure so the profile form can show an error and stay open.
+  const handleCompleteProfile = async (profileData: ProfileFields): Promise<boolean> => {
+    if (!user || !supabase) return false;
+
+    // The email is deliberately not stored here: profiles are publicly readable for
+    // the leaderboard, and Supabase already keeps each player's email privately with
+    // their login. Gender is optional.
     const { error } = await supabase.from('profiles').upsert([
       {
         id: user.id,
-        email: user.email,
         display_name: profileData.displayName,
         state: profileData.state,
-        gender: profileData.gender,
+        gender: profileData.gender || 'Prefer not to say',
         avatar_url: profileData.avatarUrl,
       }
     ]);
 
-    if (!error) {
-      setHasProfile(true);
-      setShowOnboarding(false);
-      fetchLeaderboard();
-    } else {
+    if (error) {
       console.error("Error saving profile:", error);
+      return false;
     }
+
+    setProfile(profileData);
+    setHasProfile(true);
+    setShowOnboarding(false);
+    fetchLeaderboard();
+    return true;
   };
+
+  // Post a catch held over from before the Google redirect, once the player is
+  // signed in and has a profile.
+  useEffect(() => {
+    if (!supabase || !user || !hasProfile) return;
+
+    let pending: { species: string; weight_kg: number; depth_m: number } | null = null;
+    try {
+      const stored = sessionStorage.getItem(PENDING_CATCH_KEY);
+      sessionStorage.removeItem(PENDING_CATCH_KEY);
+      pending = stored ? JSON.parse(stored) : null;
+    } catch {
+      pending = null;
+    }
+    if (!pending) return;
+
+    supabase
+      .from('catches')
+      .insert([{ profile_id: user.id, species: pending.species, weight_kg: pending.weight_kg, depth_m: pending.depth_m }])
+      .then(({ error }) => {
+        if (error) {
+          console.error("Error posting held catch:", error);
+          setAuthError("Couldn't post the catch from before you signed in.");
+        } else {
+          setAuthNotice("Your catch from before you signed in is on the leaderboard.");
+          fetchLeaderboard();
+        }
+      });
+  }, [user, hasProfile, fetchLeaderboard]);
 
   const scrollToGame = () => {
     gameRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1624,9 +1714,11 @@ export default function GamePage() {
 
       {/* CHANGED: Passed onCancel prop so users can close the modal without saving */}
       {showOnboarding && (
-        <OnboardingModal 
-          onSubmit={handleCompleteProfile} 
-          onCancel={() => setShowOnboarding(false)} 
+        <OnboardingModal
+          onSubmit={handleCompleteProfile}
+          onCancel={() => setShowOnboarding(false)}
+          initial={profile}
+          mode={hasProfile ? 'edit' : 'create'}
         />
       )}
 
@@ -1741,6 +1833,16 @@ export default function GamePage() {
               </div>
             )}
 
+            {(authError || authNotice) && (
+              <p
+                role="status"
+                className={`px-5 py-2 border-t border-[#1C2733] text-[11px] font-bold uppercase tracking-widest text-center sm:text-left ${
+                  authError ? 'text-[#FF3B47]' : 'text-[#3DDC97]'
+                }`}
+              >
+                {authError || authNotice}
+              </p>
+            )}
             <div className="px-5 py-4 bg-[#0D141B] border-t border-[#1C2733] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
               {!SCORES_ONLINE ? (
                 <p className="text-[#7C8B9C] text-[11px] uppercase tracking-widest">Playing as guest — sign-in is unavailable right now</p>
@@ -1757,6 +1859,24 @@ export default function GamePage() {
                       Edit Profile
                     </button>
                     <button 
+                      onClick={handleLogout}
+                      className="text-[#FF3B47] border border-[#FF3B47]/30 bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#FF3B47]/10 transition-colors"
+                    >
+                      Log Out
+                    </button>
+                  </div>
+                </>
+              ) : user ? (
+                <>
+                  <p className="text-[#FFB020] text-[11px] font-bold tracking-widest uppercase">Signed in — finish your profile to post catches</p>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setShowOnboarding(true)}
+                      className="text-[#E6EDF3] border border-[#1C2733] bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#1C2733] transition-colors"
+                    >
+                      Complete Profile
+                    </button>
+                    <button
                       onClick={handleLogout}
                       className="text-[#FF3B47] border border-[#FF3B47]/30 bg-[#111A22] px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold hover:bg-[#FF3B47]/10 transition-colors"
                     >
@@ -1783,11 +1903,12 @@ export default function GamePage() {
 
       {/* --- 4. GAME SECTION --- */}
       <section ref={gameRef} className="relative w-full border-t border-[#1C2733] py-6 md:py-10">
-        <FishingSimulator 
-          user={user} 
-          hasProfile={hasProfile} 
+        <FishingSimulator
+          user={user}
+          hasProfile={hasProfile}
           onCatchSaved={fetchLeaderboard}
-          onLoginRequest={handleGoogleLogin} 
+          onLoginRequest={handleGoogleLogin}
+          onProfileRequest={() => setShowOnboarding(true)}
         />
       </section>
       
