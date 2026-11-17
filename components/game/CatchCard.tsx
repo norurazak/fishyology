@@ -5,6 +5,7 @@ import { Star, Trophy } from "lucide-react";
 import { useGameLanguage } from "@/components/game/GameLanguage";
 import { archetypeLabel, type GameStringKey } from "@/lib/game-i18n";
 import { fishInfo } from "@/lib/fish-info";
+import { fishImageUrl } from "@/lib/fish-images";
 import { rate, TIERS, TIER_COLORS } from "@/lib/catch-rating";
 import type { CatchStats } from "@/lib/fish-log";
 
@@ -81,6 +82,7 @@ const CatchCard = forwardRef<HTMLElement, CatchCardProps>(function CatchCard(
 ) {
   const { lang, t } = useGameLanguage();
   const [imageFailed, setImageFailed] = useState(false);
+  const imageSrc = fishImageUrl(s.name);
   const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const img = imgRef.current;
@@ -142,15 +144,15 @@ const CatchCard = forwardRef<HTMLElement, CatchCardProps>(function CatchCard(
             {ribbonText}
           </span>
         )}
-        {imageFailed ? (
+        {imageFailed || !imageSrc ? (
           <Silhouette />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={`/fish/${speciesSlug(s.name)}.png`}
+            src={imageSrc}
             alt={s.name}
             width={720}
-            height={314}
+            height={402}
             crossOrigin="anonymous"
             ref={imgRef}
             onError={() => setImageFailed(true)}

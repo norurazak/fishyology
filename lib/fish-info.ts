@@ -17,12 +17,12 @@ export const FISH_INFO: Record<string, { sci: string; en: string; ms: string }> 
     en: "A fast-growing, gold-and-green open-ocean hunter, famous for leaping clear of the water when hooked.",
     ms: "Pemburu lautan terbuka yang cepat membesar, berwarna emas dan hijau, terkenal melompat keluar dari air apabila terkail.",
   },
-  "Barracuda": {
+  "Great Barracuda": {
     sci: "Sphyraena barracuda",
     en: "A long, silver ambush predator with a mouthful of fangs that strikes from stillness in one violent burst.",
     ms: "Pemangsa penyergap yang panjang dan keperakan dengan mulut penuh taring, menyerang dari keadaan diam dalam satu letusan ganas.",
   },
-  "Tenggiri": {
+  "Narrow-barred Spanish Mackerel": {
     sci: "Scomberomorus commerson",
     en: "A streamlined Spanish mackerel with narrow bars, built for blistering runs and prized across the region as a table fish.",
     ms: "Ikan tenggiri yang ramping dengan belang halus, dibina untuk larian pantas dan dihargai di seluruh rantau sebagai ikan hidangan.",

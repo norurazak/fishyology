@@ -50,6 +50,17 @@ export function addGuestCatch(species: string, weightKg: number, depthM: number)
 
 type Client = SupabaseClient<any, any, any>;
 
+/**
+ * Species that were renamed after catches were already saved under the old name.
+ * Old rows count towards the new name, so nobody's log or records disappear.
+ */
+const OLD_NAMES: Record<string, string> = {
+  Barracuda: "Great Barracuda",
+  Tenggiri: "Narrow-barred Spanish Mackerel",
+};
+const currentName = (saved: string) => OLD_NAMES[saved] ?? saved;
+const namesFor = (species: string) => [species, ...Object.keys(OLD_NAMES).filter((o) => OLD_NAMES[o] === species)];
+
 /** The signed-in player's whole log, grouped by species. Pages through the table. */
 export async function fetchMyLog(sb: Client, userId: string): Promise<FishLog> {
   const log: FishLog = {};
@@ -65,9 +76,10 @@ export async function fetchMyLog(sb: Client, userId: string): Promise<FishLog> {
     if (error) throw error;
     for (const row of data ?? []) {
       const w = Number(row.weight_kg);
-      const cur = log[row.species];
+      const name = currentName(row.species);
+      const cur = log[name];
       if (!cur) {
-        log[row.species] = { count: 1, best: w, bestDepth: Number(row.depth_m), bestAt: row.caught_at };
+        log[name] = { count: 1, best: w, bestDepth: Number(row.depth_m), bestAt: row.caught_at };
       } else {
         cur.count += 1;
         if (w > cur.best) {
@@ -89,13 +101,13 @@ export async function fetchCatchStats(sb: Client, userId: string, species: strin
       .from("catches")
       .select("weight_kg", { count: "exact" })
       .eq("profile_id", userId)
-      .eq("species", species)
+      .in("species", namesFor(species))
       .order("weight_kg", { ascending: false })
       .limit(1),
     sb
       .from("catches")
       .select("weight_kg, profiles(display_name)")
-      .eq("species", species)
+      .in("species", namesFor(species))
       .order("weight_kg", { ascending: false })
       .limit(1),
   ]);

@@ -117,8 +117,8 @@ const FISH_SPECIES: Fish[] = [
   { name: "Kembong", archetype: "Panfish", tip: "Light and jittery — just keep steady tension.", minDepth: 0, maxDepth: 90, pullStr: 0.020, erratic: 0.16, aggression: 0.12, stamina: 0.12, runFrames: 40, weightMin: 0.1, weightMax: 0.8, color: "text-slate-300" },
   { name: "Queenfish", archetype: "Speedster", tip: "Fast, flashy runs — yield and let it tire.", minDepth: 0, maxDepth: 50, pullStr: 0.030, erratic: 0.15, aggression: 0.45, stamina: 0.35, runFrames: 80, weightMin: 1, weightMax: 16, color: "text-cyan-300" },
   { name: "Mahi-Mahi", archetype: "Acrobat", tip: "Jumpy sprinter. Expect several short runs.", minDepth: 0, maxDepth: 85, pullStr: 0.035, erratic: 0.13, aggression: 0.55, stamina: 0.40, runFrames: 80, weightMin: 2, weightMax: 40, color: "text-green-400" },
-  { name: "Barracuda", archetype: "Ambusher", tip: "Violent first burst, then fades quickly.", minDepth: 0, maxDepth: 100, pullStr: 0.045, erratic: 0.11, aggression: 0.50, stamina: 0.30, runFrames: 70, weightMin: 2, weightMax: 50, color: "text-teal-300" },
-  { name: "Tenggiri", archetype: "Screamer", tip: "Blistering initial run — do NOT reel into it.", minDepth: 10, maxDepth: 70, pullStr: 0.040, erratic: 0.12, aggression: 0.70, stamina: 0.45, runFrames: 100, weightMin: 3, weightMax: 70, color: "text-sky-400" },
+  { name: "Great Barracuda", archetype: "Ambusher", tip: "Violent first burst, then fades quickly.", minDepth: 0, maxDepth: 100, pullStr: 0.045, erratic: 0.11, aggression: 0.50, stamina: 0.30, runFrames: 70, weightMin: 2, weightMax: 50, color: "text-teal-300" },
+  { name: "Narrow-barred Spanish Mackerel", archetype: "Screamer", tip: "Blistering initial run — do NOT reel into it.", minDepth: 10, maxDepth: 70, pullStr: 0.040, erratic: 0.12, aggression: 0.70, stamina: 0.45, runFrames: 100, weightMin: 3, weightMax: 70, color: "text-sky-400" },
   { name: "Rainbow Runner", archetype: "Speedster", tip: "Quick and light — smooth pressure wins.", minDepth: 0, maxDepth: 150, pullStr: 0.035, erratic: 0.14, aggression: 0.50, stamina: 0.35, runFrames: 80, weightMin: 1, weightMax: 46, color: "text-lime-300" },
   { name: "Golden Trevally", archetype: "Bulldog", tip: "Strong and steady. Reel between head-shakes.", minDepth: 0, maxDepth: 80, pullStr: 0.055, erratic: 0.07, aggression: 0.45, stamina: 0.55, runFrames: 110, weightMin: 4, weightMax: 15, color: "text-yellow-400" },
   { name: "Cobia", archetype: "Grinder", tip: "Dogged, tireless pull. A patience fight.", minDepth: 0, maxDepth: 70, pullStr: 0.060, erratic: 0.06, aggression: 0.40, stamina: 0.60, runFrames: 120, weightMin: 6, weightMax: 68, color: "text-stone-300" },
@@ -147,7 +147,7 @@ const COVER_BUBBLES = [
   { left: '91%', size: 5, delay: 5.0, dur: 11.5 },
 ];
 
-const COVER_MARQUEE = ['Giant Grouper', 'Dogtooth Tuna', 'Sailfish', 'Giant Trevally', 'Amberjack', 'Tenggiri', 'Ruby Snapper', 'Eightbar Grouper'];
+const COVER_MARQUEE = ['Giant Grouper', 'Dogtooth Tuna', 'Sailfish', 'Giant Trevally', 'Amberjack', 'Narrow-barred Spanish Mackerel', 'Ruby Snapper', 'Eightbar Grouper'];
 
 // --- HELPERS ---
 const FRAME_MS = 1000 / 60;
@@ -1299,9 +1299,14 @@ function FishingSimulator({ user, hasProfile, playerName, onCatchSaved, onLoginR
                 <button onClick={leaveCover} className="min-h-[54px] w-full bg-[#3DDC97] text-[#05070A] transition-transform active:scale-[0.98]">
                   <span className="fs-label !text-[11px] !text-[#05070A]">{t('cover.start')}</span>
                 </button>
-                <button onClick={coverToTutorial} className="min-h-[44px] w-full border border-[#1C2733] bg-[#0D141B]/80 text-[#FFB020] transition active:scale-95">
-                  <span className="fs-label !text-[#FFB020]">{t('howToPlay')}</span>
-                </button>
+                <div className="flex gap-2">
+                  <button onClick={coverToTutorial} className="min-h-[44px] flex-1 border border-[#1C2733] bg-[#0D141B]/80 text-[#FFB020] transition active:scale-95">
+                    <span className="fs-label !text-[#FFB020]">{t('howToPlay')}</span>
+                  </button>
+                  <button onClick={toggleFitScreen} className="min-h-[44px] flex-1 border border-[#1C2733] bg-[#0D141B]/80 transition active:scale-95">
+                    <span className="fs-label">{fitScreen ? t('fit.exit') : t('fit.enter')}</span>
+                  </button>
+                </div>
               </div>
 
               <span className="fs-pulse fs-label mt-4 !text-[8px] !text-[#31414F]">{t('cover.tagline')}</span>
