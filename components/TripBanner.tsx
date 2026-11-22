@@ -57,7 +57,7 @@ export function BannerShell({
         </div>
         <Link
           href={href}
-          className="shrink-0 inline-flex items-center justify-center gap-2 bg-[#C7EEFF] text-abyss font-bold px-6 py-3 rounded-full hover:bg-white transition-colors"
+          className="shrink-0 inline-flex items-center justify-center gap-2 bg-tuna text-white font-bold px-6 py-3 rounded-full hover:bg-tuna-on-light transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           {ctaText}
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
